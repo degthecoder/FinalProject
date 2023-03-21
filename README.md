@@ -1,6 +1,6 @@
 # Getting Started with What's Nearby
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and Django.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and Django(https://www.djangoproject.com/).
 
 
 ## Available Scripts
