@@ -2,6 +2,7 @@
 import React from "react";
 import { makeStyles, ThemeProvider, Typography } from "@material-ui/core";
 import theme from "../../themes/theme";
+import NavBar from "../../layouts/NavBar/NavBar";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,6 +28,7 @@ const AboutPage = () => {
 
   return (
     <ThemeProvider theme={theme}>
+      <NavBar />
       <Typography className={classes.splashScreen}>CMoN</Typography>
     </ThemeProvider>
   );
