@@ -48,17 +48,17 @@ const NavBar = () => {
           <div>
             <img className={classes.icon} src={image} alt="ConceptLogosx" />
           </div>
-          <Link className={classes.link} to="/#home">
+          <Link className={classes.link} to="/">
             <Typography variant="h6" component="div">
               Home
             </Typography>
           </Link>
-          <Link className={classes.link} to="/#about-us">
+          <Link className={classes.link} to="/about-us">
             <Typography variant="h6" component="div">
               About Us
             </Typography>
           </Link>
-          <Link className={classes.link} to="/#contact-us">
+          <Link className={classes.link} to="/contact-us">
             <Typography variant="h6" component="div">
               Contact Us
             </Typography>

@@ -5,7 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/core";
 import HomePage from "./containers/HomePage/HomePage";
 import theme from "./themes/theme";
-import AboutPage from "./containers/HomePage";
+import AboutPage from "./containers/HomePage/AboutUs";
 // import NavBar from "./layouts/NavBar/NavBar";
 import ScrollToHashElement from "./api/ScrolltoHashElement";
 // import Styles from "./components/Styles";
