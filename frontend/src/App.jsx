@@ -1,25 +1,23 @@
 import React from "react";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
-// import TopBar from "./layouts/TopBar/TopBar";
 import { ThemeProvider } from "@material-ui/core";
-import HomePage from "./containers/HomePage/HomePage";
 import theme from "./themes/theme";
+import HomePage from "./containers/HomePage/HomePage";
 import AboutPage from "./containers/HomePage/AboutUs";
-// import NavBar from "./layouts/NavBar/NavBar";
-import ScrollToHashElement from "./api/ScrolltoHashElement";
+import ContactUs from "./containers/HomePage/ContactUs";
+// import ScrollToHashElement from "./api/ScrolltoHashElement";
 // import Styles from "./components/Styles";
-// import { Typography } from "@material-ui/core";
 
 function App() {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        <ScrollToHashElement />
+        {/* <ScrollToHashElement /> */}
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/contact" element={<AboutPage />} />
+            <Route path="/about-us" element={<AboutPage />} />
+            <Route path="/contact-us" element={<ContactUs />} />
           </Routes>
       </ThemeProvider>
     </div>
