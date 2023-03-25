@@ -1,55 +1,40 @@
-import { AppBar, Container, makeStyles} from "@material-ui/core";
-import { ThemeProvider } from "@material-ui/core";
 import React from "react";
-import { Link } from "react-router-dom";
-import theme from "../../themes/theme";
-const useStyles = makeStyles(() => ({
-  link: {
-    width: "100%",
-    height: "100%",
+import { AppBar, Toolbar } from "@material-ui/core";
+import image from "../../images/ConceptLogo.svg";
+import { makeStyles } from "@material-ui/styles";
+// import { Link } from "react-router-dom";
+
+const useStyles = makeStyles({
+  icon: {
+    maxWidth: 100,
+    // paddingRight: 100,
+  },
+  outerContainer: {
+    backgroundColor: "rgba(118, 51, 51, 0.2)",
+    maxHeight: 100,
+  },
+  container: {
     display: "flex",
+    justifyContent: "center",
   },
-  bar: {
-    backgroundColor: "f75342",
-  },
+});
 
-  toolbar: {
-    minHeight: 64
-  },
-  logo: {
-    textDecoration: 'none',
-    color: 'white'
-  },
-  title: {
-    flexGrow: 1,
-    marginTop: '4px'
-  }
-}));
-
-// color1: f75342
-// color2: 763333
-// color3: ffffff
-// fira sans code
-
+// const pages = ["Home", "About Us"];
+// const settings = ["Profile", "Account", "Dashboard", "Logout"];
 const TopBar = () => {
   const classes = useStyles();
-
   return (
-    <ThemeProvider theme={theme}>
-      <AppBar position="static" className={classes.bar}>
-        <Container maxWidth='xl'>
-          <Link className={classes.link} to="/">
-            Home
-          </Link>
-          <Link className={classes.link} to="/contact">
-            Contact
-          </Link>
-          <Link className={classes.link} to="/about">
-            About
-          </Link>
-        </Container>
-      </AppBar>
-    </ThemeProvider>
+    <AppBar
+      position="fixed"
+      color="transparent"
+      className={classes.outerContainer}
+    >
+      <Toolbar className={classes.container}>
+        <a href="/">
+          <img className={classes.icon} src={image} alt="ConceptLogosx" />
+        </a>
+      </Toolbar>
+    </AppBar>
   );
 };
 
