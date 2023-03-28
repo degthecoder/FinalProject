@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
 // color3: ffffff
 // fira sans code
 
-const AuthPage = () => {
+const SignUpPage = () => {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -85,6 +85,7 @@ const AuthPage = () => {
                 label="Email"
                 type="email"
                 value={email}
+                id="outlined-required"
                 onChange={(event) => setEmail(event.target.value)}
                 fullWidth
               />
@@ -109,4 +110,4 @@ const AuthPage = () => {
   );
 };
 
-export default AuthPage;
+export default SignUpPage;
