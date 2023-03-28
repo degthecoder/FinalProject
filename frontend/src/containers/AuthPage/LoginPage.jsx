@@ -9,6 +9,7 @@ import {
 } from "@material-ui/core";
 import theme from "../../themes/theme";
 import TopBar from "../../layouts/LandingPage/TopBar";
+import { fetchLogin } from "../../api/authentication";
 
 const useStyles = makeStyles((theme) => ({
   outerContainer: {
@@ -69,8 +70,8 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   
   const handleSubmit = (event) => {
-    event.preventDefault();
-    // Handle login logic here, e.g. submit form data to server
+    setEmail(event.target.email);
+    fetchLogin(email);
   };
 
   return (
@@ -98,7 +99,7 @@ const LoginPage = () => {
                 fullWidth
                 margin="normal"
               />
-              <Button type="submit" variant="contained" color="primary">
+              <Button type="submit" variant="contained" color="primary" onClick={handleSubmit}>
                 Login
               </Button>
             </Box>
