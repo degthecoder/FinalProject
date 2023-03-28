@@ -6,13 +6,16 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Available Scripts
 For the project be able to start, you should run `npm install` inside the frontend folder.
 
-Before you run the project you should run the `npm run build` command inside the frontend directory.
+To run the project, execute the following steps:
 
-In the frontend project directory, you can run `npm start` runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser with React.
+1. In the backend project directory, run `pip install -r requirements.txt`
+this command installs all the dependencies within backend, including Django packages
 
-In the general outing of the project, you can run `python3 manage.py runserver`, 
+2. In the backend project directory, run `python3 manage.py runserver`, 
 this command displays the server in [http://127.0.0.1:8000/](http://127.0.0.1:8000/) with Django
+
+3. In the frontend project directory, run `npm start` runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser with React.
 
 
 The page will reload when you make changes.\
