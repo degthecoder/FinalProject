@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import React from "react";
 import {
   Box,
@@ -9,6 +10,9 @@ import {
 import theme from "../../themes/theme";
 import foodBG from "../../images/food-background.jpg";
 import NavBar from "../../layouts/NavBar/NavBar";
+import { fetchLocation } from "../../api/authentication";
+import { useState } from "react";
+import { useEffect } from "react";
 // import AspectRatio from '@mui/joy';
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,6 +37,12 @@ const useStyles = makeStyles((theme) => ({
     fontStyle: "italic ",
     marginTop: 0,
   },
+  location: {
+    color: "#ffffff",
+    fontSize: 50,
+    fontStyle: "bold",
+    marginTop: 30,
+  },
   image: {
     objectFit: "cover",
     maxWidth: "100%",
@@ -56,6 +66,13 @@ const useStyles = makeStyles((theme) => ({
 
 const HomePage = () => {
   const classes = useStyles();
+  const [location, setLocation] = useState(null);
+
+  useEffect(() => {
+    fetchLocation().then(res=>{
+      setLocation(res);
+    })
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -72,8 +89,10 @@ const HomePage = () => {
           <Typography className={classes.header2}>
             What&apos;s Nearby?
           </Typography>
+          <Typography className={classes.location}>
+            {location ? `Your Location is ${location}` : "Loading..."}
+          </Typography>
         </Box>
-        {/* </Paper> */}
       </Paper>
     </ThemeProvider>
   );
