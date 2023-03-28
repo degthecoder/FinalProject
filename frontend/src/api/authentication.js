@@ -8,7 +8,7 @@ export const fetchLogin = (userData) => {
 
 export const fetchLocation = async () => {
     const locData = await axios.get(`${url}/home/`,)
-    // console.log("deneme");
+    // console.log("sarp");
     console.log(locData.data.city);
     return locData.data.city;
 };  
