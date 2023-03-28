@@ -20,4 +20,5 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),  
     path('/home/', views.retrieve_location, name='retrieve_location'),
+    path('/login/', include('authentication.urls')),
 ]
