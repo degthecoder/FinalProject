@@ -8,7 +8,7 @@ import {
   ThemeProvider,
 } from "@material-ui/core";
 import theme from "../../themes/theme";
-import TopBar from "../../layouts/TopBar/TopBar";
+import TopBar from "../../layouts/LandingPage/TopBar";
 
 const useStyles = makeStyles((theme) => ({
   outerContainer: {

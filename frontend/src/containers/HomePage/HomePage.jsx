@@ -1,18 +1,10 @@
-/*eslint-disable*/
-import React from "react";
-import {
-  Box,
-  makeStyles,
-  Paper,
-  ThemeProvider,
-  Typography,
-} from "@material-ui/core";
+import { React, useState, useEffect } from "react";
+import { Box, makeStyles, ThemeProvider, Typography } from "@material-ui/core";
 import theme from "../../themes/theme";
 import foodBG from "../../images/food-background.jpg";
-import NavBar from "../../layouts/NavBar/NavBar";
+import NavBar from "../../layouts/LandingPage/NavBar";
+import Footer from "../../layouts/LandingPage/Footer";
 import { fetchLocation } from "../../api/authentication";
-import { useState } from "react";
-import { useEffect } from "react";
 // import AspectRatio from '@mui/joy';
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     overflow: "hidden",
     marginTop: -10,
+    marginBottom: -10,
   },
   header1: {
     color: "#ffffff",
@@ -46,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   image: {
     objectFit: "cover",
     maxWidth: "100%",
-    maxHeight: "100%",
+    maxHeight: "110%",
   },
   container: {
     alignItems: "left",
@@ -69,15 +62,15 @@ const HomePage = () => {
   const [location, setLocation] = useState(null);
 
   useEffect(() => {
-    fetchLocation().then(res=>{
+    fetchLocation().then((res) => {
       setLocation(res);
-    })
+    });
   }, []);
 
   return (
     <ThemeProvider theme={theme}>
       <NavBar />
-      <Paper className={classes.paperContainer}>
+      <Box className={classes.paperContainer}>
         <img
           src={foodBG}
           alt="food-background"
@@ -93,7 +86,8 @@ const HomePage = () => {
             {location ? `Your Location is ${location}` : "Loading..."}
           </Typography>
         </Box>
-      </Paper>
+      </Box>
+      <Footer />
     </ThemeProvider>
   );
 };
