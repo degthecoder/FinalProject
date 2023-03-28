@@ -13,7 +13,8 @@ frontend/.pnp.js
 frontend/coverage
 frontend/__pycache__
 backend/__pycache__
-
+backend/backend/__pycache__
+backend/authentication/__pycache__
 # production
 frontend/build
 

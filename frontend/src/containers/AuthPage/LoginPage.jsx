@@ -10,6 +10,7 @@ import {
 import theme from "../../themes/theme";
 import TopBar from "../../layouts/LandingPage/TopBar";
 import { fetchLogin } from "../../api/authentication";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   outerContainer: {
@@ -68,10 +69,14 @@ const LoginPage = () => {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
+  const navigate = useNavigate();
   const handleSubmit = (event) => {
     setEmail(event.target.email);
-    fetchLogin(email);
+    setPassword(event.target.password);
+    const credentials= {email: email, password: password};
+
+    fetchLogin(credentials);
+    navigate("/home");
   };
 
   return (
