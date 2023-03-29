@@ -90,7 +90,7 @@ const SignUpPage = () => {
               <TextField
                 className={classes.TextField}
                 label="UserName"
-                type="userName"
+                type="username"
                 value={username}
                 id="outlined-required"
                 onChange={(event) => setUsername(event.target.value)}
