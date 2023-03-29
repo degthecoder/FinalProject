@@ -1,9 +1,9 @@
 import React from "react";
-import { AppBar, Box, Button, Toolbar, Typography } from "@material-ui/core";
+import { AppBar, Box, Toolbar, Typography } from "@material-ui/core";
 import image from "../../images/ConceptLogo.svg";
 import { makeStyles } from "@material-ui/styles";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles({
   icon: {
@@ -46,11 +46,6 @@ const useStyles = makeStyles({
 // const settings = ["Profile", "Account", "Dashboard", "Logout"];
 const UserNavBar = () => {
   const classes = useStyles();
-  const navigate = useNavigate();
-  const onLogin = () => {
-    console.log("Button clicked!");
-    navigate("/login");
-  };
   return (
     <AppBar
       position="fixed"
@@ -67,17 +62,11 @@ const UserNavBar = () => {
               Feed
             </Typography>
           </Link>
-          <Link className={classes.link} to="/about-us">
+          <Link className={classes.link} to="/login">
             <Typography variant="h6" component="div" className={classes.text}>
               Restaurants
             </Typography>
           </Link>
-        </Box>
-        <Box className={classes.buttonContainer}>
-          <Button className={classes.loginbutton} onClick={onLogin}>
-            Login
-          </Button>
-          <Button className={classes.signupbutton}>Sign Up</Button>
         </Box>
       </Toolbar>
     </AppBar>
