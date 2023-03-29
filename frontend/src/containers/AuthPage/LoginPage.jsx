@@ -67,12 +67,12 @@ const useStyles = makeStyles((theme) => ({
 
 const LoginPage = () => {
   const classes = useStyles();
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
-    const credentials= {email: email, password: password};
+    const credentials= {username: username, password: password};
     fetchLogin(credentials);
     navigate("/user");
   };
@@ -86,11 +86,11 @@ const LoginPage = () => {
             <Box className={classes.formContainer}>
               <TextField
                 className={classes.TextField}
-                label="Email"
-                type="email"
-                value={email}
+                label="UserName"
+                type="username"
+                value={username}
                 id="outlined-required"
-                onChange={(event) => setEmail(event.target.value)}
+                onChange={(event) => setUsername(event.target.value)}
                 fullWidth
               />
               <TextField
