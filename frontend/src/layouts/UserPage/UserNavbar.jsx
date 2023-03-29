@@ -3,7 +3,7 @@ import { AppBar, Box, Button, Toolbar, Typography } from "@material-ui/core";
 import image from "../../images/ConceptLogo.svg";
 import { makeStyles } from "@material-ui/styles";
 import { Link } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles({
   icon: {
@@ -44,16 +44,12 @@ const useStyles = makeStyles({
 
 // const pages = ["Home", "About Us"];
 // const settings = ["Profile", "Account", "Dashboard", "Logout"];
-const NavBar = () => {
+const UserNavBar = () => {
   const classes = useStyles();
   const navigate = useNavigate();
   const onLogin = () => {
     console.log("Button clicked!");
     navigate("/login");
-  };
-  const onSignUp = () => {
-    console.log("Button clicked!");
-    navigate("/register");
   };
   return (
     <AppBar
@@ -68,17 +64,12 @@ const NavBar = () => {
         <Box className={classes.container}>
           <Link className={classes.link} to="/">
             <Typography variant="h6" component="div" className={classes.text}>
-              Home
+              Feed
             </Typography>
           </Link>
           <Link className={classes.link} to="/about-us">
             <Typography variant="h6" component="div" className={classes.text}>
-              About Us
-            </Typography>
-          </Link>
-          <Link className={classes.link} to="/contact-us">
-            <Typography variant="h6" component="div" className={classes.text}>
-              Contact Us
+              Restaurants
             </Typography>
           </Link>
         </Box>
@@ -86,11 +77,11 @@ const NavBar = () => {
           <Button className={classes.loginbutton} onClick={onLogin}>
             Login
           </Button>
-          <Button className={classes.signupbutton} onClick={onSignUp}>Sign Up</Button>
+          <Button className={classes.signupbutton}>Sign Up</Button>
         </Box>
       </Toolbar>
     </AppBar>
   );
 };
 
-export default NavBar;
+export default UserNavBar;
