@@ -9,6 +9,7 @@ import {
 } from "@material-ui/core";
 import theme from "../../themes/theme";
 import TopBar from "../../layouts/LandingPage/TopBar";
+import { fetchRegister } from "../../api/authentication";
 
 const useStyles = makeStyles((theme) => ({
   outerContainer: {
@@ -22,9 +23,8 @@ const useStyles = makeStyles((theme) => ({
   },
   textField: {
     margin: "normal",
-    marginBottom: '2',
-    marginTop: '2',
-
+    marginBottom: "2",
+    marginTop: "2",
   },
   formContainer: {
     display: "flex",
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     padding: 2,
     margin: "auto",
-    height: 'auto',
+    height: "auto",
     border: "1px solid #ccc",
     borderRadius: 4,
     backgroundColor: "#ffffff",
@@ -67,10 +67,17 @@ const SignUpPage = () => {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
     // Handle login logic here, e.g. submit form data to server
+    const credentials = {
+      username: username,
+      email: email,
+      password: password,
+    };
+    fetchRegister(credentials);
   };
 
   return (
@@ -80,6 +87,15 @@ const SignUpPage = () => {
         <Container className={classes.container}>
           <form onSubmit={handleSubmit}>
             <Box className={classes.formContainer}>
+              <TextField
+                className={classes.TextField}
+                label="UserName"
+                type="userName"
+                value={username}
+                id="outlined-required"
+                onChange={(event) => setUsername(event.target.value)}
+                fullWidth
+              />
               <TextField
                 className={classes.TextField}
                 label="Email"
@@ -99,7 +115,7 @@ const SignUpPage = () => {
                 margin="normal"
               />
               <Button type="submit" variant="contained" color="primary">
-                Login
+                Register
               </Button>
             </Box>
           </form>
