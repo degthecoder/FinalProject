@@ -5,12 +5,12 @@ const url = 'http://127.0.0.1:8000';
 export const fetchLogin = (userData) => {
     
     console.log(userData);
-    return axios.post(`${url}/login/`, userData);
+    return axios.post(`${url}/auth/login/`, userData);
 };
 
 export const fetchRegister= (userData) => {
     console.log(userData);
-    return axios.post(`${url}/register/`, userData);
+    return axios.post(`${url}/auth/register/`, userData);
 };
 
 export const fetchLocation = async () => {
