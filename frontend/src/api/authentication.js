@@ -8,6 +8,11 @@ export const fetchLogin = (userData) => {
     return axios.post(`${url}/login/`, userData);
 };
 
+export const fetchRegister= (userData) => {
+    console.log(userData);
+    return axios.post(`${url}/register/`, userData);
+};
+
 export const fetchLocation = async () => {
     const locData = await axios.get(`${url}/home/`,)
     // console.log("deneme");

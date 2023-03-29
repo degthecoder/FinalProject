@@ -72,8 +72,6 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
-    // setEmail(event.target.email);
-    // setPassword(event.target.password);
     const credentials= {email: email, password: password};
     fetchLogin(credentials);
     navigate("/user");
