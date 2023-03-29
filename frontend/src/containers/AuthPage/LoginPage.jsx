@@ -71,12 +71,12 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const handleSubmit = (event) => {
-    setEmail(event.target.email);
-    setPassword(event.target.password);
+    event.preventDefault();
+    // setEmail(event.target.email);
+    // setPassword(event.target.password);
     const credentials= {email: email, password: password};
-
     fetchLogin(credentials);
-    navigate("/home");
+    navigate("/user");
   };
 
   return (
@@ -104,7 +104,7 @@ const LoginPage = () => {
                 fullWidth
                 margin="normal"
               />
-              <Button type="submit" variant="contained" color="primary" onClick={handleSubmit}>
+              <Button type="submit" variant="contained" color="primary">
                 Login
               </Button>
             </Box>
