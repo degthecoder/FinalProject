@@ -31,9 +31,6 @@ const useStyles = makeStyles((theme) => ({
   formContainer: {
     display: "flex",
     flexDirection: "column",
-    padding: 2,
-    height: 200,
-    width: 200,
     marginTop: 10,
     marginBottom: 10,
   },
@@ -110,6 +107,7 @@ const LoginPage = ({ setAuth }) => {
                 id="outlined-required"
                 onChange={(event) => setUsername(event.target.value)}
                 fullWidth
+                margin="normal"
               />
               <TextField
                 className={classes.TextField}

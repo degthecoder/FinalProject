@@ -9,10 +9,11 @@ import AboutPage from "./containers/HomePage/AboutUs";
 import ContactUs from "./containers/HomePage/ContactUs";
 import LoginPage from "./containers/AuthPage/LoginPage";
 import SignUpPage from "./containers/AuthPage/SignUpPage";
-import UserHomePage from "./containers/UserPage/ProfilePage";
+import UserHomePage from "./containers/UserPage/UserHomePage";
 import CreatePrivateRoute from "./renderPrivateRoutes";
 import RenderPrivateRoutes from "./renderPrivateRoutes";
 import { fetchAuth } from "./api/authentication";
+import ProfilePage from "./containers/UserPage/ProfilePage";
 // import ScrollToHashElement from "./api/ScrolltoHashElement";
 // import Styles from "./components/Styles";
 
@@ -42,6 +43,14 @@ function App() {
             element={
               <CreatePrivateRoute auth={auth}>
                 <UserHomePage />
+              </CreatePrivateRoute>
+            }
+          />
+          <Route
+            path="/user"
+            element={
+              <CreatePrivateRoute auth={auth}>
+                <ProfilePage />
               </CreatePrivateRoute>
             }
           />

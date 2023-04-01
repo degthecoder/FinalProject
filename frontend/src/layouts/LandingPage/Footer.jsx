@@ -9,7 +9,7 @@ import {
 import CopyrightIcon from "@mui/icons-material/Copyright";
 const useStyles = makeStyles({
   appbar: {
-    backgroundColor: "rgba(118, 51, 59, 0.9)",
+    backgroundColor: "rgba(6, 24, 38, 0.9)",
     display: "flex",
     alignItems: "center",
   },

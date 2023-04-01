@@ -5,13 +5,7 @@ import foodBG from "../../images/food-background.jpg";
 import NavBar from "../../layouts/LandingPage/NavBar";
 import Footer from "../../layouts/LandingPage/Footer";
 // import AspectRatio from '@mui/joy';
-const useStyles = makeStyles((theme) => ({
-  root: {
-    backgroundColor: theme.palette.background.dark,
-    minHeight: "100%",
-    paddingTop: theme.spacing(3),
-    paddingBottom: theme.spacing(3),
-  },
+const useStyles = makeStyles(() => ({
   paperContainer: {
     height: "100%",
     position: "relative",
@@ -27,13 +21,10 @@ const useStyles = makeStyles((theme) => ({
     color: "#ffffff",
     fontSize: 70,
     fontStyle: "italic ",
-    marginTop: 0,
   },
-  location: {
+  body: {
     color: "#ffffff",
-    fontSize: 50,
-    fontStyle: "bold",
-    marginTop: 30,
+    fontSize: 20,
   },
   image: {
     objectFit: "cover",
@@ -74,6 +65,7 @@ const HomePage = () => {
           <Typography className={classes.header2}>
             What&apos;s Nearby?
           </Typography>
+          <Typography className={classes.body}>Our goal is providing personalized restaurant recommendations based on user preferences and community reviews to enhance the dining experience.</Typography>
         </Box>
       </Box>
       <Footer />

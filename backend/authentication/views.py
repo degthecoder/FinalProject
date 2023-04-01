@@ -34,22 +34,21 @@ def retrieve_user(request):
     
 @api_view(['POST'])
 def signup(request):
-        
-
-        user_info = request.data
-        print("sign up ")
-        username = user_info["username"]
-        print(username)
-        email = user_info["email"]
-        print(email)
-        password = user_info["password"]
-        print(password)
-
-
+    user_info = request.data
+    username = user_info["username"]
+    email = user_info["email"]
+    password = user_info["password"]
+    try:
         myuser = User.objects.create_user(username,email,password)
-        print("this " + str(myuser))
         myuser.save()
-
-        #messages.success(request, "Account created succesfully")
-        
-        return Response(user_info)
+        print("sign up ")
+        print(username)
+        print(email)
+        print(password)
+    # print("this " + str(myuser))
+    except:
+        print("Username taken.")
+        return Response(False)
+    #messages.success(request, "Account created succesfully")
+    
+    return Response(True)

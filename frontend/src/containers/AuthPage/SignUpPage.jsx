@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import React, { useState } from "react";
 import {
   Box,
@@ -6,6 +7,7 @@ import {
   makeStyles,
   TextField,
   ThemeProvider,
+  Typography,
 } from "@material-ui/core";
 import theme from "../../themes/theme";
 import TopBar from "../../layouts/LandingPage/TopBar";
@@ -30,9 +32,9 @@ const useStyles = makeStyles((theme) => ({
   formContainer: {
     display: "flex",
     flexDirection: "column",
+    justifyContent: "space-evenly",
     padding: 2,
-    height: 200,
-    width: 200,
+    marginBottom: 20,
   },
   container: {
     maxWidth: 300,
@@ -57,6 +59,9 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     display: "flex",
   },
+  errorMessage: {
+    fontSize: 10,
+  },
 }));
 
 // color1: f75342
@@ -67,20 +72,32 @@ const useStyles = makeStyles((theme) => ({
 const SignUpPage = () => {
   const classes = useStyles();
   const navigate = useNavigate();
+  const [color, setColor] = useState("white");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
     // Handle login logic here, e.g. submit form data to server
     const credentials = {
       username: username,
       email: email,
       password: password,
     };
-    fetchRegister(credentials);
-    navigate("/auth/login");
+    fetchRegister(credentials)
+      .then((response) => {
+        console.log(response.data);
+        if (response.data) {
+          navigate("/auth/login");
+        } else {
+          setColor("red");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
@@ -91,25 +108,27 @@ const SignUpPage = () => {
           <form onSubmit={handleSubmit}>
             <Box className={classes.formContainer}>
               <TextField
-                className={classes.TextField}
+                className={classes.textField}
                 label="UserName"
                 type="username"
                 value={username}
-                id="outlined-required"
+                id="outlined-required-username"
                 onChange={(event) => setUsername(event.target.value)}
                 fullWidth
+                margin="normal"
               />
               <TextField
-                className={classes.TextField}
+                className={classes.textField}
                 label="Email"
                 type="email"
                 value={email}
-                id="outlined-required"
+                id="outlined-required-email"
                 onChange={(event) => setEmail(event.target.value)}
                 fullWidth
+                margin="normal"
               />
               <TextField
-                className={classes.TextField}
+                className={classes.textField}
                 label="Password"
                 type="password"
                 value={password}
@@ -117,6 +136,12 @@ const SignUpPage = () => {
                 fullWidth
                 margin="normal"
               />
+              <Typography
+                className={classes.errorMessage}
+                style={{ color: color }}
+              >
+                Username or email has already been used.
+              </Typography>
               <Button type="submit" variant="contained" color="primary">
                 Register
               </Button>
