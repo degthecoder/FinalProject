@@ -7,7 +7,7 @@ import UserHomePage from './containers/UserPage/ProfilePage';
 const CreatePrivateRoute = ({auth, children}) => {
     // const auth = props.auth;
     if (!auth) {
-        return (<Navigate to="/login" replace />);
+        return (<Navigate to="/auth/login" replace />);
     }
     return children;
 };

@@ -1,10 +1,9 @@
-import { React, useState, useEffect } from "react";
+import { React } from "react";
 import { Box, makeStyles, ThemeProvider, Typography } from "@material-ui/core";
 import theme from "../../themes/theme";
 import foodBG from "../../images/food-background.jpg";
 import NavBar from "../../layouts/LandingPage/NavBar";
 import Footer from "../../layouts/LandingPage/Footer";
-import { fetchLocation } from "../../api/authentication";
 // import AspectRatio from '@mui/joy';
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,13 +58,6 @@ const useStyles = makeStyles((theme) => ({
 
 const HomePage = () => {
   const classes = useStyles();
-  const [location, setLocation] = useState(null);
-
-  useEffect(() => {
-    fetchLocation().then((res) => {
-      setLocation(res);
-    });
-  }, []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -81,9 +73,6 @@ const HomePage = () => {
           <Typography className={classes.header1}>We are:</Typography>
           <Typography className={classes.header2}>
             What&apos;s Nearby?
-          </Typography>
-          <Typography className={classes.location}>
-            {location ? `Your Location is ${location}` : "Loading..."}
           </Typography>
         </Box>
       </Box>

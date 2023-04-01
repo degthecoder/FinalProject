@@ -10,13 +10,14 @@ import {
 import theme from "../../themes/theme";
 import TopBar from "../../layouts/LandingPage/TopBar";
 import { fetchRegister } from "../../api/authentication";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   outerContainer: {
     justifyContent: "space-between",
     height: "100vh",
     width: "100vw",
-    backgroundColor: "rgba(247, 83, 66)",
+    backgroundColor: "rgba(54, 133, 181)",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -65,6 +66,7 @@ const useStyles = makeStyles((theme) => ({
 
 const SignUpPage = () => {
   const classes = useStyles();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
@@ -78,6 +80,7 @@ const SignUpPage = () => {
       password: password,
     };
     fetchRegister(credentials);
+    navigate("/auth/login");
   };
 
   return (

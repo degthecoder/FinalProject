@@ -6,6 +6,7 @@ import {
   makeStyles,
   TextField,
   ThemeProvider,
+  Typography,
 } from "@material-ui/core";
 import theme from "../../themes/theme";
 import TopBar from "../../layouts/LandingPage/TopBar";
@@ -17,16 +18,15 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
     height: "100vh",
     width: "100vw",
-    backgroundColor: "rgba(247, 83, 66)",
+    backgroundColor: "rgba(54, 133, 181)",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
   },
   textField: {
     margin: "normal",
-    marginBottom: '2',
-    marginTop: '2',
-
+    marginBottom: "2",
+    marginTop: "2",
   },
   formContainer: {
     display: "flex",
@@ -34,6 +34,8 @@ const useStyles = makeStyles((theme) => ({
     padding: 2,
     height: 200,
     width: 200,
+    marginTop: 10,
+    marginBottom: 10,
   },
   container: {
     maxWidth: 300,
@@ -42,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     padding: 2,
     margin: "auto",
-    height: 'auto',
+    height: "auto",
     border: "1px solid #ccc",
     borderRadius: 4,
     backgroundColor: "#ffffff",
@@ -58,6 +60,10 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     display: "flex",
   },
+  errorMessage: {
+    display: "flex",
+    fontSize: 10,
+  },
 }));
 
 // color1: f75342
@@ -65,16 +71,28 @@ const useStyles = makeStyles((theme) => ({
 // color3: ffffff
 // fira sans code
 
-const LoginPage = () => {
+// eslint-disable-next-line react/prop-types
+const LoginPage = ({ setAuth }) => {
   const classes = useStyles();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [color, setColor] = useState("white");
+
   const handleSubmit = (event) => {
+    console.log(color);
     event.preventDefault();
-    const credentials= {username: username, password: password};
-    fetchLogin(credentials);
-    navigate("/user");
+    const credentials = { username: username, password: password };
+    fetchLogin(credentials)
+      .then((response) => {
+        setAuth(response.data);
+        if (!response.data) {
+          setColor("red");
+        } else navigate("/user");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
@@ -102,6 +120,13 @@ const LoginPage = () => {
                 fullWidth
                 margin="normal"
               />
+              <Typography
+                color="textPrimary"
+                style={{ color: color }}
+                className={classes.errorMessage}
+              >
+                The username or the password is wrong. Please try again.
+              </Typography>
               <Button type="submit" variant="contained" color="primary">
                 Login
               </Button>

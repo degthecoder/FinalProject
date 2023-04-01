@@ -18,16 +18,16 @@ def retrieve_user(request):
     #print(user_dict["email"], user_dict["password"])
 
     user_auth = authenticate(username = user_name,password = user_password)
-    print("retrieve  a"  + str(user_auth))
+#     print("retrieve  a"  + str(user_auth))
     if user_auth is not None:
           bool = login(request,user_auth)
           print("true")
-          return Response()
+          return Response( True)
                 
     else:
           print(messages.error(request,"login failed"))
           print("false")
-          return Response(userd)
+          return Response( False)
           
 
     return Response(userd)
