@@ -34,6 +34,8 @@ const useStyles = makeStyles((theme) => ({
     padding: 2,
     height: 200,
     width: 200,
+    marginTop: 10,
+    marginBottom: 10,
   },
   container: {
     maxWidth: 300,
@@ -100,13 +102,6 @@ const LoginPage = ({ setAuth }) => {
         <Container className={classes.container}>
           <form onSubmit={handleSubmit}>
             <Box className={classes.formContainer}>
-              <Typography
-                color="textPrimary"
-                style={{ color: color }}
-                className={classes.errorMessage}
-              >
-                The username or the password is wrong. Please try again.
-              </Typography>
               <TextField
                 className={classes.TextField}
                 label="UserName"
@@ -125,6 +120,13 @@ const LoginPage = ({ setAuth }) => {
                 fullWidth
                 margin="normal"
               />
+              <Typography
+                color="textPrimary"
+                style={{ color: color }}
+                className={classes.errorMessage}
+              >
+                The username or the password is wrong. Please try again.
+              </Typography>
               <Button type="submit" variant="contained" color="primary">
                 Login
               </Button>
