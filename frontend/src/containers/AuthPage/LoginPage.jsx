@@ -6,6 +6,7 @@ import {
   makeStyles,
   TextField,
   ThemeProvider,
+  Typography,
 } from "@material-ui/core";
 import theme from "../../themes/theme";
 import TopBar from "../../layouts/LandingPage/TopBar";
@@ -57,6 +58,10 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     display: "flex",
   },
+  errorMessage: {
+    display: "flex",
+    fontSize: 10,
+  },
 }));
 
 // color1: f75342
@@ -70,17 +75,22 @@ const LoginPage = ({ setAuth }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [color, setColor] = useState("white");
+
   const handleSubmit = (event) => {
+    console.log(color);
     event.preventDefault();
     const credentials = { username: username, password: password };
     fetchLogin(credentials)
       .then((response) => {
         setAuth(response.data);
-        // setAuth(response.data.auth);
-        console.log(response);
-        navigate("/user");
+        if (!response.data) {
+          setColor("red");
+        } else navigate("/user");
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
@@ -90,6 +100,13 @@ const LoginPage = ({ setAuth }) => {
         <Container className={classes.container}>
           <form onSubmit={handleSubmit}>
             <Box className={classes.formContainer}>
+              <Typography
+                color="textPrimary"
+                style={{ color: color }}
+                className={classes.errorMessage}
+              >
+                The username or the password is wrong. Please try again.
+              </Typography>
               <TextField
                 className={classes.TextField}
                 label="UserName"
