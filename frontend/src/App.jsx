@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import { Route, Routes, Navigate } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/core";
@@ -12,10 +12,20 @@ import SignUpPage from "./containers/AuthPage/SignUpPage";
 import UserHomePage from "./containers/UserPage/ProfilePage";
 import CreatePrivateRoute from "./renderPrivateRoutes";
 import RenderPrivateRoutes from "./renderPrivateRoutes";
+import { fetchAuth } from "./api/authentication";
 // import ScrollToHashElement from "./api/ScrolltoHashElement";
 // import Styles from "./components/Styles";
 
 function App() {
+  const [auth, setAuth] = useState(false);
+
+  useEffect(() => {
+    // const authenticate = fetchAuth().then((response) =>
+    //   setAuth(response.data.auth).catch((error) => console.error(error))
+    // );
+    // console.log(authenticate);
+    console.log(auth);
+  }, []);
   return (
     <div>
       <ThemeProvider theme={theme}>
@@ -25,12 +35,12 @@ function App() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/about-us" element={<AboutPage />} />
           <Route path="/contact-us" element={<ContactUs />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<SignUpPage />} />
+          <Route path="/auth/login" element={<LoginPage setAuth={setAuth} />} />
+          <Route path="/auth/register" element={<SignUpPage />} />
           <Route
             path="/user"
             element={
-              <CreatePrivateRoute auth="false">
+              <CreatePrivateRoute auth={auth}>
                 <UserHomePage />
               </CreatePrivateRoute>
             }

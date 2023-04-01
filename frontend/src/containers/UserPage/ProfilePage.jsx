@@ -74,7 +74,6 @@ const UserHomePage = () => {
         <img
           src={foodBG}
           alt="food-background"
-          // style={{maxWidth: "100%", maxHeight: "%100"}}
           className={classes.image}
         />
         <Box className={classes.container}>

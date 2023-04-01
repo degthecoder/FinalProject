@@ -17,16 +17,15 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
     height: "100vh",
     width: "100vw",
-    backgroundColor: "rgba(247, 83, 66)",
+    backgroundColor: "rgba(54, 133, 181)",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
   },
   textField: {
     margin: "normal",
-    marginBottom: '2',
-    marginTop: '2',
-
+    marginBottom: "2",
+    marginTop: "2",
   },
   formContainer: {
     display: "flex",
@@ -42,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     padding: 2,
     margin: "auto",
-    height: 'auto',
+    height: "auto",
     border: "1px solid #ccc",
     borderRadius: 4,
     backgroundColor: "#ffffff",
@@ -65,16 +64,23 @@ const useStyles = makeStyles((theme) => ({
 // color3: ffffff
 // fira sans code
 
-const LoginPage = () => {
+// eslint-disable-next-line react/prop-types
+const LoginPage = ({ setAuth }) => {
   const classes = useStyles();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
-    const credentials= {username: username, password: password};
-    fetchLogin(credentials);
-    navigate("/user");
+    const credentials = { username: username, password: password };
+    fetchLogin(credentials)
+      .then((response) => {
+        setAuth(response.data);
+        // setAuth(response.data.auth);
+        console.log(response);
+        navigate("/user");
+      })
+      .catch((error) => console.error(error));
   };
 
   return (
