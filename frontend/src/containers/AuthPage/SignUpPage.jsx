@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     justifyContent: "space-evenly",
     padding: 2,
-    // marginBottom: 20,
+    marginBottom: 20,
   },
   container: {
     maxWidth: 300,
