@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import React, { useState } from "react";
 import {
   Box,
@@ -6,6 +7,7 @@ import {
   makeStyles,
   TextField,
   ThemeProvider,
+  Typography,
 } from "@material-ui/core";
 import theme from "../../themes/theme";
 import TopBar from "../../layouts/LandingPage/TopBar";
@@ -33,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
     padding: 2,
     height: 200,
     width: 200,
+    marginBottom: 20,
   },
   container: {
     maxWidth: 300,
@@ -57,6 +60,9 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     display: "flex",
   },
+  errorMessage: {
+    fontSize: 10,
+  },
 }));
 
 // color1: f75342
@@ -67,20 +73,32 @@ const useStyles = makeStyles((theme) => ({
 const SignUpPage = () => {
   const classes = useStyles();
   const navigate = useNavigate();
+  const [color, setColor] = useState("white");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
     // Handle login logic here, e.g. submit form data to server
     const credentials = {
       username: username,
       email: email,
       password: password,
     };
-    fetchRegister(credentials);
-    navigate("/auth/login");
+    fetchRegister(credentials)
+      .then((response) => {
+        console.log(response.data);
+        if (response.data) {
+          navigate("/auth/login");
+        } else {
+          setColor("red");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
@@ -117,6 +135,12 @@ const SignUpPage = () => {
                 fullWidth
                 margin="normal"
               />
+              <Typography
+                className={classes.errorMessage}
+                style={{ color: color }}
+              >
+                Username or email has already been used.
+              </Typography>
               <Button type="submit" variant="contained" color="primary">
                 Register
               </Button>

@@ -57,7 +57,7 @@ const useStyles = makeStyles(() => ({
 // color3: ffffff
 // fira sans code
 
-const ProfilePage = () => {
+const UserHomePage = () => {
   const classes = useStyles();
   const [location, setLocation] = useState(null);
 
@@ -87,4 +87,4 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export default UserHomePage;
