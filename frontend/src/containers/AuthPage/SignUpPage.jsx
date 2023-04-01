@@ -32,10 +32,9 @@ const useStyles = makeStyles((theme) => ({
   formContainer: {
     display: "flex",
     flexDirection: "column",
+    justifyContent: "space-evenly",
     padding: 2,
-    height: 200,
-    width: 200,
-    marginBottom: 20,
+    // marginBottom: 20,
   },
   container: {
     maxWidth: 300,
@@ -109,25 +108,27 @@ const SignUpPage = () => {
           <form onSubmit={handleSubmit}>
             <Box className={classes.formContainer}>
               <TextField
-                className={classes.TextField}
+                className={classes.textField}
                 label="UserName"
                 type="username"
                 value={username}
-                id="outlined-required"
+                id="outlined-required-username"
                 onChange={(event) => setUsername(event.target.value)}
                 fullWidth
+                margin="normal"
               />
               <TextField
-                className={classes.TextField}
+                className={classes.textField}
                 label="Email"
                 type="email"
                 value={email}
-                id="outlined-required"
+                id="outlined-required-email"
                 onChange={(event) => setEmail(event.target.value)}
                 fullWidth
+                margin="normal"
               />
               <TextField
-                className={classes.TextField}
+                className={classes.textField}
                 label="Password"
                 type="password"
                 value={password}
