@@ -56,7 +56,7 @@ const UserNavBar = () => {
       className={classes.outerContainer}
     >
       <Toolbar>
-        <a href="/">
+        <a href="/user">
           <img className={classes.icon} src={image} alt="ConceptLogosx" />
         </a>
         <Box className={classes.container}>
