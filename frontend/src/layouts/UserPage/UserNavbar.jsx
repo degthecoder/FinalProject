@@ -3,7 +3,8 @@ import { AppBar, Box, Toolbar, Typography } from "@material-ui/core";
 import image from "../../images/ConceptLogo.svg";
 import { makeStyles } from "@material-ui/styles";
 import { Link } from "react-router-dom";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import MenuIcon from "./MenuIcon";
+
 // import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles({
@@ -70,7 +71,7 @@ const UserNavBar = () => {
             </Typography>
           </Link>
         </Box>
-        <AccountCircleIcon></AccountCircleIcon>
+        <MenuIcon />
       </Toolbar>
     </AppBar>
   );
