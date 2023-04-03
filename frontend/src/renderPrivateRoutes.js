@@ -4,8 +4,11 @@ import React from 'react';
 import { Navigate, Route } from 'react-router-dom';
 import UserHomePage from './containers/UserPage/ProfilePage';
 
-const CreatePrivateRoute = ({auth, children}) => {
+const CreatePrivateRoute = ({ children }) => {
     // const auth = props.auth;
+
+    const auth = localStorage.getItem(localStorage.getItem('username'));
+    console.log("Auht " + auth);
     if (!auth) {
         return (<Navigate to="/auth/login" replace />);
     }
