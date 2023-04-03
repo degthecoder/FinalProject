@@ -1,22 +1,35 @@
 import React, { useState } from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { Box, Menu, MenuItem } from "@material-ui/core";
+import { IconButton, Menu, MenuItem } from "@material-ui/core";
+import { useNavigate } from "react-router-dom";
+// import { IconButton } from "@mui/material";
 
 const MenuIcon = () => {
-  const [anchorEl, setAnchorEl] = useState(true);
+  const [anchorEl, setAnchorEl] = useState(false);
+  const navigate = useNavigate();
   const open = Boolean(anchorEl);
-  const handleClick = () => {
-    setAnchorEl();
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const logOut = () => {
+    const username = localStorage.getItem("username");
+    localStorage.removeItem("username");
+    localStorage.removeItem(username);
+    console.log("Delete");
+    navigate("/home");
     setAnchorEl(null);
   };
 
   return (
     <>
-      <Box handleClick={handleClick}>
+      <IconButton onClick={handleClick}>
         <AccountCircleIcon />
-      </Box>
+      </IconButton>
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}
@@ -25,17 +38,9 @@ const MenuIcon = () => {
         MenuListProps={{
           "aria-labelledby": "basic-button",
         }}
-        anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "center"
-          }}
-        transformOrigin={{
-            vertical: "top",
-            horizontal: "center"
-          }}
       >
         <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={logOut}>Logout</MenuItem>
       </Menu>
     </>
   );
