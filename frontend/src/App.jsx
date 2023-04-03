@@ -18,14 +18,14 @@ import ProfilePage from "./containers/UserPage/ProfilePage";
 // import Styles from "./components/Styles";
 
 function App() {
-  const [auth, setAuth] = useState(false);
-
+  // const [auth, setAuth] = useState(false);
   useEffect(() => {
     // const authenticate = fetchAuth().then((response) =>
     //   setAuth(response.data.auth).catch((error) => console.error(error))
     // );
     // console.log(authenticate);
-    console.log(auth);
+    console.log(localStorage.getItem('username'));
+    // console.log(auth);
   }, []);
   return (
     <div>
@@ -36,12 +36,12 @@ function App() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/about-us" element={<AboutPage />} />
           <Route path="/contact-us" element={<ContactUs />} />
-          <Route path="/auth/login" element={<LoginPage setAuth={setAuth} />} />
+          <Route path="/auth/login" element={<LoginPage />} />
           <Route path="/auth/register" element={<SignUpPage />} />
           <Route
             path="/user"
             element={
-              <CreatePrivateRoute auth={auth}>
+              <CreatePrivateRoute >
                 <UserHomePage />
               </CreatePrivateRoute>
             }
@@ -49,7 +49,7 @@ function App() {
           <Route
             path="/user"
             element={
-              <CreatePrivateRoute auth={auth}>
+              <CreatePrivateRoute >
                 <ProfilePage />
               </CreatePrivateRoute>
             }

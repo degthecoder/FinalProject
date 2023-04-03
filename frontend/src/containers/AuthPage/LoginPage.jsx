@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
 // fira sans code
 
 // eslint-disable-next-line react/prop-types
-const LoginPage = ({ setAuth }) => {
+const LoginPage = () => {
   const classes = useStyles();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -81,11 +81,16 @@ const LoginPage = ({ setAuth }) => {
     event.preventDefault();
     const credentials = { username: username, password: password };
     fetchLogin(credentials)
-      .then((response) => {
-        setAuth(response.data);
-        if (!response.data) {
+      .then(() => {
+        // setAuth(response.data);
+        if (!localStorage.getItem(username)) {
           setColor("red");
-        } else navigate("/user");
+        } else {
+          console.log("Response " + localStorage.getItem(username));
+          // localStorage.setItem(username, JSON.stringify(response.data));
+          // setLocalUsername(username);
+          navigate("/user");
+        }
       })
       .catch((error) => {
         console.error(error);
