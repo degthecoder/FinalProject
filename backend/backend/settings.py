@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'restaurants'
 ]
 
 MIDDLEWARE = [
@@ -87,6 +88,7 @@ DATABASES = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
+        'OPTIONS': {'sql_mode': 'STRICT_TRANS_TABLES'},
         'NAME': 'maindb',
         'USER': 'admin',
         'PASSWORD': 'password',
