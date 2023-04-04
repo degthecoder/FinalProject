@@ -7,10 +7,12 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate,login
 
+from restaurants.views import list_restaurants
 
 @api_view(['POST'])
 def retrieve_user(request):
-   
+    ab = list_restaurants()
+    print(ab)
     userd= request.data  
     user_name=userd["username"]
     user_password=userd["password"] 

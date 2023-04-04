@@ -6,8 +6,9 @@ from restaurants.models import Restaurant
 from restaurants.serializers import RestaurantSerializer
 
 # Create your views here.
-@api_view(['GET'])
-def list_restaurants(request):
+def list_restaurants():
+    print("here")
     restaurants = Restaurant.objects.all()
     serializer = RestaurantSerializer(restaurants, many=True)
-    return Response()
+    print(serializer.data)
+    return Response(serializer.data)

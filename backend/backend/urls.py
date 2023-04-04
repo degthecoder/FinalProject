@@ -20,6 +20,8 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),  
     path('home/', views.retrieve_location, name='retrieve_location'),
-    path('auth/', include('authentication.urls'))
+    #path('home/', include('restaurants.urls')),
+    path('auth/', include('authentication.urls')),
+    path('restaurants/', include('restaurants.urls'))
     #path('register/', include('authentication.urls'))
 ]
