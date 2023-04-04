@@ -14,7 +14,7 @@ const useStyles = makeStyles({
   },
   outerContainer: {
     display: "flex",
-    backgroundColor: "#BFD7EA",
+    backgroundColor: "#780000",
   },
   buttonContainer: {
     display: "flex",
@@ -27,7 +27,7 @@ const useStyles = makeStyles({
     flexGrow: 1,
   },
   link: {
-    color: "#C81D25",
+    color: "#FDF0D5",
     textDecoration: "none",
     width: "20%",
   },

@@ -12,13 +12,15 @@ import theme from "../../themes/theme";
 import TopBar from "../../layouts/LandingPage/TopBar";
 import { fetchLogin } from "../../api/authentication";
 import { useNavigate } from "react-router-dom";
+import foodBG from "../../images/food-background.jpg";
 
 const useStyles = makeStyles((theme) => ({
   outerContainer: {
     justifyContent: "space-between",
-    height: "100vh",
-    width: "100vw",
-    backgroundColor: "rgba(54, 133, 181)",
+    // height: "100vh",
+    // width: "100vw",
+    // backgroundColor: "rgba(54, 133, 181)",
+
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -40,11 +42,12 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
     padding: 2,
-    margin: "auto",
-    height: "auto",
+    top: "30%",
+    // height: "auto",
     border: "1px solid #ccc",
     borderRadius: 4,
     backgroundColor: "#ffffff",
+    position: "absolute",
   },
   root: {
     backgroundColor: theme.palette.background.dark,
@@ -60,6 +63,13 @@ const useStyles = makeStyles((theme) => ({
   errorMessage: {
     display: "flex",
     fontSize: 10,
+  },
+  image: {
+    objectFit: "cover",
+    maxWidth: "100%",
+    maxHeight: "110%",
+    // filter: 'blur(2px)'
+    opacity: 0.8,
   },
 }));
 
@@ -99,8 +109,14 @@ const LoginPage = () => {
 
   return (
     <ThemeProvider theme={theme}>
+      <TopBar />
       <Box className={classes.outerContainer}>
-        <TopBar />
+        <img
+          src={foodBG}
+          alt="food-background"
+          // style={{maxWidth: "100%", maxHeight: "%100"}}
+          className={classes.image}
+        />
         <Container className={classes.container}>
           <form onSubmit={handleSubmit}>
             <Box className={classes.formContainer}>

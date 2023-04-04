@@ -13,7 +13,8 @@ const useStyles = makeStyles({
   },
   outerContainer: {
     display: "flex",
-    backgroundColor: "rgba(8, 126, 139, 0)",
+    // backgroundColor: "rgba(8, 126, 139, 0)",
+    background: "rgba(120, 0, 0, 0.8)",
   },
   buttonContainer: {
     display: "flex",
