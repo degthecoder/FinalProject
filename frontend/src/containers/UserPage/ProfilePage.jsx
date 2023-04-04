@@ -1,10 +1,17 @@
 import { React, useState, useEffect } from "react";
-import { Box, makeStyles, ThemeProvider, Typography } from "@material-ui/core";
+import {
+  Box,
+  makeStyles,
+  ThemeProvider,
+  Typography,
+  ButtonGroup,
+  Button,
+} from "@material-ui/core";
 import theme from "../../themes/theme";
 import Footer from "../../layouts/LandingPage/Footer";
-import { fetchLocation } from "../../api/authentication";
 import UserNavBar from "../../layouts/UserPage/UserNavbar";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+// import { fetchLocation } from "../../api/authentication";
 
 // import AspectRatio from '@mui/joy';
 const useStyles = makeStyles(() => ({
@@ -15,24 +22,24 @@ const useStyles = makeStyles(() => ({
     paddingBottom: theme.spacing(3),
   },
   paperContainer: {
-    background: "#0B3954",
+    background: "#C1121F",
     height: "120vh",
     position: "relative",
     overflow: "hidden",
     objectFit: "cover",
   },
   header1: {
-    color: "#ffffff",
+    color: "#C1121F",
     fontSize: 70,
   },
   header2: {
-    color: "#ffffff",
+    color: "#C1121F",
     fontSize: 70,
     fontStyle: "italic ",
     marginTop: 0,
   },
   location: {
-    color: "#ffffff",
+    color: "#003049",
     fontSize: 50,
     fontStyle: "bold",
   },
@@ -46,18 +53,30 @@ const useStyles = makeStyles(() => ({
     right: "20%",
   },
   userContainer: {
-    background: "#087E8B",
+    background: "#FDF0D5",
     position: "absolute",
     top: "10%",
     right: "10%",
     height: "100vh",
     width: "80vw",
-    borderRadius: 5,
+    borderRadius: 10,
+    padding: 10,
   },
   iconRow: {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "flex-start",
+    padding: 20,
+  },
+  button: {
+    color: "#003049",
+    fontSize: 20,
+  },
+  buttonGroup: {
+    display: "flex",
+    alignItems: "left",
+    justifyContent: "space-evenly",
   },
 }));
 
@@ -68,12 +87,30 @@ const useStyles = makeStyles(() => ({
 
 const ProfilePage = () => {
   const classes = useStyles();
-  const [location, setLocation] = useState(null);
+  // const [location, setLocation] = useState(null);
+  const [username, setUsername] = useState("");
+
+  const buttons = [
+    <Button key="profile" className={classes.button}>
+      Profile
+    </Button>,
+    <Button key="overview" className={classes.button}>
+      Overview
+    </Button>,
+    <Button key="settings" className={classes.button}>
+      Settings
+    </Button>,
+  ];
 
   useEffect(() => {
-    fetchLocation().then((res) => {
-      setLocation(res);
-    });
+    // fetchLocation().then((res) => {
+    //   setLocation(res);
+    // });
+    try {
+      setUsername(localStorage.getItem("username").toUpperCase());
+    } catch (error) {
+      console.error(error);
+    }
   }, []);
 
   return (
@@ -82,10 +119,25 @@ const ProfilePage = () => {
       <Box className={classes.paperContainer}>
         <Box className={classes.userContainer}>
           <Box className={classes.iconRow}>
-            <AccountCircleIcon fontSize="large" />
+            <AccountCircleIcon sx={{ fontSize: 60 }} />
             <Typography className={classes.location}>
-              {location ? `Your Location is ${location}` : "Loading..."}
+              WELCOME {`${username}`}
             </Typography>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <ButtonGroup
+              // orientation="vertical"
+              aria-label="vertical contained button group"
+              variant=""
+              className={classes.buttonGroup}
+            >
+              {buttons}
+            </ButtonGroup>
           </Box>
         </Box>
         <Box className={classes.container}>

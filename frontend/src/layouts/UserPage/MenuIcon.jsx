@@ -33,7 +33,7 @@ const MenuIcon = () => {
   return (
     <>
       <IconButton onClick={handleClick}>
-        <AccountCircleIcon />
+        <AccountCircleIcon fontSize="large"/>
       </IconButton>
       <Menu
         id="basic-menu"
