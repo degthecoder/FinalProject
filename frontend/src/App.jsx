@@ -47,7 +47,7 @@ function App() {
             }
           />
           <Route
-            path="/user"
+            path="/user/profile"
             element={
               <CreatePrivateRoute >
                 <ProfilePage />

@@ -1,10 +1,11 @@
 import { React, useState, useEffect } from "react";
 import { Box, makeStyles, ThemeProvider, Typography } from "@material-ui/core";
 import theme from "../../themes/theme";
-import foodBG from "../../images/food-background.jpg";
 import Footer from "../../layouts/LandingPage/Footer";
 import { fetchLocation } from "../../api/authentication";
 import UserNavBar from "../../layouts/UserPage/UserNavbar";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+
 // import AspectRatio from '@mui/joy';
 const useStyles = makeStyles(() => ({
   root: {
@@ -14,11 +15,11 @@ const useStyles = makeStyles(() => ({
     paddingBottom: theme.spacing(3),
   },
   paperContainer: {
-    height: "100%",
+    background: "#0B3954",
+    height: "120vh",
     position: "relative",
     overflow: "hidden",
-    marginTop: -10,
-    marginBottom: -10,
+    objectFit: "cover",
   },
   header1: {
     color: "#ffffff",
@@ -34,12 +35,6 @@ const useStyles = makeStyles(() => ({
     color: "#ffffff",
     fontSize: 50,
     fontStyle: "bold",
-    marginTop: 30,
-  },
-  image: {
-    objectFit: "cover",
-    maxWidth: "100%",
-    maxHeight: "110%",
   },
   container: {
     alignItems: "left",
@@ -49,6 +44,20 @@ const useStyles = makeStyles(() => ({
     top: "30%",
     left: "20%",
     right: "20%",
+  },
+  userContainer: {
+    background: "#087E8B",
+    position: "absolute",
+    top: "10%",
+    right: "10%",
+    height: "100vh",
+    width: "80vw",
+    borderRadius: 5,
+  },
+  iconRow: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
   },
 }));
 
@@ -71,15 +80,18 @@ const ProfilePage = () => {
     <ThemeProvider theme={theme}>
       <UserNavBar />
       <Box className={classes.paperContainer}>
-        <img
-          src={foodBG}
-          alt="food-background"
-          className={classes.image}
-        />
+        <Box className={classes.userContainer}>
+          <Box className={classes.iconRow}>
+            <AccountCircleIcon fontSize="large" />
+            <Typography className={classes.location}>
+              {location ? `Your Location is ${location}` : "Loading..."}
+            </Typography>
+          </Box>
+        </Box>
         <Box className={classes.container}>
-          <Typography className={classes.location}>
+          {/* <Typography className={classes.location}>
             {location ? `Your Location is ${location}` : "Loading..."}
-          </Typography>
+          </Typography> */}
         </Box>
       </Box>
       <Footer />
