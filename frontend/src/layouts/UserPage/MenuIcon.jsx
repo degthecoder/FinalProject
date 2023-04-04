@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { IconButton, Menu, MenuItem } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
-// import { IconButton } from "@mui/material";
 
 const MenuIcon = () => {
   const [anchorEl, setAnchorEl] = useState(false);
   const navigate = useNavigate();
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -25,6 +25,11 @@ const MenuIcon = () => {
     setAnchorEl(null);
   };
 
+  const profile = () => {
+    handleClose();
+    navigate("/user/profile");
+  };
+
   return (
     <>
       <IconButton onClick={handleClick}>
@@ -35,11 +40,13 @@ const MenuIcon = () => {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
-        MenuListProps={{
-          "aria-labelledby": "basic-button",
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
         }}
+        getContentAnchorEl={null}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={profile}>Profile</MenuItem>
         <MenuItem onClick={logOut}>Logout</MenuItem>
       </Menu>
     </>
