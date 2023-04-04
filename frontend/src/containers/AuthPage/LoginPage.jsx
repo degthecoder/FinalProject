@@ -93,7 +93,7 @@ const LoginPage = () => {
     fetchLogin(credentials)
       .then(() => {
         // setAuth(response.data);
-        if (!localStorage.getItem(username)) {
+        if (localStorage.getItem(username)) {
           setColor("red");
         } else {
           console.log("Response " + localStorage.getItem(username));
