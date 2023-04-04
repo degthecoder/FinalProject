@@ -5,7 +5,7 @@ const url = 'http://127.0.0.1:8000';
 export const fetchLogin = (userData) => {
     console.log(userData);
     const authenticate = axios.post(`${url}/auth/login/`, userData).then((response) => {
-        localStorage.setItem(userData.username, JSON.stringify(response))
+        localStorage.setItem(userData.username, JSON.stringify(response.data))
         localStorage.setItem('username', userData.username);
     });
     return authenticate;
