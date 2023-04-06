@@ -87,18 +87,15 @@ const LoginPage = () => {
   const [color, setColor] = useState("white");
 
   const handleSubmit = (event) => {
-    console.log(color);
     event.preventDefault();
     const credentials = { username: username, password: password };
     fetchLogin(credentials)
       .then(() => {
-        // setAuth(response.data);
-        if (!localStorage.getItem(username)) {
+        console.log(localStorage.getItem(username));
+        if (localStorage.getItem(username) !== 'true') {
           setColor("red");
         } else {
-          console.log("Response " + localStorage.getItem(username));
-          // localStorage.setItem(username, JSON.stringify(response.data));
-          // setLocalUsername(username);
+          // console.log("Response " + localStorage.getItem(username));
           navigate("/user");
         }
       })
