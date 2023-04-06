@@ -22,10 +22,10 @@ const theme = createTheme({
       main: "#FDF0D5",
     },
     darkBlue: {
-      main: "003049",
+      main: "#003049",
     },
     blue: {
-      main: "669BBC",
+      main: "#669BBC",
     },
   },
 });
