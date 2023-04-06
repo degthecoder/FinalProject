@@ -90,7 +90,8 @@ const SignUpPage = () => {
       .then((response) => {
         console.log(response.data);
         if (response.data) {
-          navigate("/auth/login");
+          // navigate("/auth/login");
+          navigate("/user/newuser");
         } else {
           setColor("red");
         }

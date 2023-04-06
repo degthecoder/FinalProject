@@ -14,6 +14,7 @@ import CreatePrivateRoute from "./renderPrivateRoutes";
 import RenderPrivateRoutes from "./renderPrivateRoutes";
 import { fetchAuth } from "./api/authentication";
 import ProfilePage from "./containers/UserPage/ProfilePage";
+import Preferences from "./containers/UserPage/Preferences/Preferences";
 // import ScrollToHashElement from "./api/ScrolltoHashElement";
 // import Styles from "./components/Styles";
 
@@ -51,6 +52,14 @@ function App() {
             element={
               <CreatePrivateRoute >
                 <ProfilePage />
+              </CreatePrivateRoute>
+            }
+          />
+          <Route
+            path="/user/newuser"
+            element={
+              <CreatePrivateRoute >
+                <Preferences />
               </CreatePrivateRoute>
             }
           />

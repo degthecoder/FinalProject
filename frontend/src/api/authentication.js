@@ -12,8 +12,12 @@ export const fetchLogin = (userData) => {
 };
 
 export const fetchRegister = (userData) => {
-    console.log(userData);
-    return axios.post(`${url}/auth/register/`, userData);
+    // console.log(userData);
+    const authenticate = axios.post(`${url}/auth/register/`, userData).then((response) => {
+        localStorage.setItem(userData.username, JSON.stringify(response.data))
+        localStorage.setItem('username', userData.username);
+    });
+    return authenticate;
 };
 
 
