@@ -34,9 +34,13 @@ const CreatePreference = (props) => {
   const [checked, setChecked] = useState(false);
   // eslint-disable-next-line react/prop-types
   const preference = props.name;
+ 
   const handleCheckboxClick = () => {
     setChecked(!checked);
+    // eslint-disable-next-line react/prop-types
+    props.onPreferenceChange(preference, !checked);
   };
+
 
   return (
     // <ThemeProvider theme={theme}>
