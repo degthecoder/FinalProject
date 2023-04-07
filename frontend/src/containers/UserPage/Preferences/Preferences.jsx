@@ -2,8 +2,10 @@ import { React } from "react";
 import { Box, makeStyles, ThemeProvider, Button } from "@material-ui/core";
 import theme from "../../../themes/theme";
 import Footer from "../../../layouts/LandingPage/Footer";
-import UserNavBar from "../../../layouts/UserPage/UserNavbar";
+// import UserNavBar from "../../../layouts/UserPage/UserNavbar";
 import CreatePreference from "./CreatePreference";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const useStyles = makeStyles(() => ({
   paperContainer: {
@@ -12,26 +14,23 @@ const useStyles = makeStyles(() => ({
     position: "relative",
     overflow: "hidden",
     objectFit: "cover",
+    padding: "10%",
+    justifyContent: "center",
   },
-  container: {
-    alignItems: "left",
-    display: "flex",
-    flexDirection: "column",
-    position: "absolute",
-    // top: "30%",
-    left: "20%",
-    bottom: "10%",
-    right: "20%",
-  },
-  preferenceContainer: {
-    background: "#FDF0D5",
-    position: "absolute",
-    top: "10%",
+  formContainer: {
     right: "10%",
     height: "100vh",
     width: "80vw",
     borderRadius: 10,
+    background: "#FDF0D5",
     padding: 10,
+  },
+  buttonContainer: {
+    display: "flex",
+
+    padding: 10,
+    objectFit: "cover",
+    justifyContent: "center",
   },
   iconRow: {
     display: "flex",
@@ -55,6 +54,9 @@ const useStyles = makeStyles(() => ({
 
 const Preferences = () => {
   const classes = useStyles();
+  // eslint-disable-next-line no-unused-vars
+  const navigate = useNavigate();
+  const [prefState, setPrefState] = useState();
   const foodPreferences = [
     "Italian",
     "Mexican",
@@ -110,17 +112,32 @@ const Preferences = () => {
     "South American",
   ];
 
+
+  const handlePreferenceChange = (preference, isChecked) => {
+    setPrefState((prevState) => ({
+      ...prevState,
+      [preference]: isChecked,
+    }));
+  };
+
+  const handleClick = () => {
+    console.log(prefState);
+    // navigate("/user");
+  };
+
   return (
     <ThemeProvider theme={theme}>
-      <UserNavBar />
+      {/* <UserNavBar /> */}
       <Box className={classes.paperContainer}>
-        <Box className={classes.preferenceContainer}>
+        <Box className={classes.formContainer}>
           {foodPreferences.map((preference, index) => {
-            return <CreatePreference key={index} name={preference} />;
+            return <CreatePreference key={index} name={preference}  onPreferenceChange={handlePreferenceChange} />;
           })}
-        </Box>
-        <Box className={classes.container}>
-          <Button className={classes.button}>Submit Preferences</Button>
+          <Box className={classes.buttonContainer}>
+            <Button className={classes.button} onClick={handleClick}>
+              Submit Preferences
+            </Button>
+          </Box>
         </Box>
       </Box>
       <Footer />
