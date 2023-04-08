@@ -12,18 +12,15 @@ const CreatePrivateRoute = ({ children }) => {
     return children;
 };
 
-// const RenderPrivateRoutes = () => {
-//     return (
-//         <Route
-//             path="/user"
-//             element={
-//                 <CreatePrivateRoute auth={true}>
-//                     <UserHomePage />
-//                 </CreatePrivateRoute>
-//             }
-//         />
-//     );
-// };
+const RenderPrivateRoutes = (children) => {
+    return (
+        <Route path="/user">
+            <CreatePrivateRoute auth={true}>
+                {children}
+            </CreatePrivateRoute>
+        </Route>
+    );
+};
 
 // function CreatePrivateRoute({ auth, children }) {
 //     console.log(auth)

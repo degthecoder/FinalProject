@@ -15,18 +15,10 @@ import RenderPrivateRoutes from "./renderPrivateRoutes";
 import { fetchAuth } from "./api/authentication";
 import ProfilePage from "./containers/UserPage/ProfilePage";
 import Preferences from "./containers/UserPage/Preferences/Preferences";
-// import ScrollToHashElement from "./api/ScrolltoHashElement";
-// import Styles from "./components/Styles";
 
 function App() {
-  // const [auth, setAuth] = useState(false);
   useEffect(() => {
-    // const authenticate = fetchAuth().then((response) =>
-    //   setAuth(response.data.auth).catch((error) => console.error(error))
-    // );
-    // console.log(authenticate);
-    console.log(localStorage.getItem('username'));
-    // console.log(auth);
+    console.log(localStorage.getItem("username"));
   }, []);
   return (
     <div>
@@ -35,22 +27,23 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/home" />} />
           <Route path="/home" element={<HomePage />} />
-          <Route path="/about-us" element={<AboutPage />} />
-          <Route path="/contact-us" element={<ContactUs />} />
-          <Route path="/auth/login" element={<LoginPage />} />
-          <Route path="/auth/register" element={<SignUpPage />} />
+          <Route path="auth">
+            <Route path="login" element={<LoginPage />} />
+            <Route path="register" element={<SignUpPage />} />
+          </Route>
           <Route
             path="/user"
             element={
-              <CreatePrivateRoute >
+              <CreatePrivateRoute>
                 <UserHomePage />
               </CreatePrivateRoute>
             }
           />
+          z
           <Route
             path="/user/profile"
             element={
-              <CreatePrivateRoute >
+              <CreatePrivateRoute>
                 <ProfilePage />
               </CreatePrivateRoute>
             }
@@ -58,11 +51,14 @@ function App() {
           <Route
             path="/user/newuser"
             element={
-              <CreatePrivateRoute >
+              <CreatePrivateRoute>
                 <Preferences />
               </CreatePrivateRoute>
             }
           />
+          <Route>
+            <CreatePrivateRoute />
+          </Route>
         </Routes>
       </ThemeProvider>
     </div>
