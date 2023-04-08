@@ -91,13 +91,13 @@ const ProfilePage = () => {
   const [username, setUsername] = useState("");
 
   const buttons = [
-    <Button key="profile" className={classes.button}>
+    <Button key="profile" className={classes.button} variant="text">
       Profile
     </Button>,
-    <Button key="overview" className={classes.button}>
+    <Button key="overview" className={classes.button} variant="text">
       Overview
     </Button>,
-    <Button key="settings" className={classes.button}>
+    <Button key="settings" className={classes.button} variant="text">
       Settings
     </Button>,
   ];
@@ -133,7 +133,6 @@ const ProfilePage = () => {
             <ButtonGroup
               // orientation="vertical"
               aria-label="vertical contained button group"
-              variant=""
               className={classes.buttonGroup}
             >
               {buttons}

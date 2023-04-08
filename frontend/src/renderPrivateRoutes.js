@@ -2,26 +2,25 @@
 import { createTheme } from '@material-ui/core';
 import React from 'react';
 import { Navigate, Route } from 'react-router-dom';
-import UserHomePage from './containers/UserPage/ProfilePage';
+import { useAuth } from './context/AuthContext';
+
 
 const CreatePrivateRoute = ({ children }) => {
-    const auth = localStorage.getItem(localStorage.getItem('username'));
-    if (auth !== 'true') {
+    const {isLoggedIn, authUser} = useAuth();
+    if (!isLoggedIn) {
         return (<Navigate to="/auth/login" replace />);
-    }
+    } 
+    localStorage.setItem(authUser, isLoggedIn);
     return children;
 };
 
-// const RenderPrivateRoutes = () => {
+// const RenderPrivateRoutes = (children) => {
 //     return (
-//         <Route
-//             path="/user"
-//             element={
-//                 <CreatePrivateRoute auth={true}>
-//                     <UserHomePage />
-//                 </CreatePrivateRoute>
-//             }
-//         />
+//         <Route path="/user">
+//             <CreatePrivateRoute auth={true}>
+//                 {children}
+//             </CreatePrivateRoute>
+//         </Route>
 //     );
 // };
 

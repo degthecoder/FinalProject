@@ -13,6 +13,7 @@ import theme from "../../themes/theme";
 import TopBar from "../../layouts/LandingPage/TopBar";
 import { fetchRegister } from "../../api/authentication";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 const useStyles = makeStyles((theme) => ({
   outerContainer: {
@@ -48,12 +49,6 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 4,
     backgroundColor: "#ffffff",
   },
-  root: {
-    backgroundColor: theme.palette.background.dark,
-    minHeight: "100%",
-    paddingTop: theme.spacing(3),
-    paddingBottom: theme.spacing(3),
-  },
   splashScreen: {
     width: "100%",
     height: "100%",
@@ -64,10 +59,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// color1: f75342
-// color2: 763333
-// color3: ffffff
-// fira sans code
+
 
 const SignUpPage = () => {
   const classes = useStyles();
@@ -76,6 +68,7 @@ const SignUpPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
+  const { setLoggedIn, setAuthUser } = useAuth();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -90,7 +83,8 @@ const SignUpPage = () => {
       .then((response) => {
         console.log(response.data);
         if (response.data) {
-          // navigate("/auth/login");
+          setLoggedIn(true);
+          setAuthUser(credentials.username);
           navigate("/user/newuser");
         } else {
           setColor("red");
@@ -98,6 +92,7 @@ const SignUpPage = () => {
       })
       .catch((error) => {
         console.error(error);
+        setColor("red");
       });
   };
 
