@@ -79,7 +79,7 @@ const LoginPage = () => {
     const [color, setColor] = useState("white");
     const { isLoggedIn, setLoggedIn, setAuthUser } = useAuth();
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const credentials = { username: username, password: password };
         fetchLogin(credentials)

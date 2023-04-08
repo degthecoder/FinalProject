@@ -60,18 +60,10 @@
         "no-multiple-empty-lines": 2,
         "newline-before-return": "error",
         "unused-imports/no-unused-imports": "error",
-        "unused-imports/no-unused-vars": [
-          "warn",
-          {
-            "vars": "all",
-            "varsIgnorePattern": "^_",
-            "args": "after-used",
-            "argsIgnorePattern": "^_"
-          }
-        ],
         "no-unused-vars": "error",
         "import/no-import-module-exports": 0,
-        "import/extensions": 0,
+        "import/extensions": "off",
+        "import/no-unresolved": "off",
         "react/jsx-props-no-spreading": 0,
         "react/jsx-filename-extension": [
           2,
