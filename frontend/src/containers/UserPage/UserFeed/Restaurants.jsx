@@ -11,29 +11,29 @@ const useStyles = makeStyles(() => {
 });
 
 const Restaurants = () => {
-  const classes = useStyles();
-  const [location, setLocation] = useState(null);
+    const classes = useStyles();
+    const [location, setLocation] = useState(null);
 
-  useEffect(() => {
-    fetchLocation().then((res) => {
-      setLocation(res);
-    });
-  }, []);
+    useEffect(() => {
+        fetchLocation().then((res) => {
+            setLocation(res);
+        });
+    }, []);
 
-  return (
-    <ThemeProvider theme={theme}>
-      <UserNavBar />
-      <Box className={classes.paperContainer}>
-        <img src={foodBG} alt="food-background" className={classes.image} />
-        <Box className={classes.container}>
-          <Typography className={classes.location}>
-            {location ? `Your Location is ${location}` : "Loading..."}
-          </Typography>
-        </Box>
-      </Box>
-      <Footer />
-    </ThemeProvider>
-  );
+    return (
+        <ThemeProvider theme={theme}>
+            <UserNavBar />
+            <Box className={classes.paperContainer}>
+                <img src={foodBG} alt="food-background" className={classes.image} />
+                <Box className={classes.container}>
+                    <Typography className={classes.location}>
+                        {location ? `Your Location is ${location}` : "Loading..."}
+                    </Typography>
+                </Box>
+            </Box>
+            <Footer />
+        </ThemeProvider>
+    );
 };
 
 export default Restaurants;
