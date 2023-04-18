@@ -14,6 +14,7 @@ import TopBar from "../../layouts/LandingPage/TopBar.jsx";
 import { fetchLogin } from "../../api/authentication";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.jsx";
+import Footer from "../../layouts/LandingPage/Footer.jsx";
 
 const useStyles = makeStyles((theme) => ({
     outerContainer: {
@@ -77,7 +78,7 @@ const LoginPage = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [color, setColor] = useState("white");
-    const { isLoggedIn, setLoggedIn, setAuthUser } = useAuth();
+    const { setLoggedIn, setAuthUser } = useAuth();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -86,11 +87,9 @@ const LoginPage = () => {
             .then((response) => {
                 setLoggedIn(response.data);
                 setAuthUser(credentials.username);
-                if (isLoggedIn) {
-                    navigate("/user");
-                } else {
-                    setColor("red");
-                }
+                navigate("/user");
+                setColor("red");
+                sessionStorage.setItem("user", credentials.username);
             })
             .catch((error) => {
                 // eslint-disable-next-line no-console
@@ -135,15 +134,16 @@ const LoginPage = () => {
                                 style={{ color: color }}
                                 className={classes.errorMessage}
                             >
-                The username or the password is wrong. Please try again.
+                                The username or the password is wrong. Please try again.
                             </Typography>
                             <Button type="submit" variant="contained" color="primary">
-                Login
+                               Login
                             </Button>
                         </Box>
                     </form>
                 </Container>
                 {/* </Box> */}
+                <Footer/>
             </Box>
         </ThemeProvider>
     );

@@ -11,6 +11,7 @@ import CreatePrivateRoute from "./renderPrivateRoutes";
 import ProfilePage from "./containers/UserPage/ProfilePage.jsx";
 import Preferences from "./containers/UserPage/Preferences/Preferences.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";
+import Restaurants from "./containers/UserPage/UserFeed/Restaurants";
 
 const App = () => {
 
@@ -50,6 +51,14 @@ const App = () => {
                             element={
                                 <CreatePrivateRoute>
                                     <Preferences />
+                                </CreatePrivateRoute>
+                            }
+                        />
+                        <Route
+                            path="/user/restaurants"
+                            element={
+                                <CreatePrivateRoute>
+                                    <Restaurants />
                                 </CreatePrivateRoute>
                             }
                         />

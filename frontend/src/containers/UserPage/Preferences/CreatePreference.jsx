@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
         gap: 2,
         border: "1px grey",
         borderRadius: 10,
-        background: theme.palette.blue.main,
+        background: theme.palette.primary.main,
         fontWeight: "bold",
         paddingLeft: "10px",
         margin: "10px"

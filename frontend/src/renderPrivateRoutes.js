@@ -7,9 +7,9 @@ import { useAuth } from './context/AuthContext';
 
 const CreatePrivateRoute = ({ children }) => {
     const {isLoggedIn, authUser} = useAuth();
-    if (!isLoggedIn) {
-        return (<Navigate to="/auth/login" replace />);
-    } 
+    // if (!isLoggedIn) {
+        // return (<Navigate to="/auth/login" replace />);
+    // } 
     localStorage.setItem(authUser, isLoggedIn);
     return children;
 };
