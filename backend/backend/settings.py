@@ -87,10 +87,10 @@ DATABASES = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'maindb',
+        'NAME': 'whatsnearbydb',
         'USER': 'admin',
-        'PASSWORD': 'password',
-        'HOST': 'maindb.cghqybkpxgzw.eu-north-1.rds.amazonaws.com',
+        'PASSWORD': 'comp-491-whats-nearby',
+        'HOST': 'whatsnearbydb.cghqybkpxgzw.eu-north-1.rds.amazonaws.com',
         'PORT': '3306',
     }
 }
