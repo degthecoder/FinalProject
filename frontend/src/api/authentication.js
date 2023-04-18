@@ -18,8 +18,8 @@ export const fetchRegister = (userData) => {
 };
 
 
-export const fetchLocation = async () => {
-    const locData = await axios.get(`${url}/home/`)
+export const fetchLocation = async (userData) => {
+    const locData =  await axios.post(`${url}/home/`,userData);
     
-    return locData.data.city;
+    return locData;
 };  

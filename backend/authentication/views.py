@@ -8,7 +8,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate,login
 
 
-@api_view(['POST'])
+@api_view(['POST']) 
 def retrieve_user(request):
    
     userd= request.data  
