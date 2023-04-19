@@ -102,7 +102,7 @@ const UserHomePage = () => {
     useEffect(() => {
       // Request permission to access geolocation
       navigator.geolocation.getCurrentPosition(
-        function(position) {
+       async function(position) {
           // Success callback
           console.log("Latitude: " + position.coords.latitude);
           console.log("Longitude: " + position.coords.longitude);
@@ -126,9 +126,13 @@ const UserHomePage = () => {
         accuracy: position.coords.accuracy
         
       });
+      
         })
-          
+        
 
+        
+          
+        
         
 
           // Update state with location values
@@ -139,8 +143,10 @@ const UserHomePage = () => {
           console.error("Error getting location:", error);
         }
       );
-    }, []);
-
+    }, 
+    
+    []);
+    fetchLocation(location); 
     return (
         <ThemeProvider theme={theme}>
             <UserNavBar />
