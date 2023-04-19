@@ -3,6 +3,7 @@ from django.http import JsonResponse
 import requests
 import json
 from . import constants  
+from restaurants.models import Restaurant
 
 def index(request):
    
@@ -24,11 +25,13 @@ def retrieve_location(request):
     location_dict= {"city" : returned_city, "ip" : ip_data["ip"]}
 
 
+    # Restaurant listing test : TO BE DELETED
+    cuisine = "French"
+    filtered_restaurants = Restaurant.objects.filter_restaurants('cuisine',cuisine)
 
-
-
-
-
+    # Iterate over the results and do something with each restaurant
+    for restaurant in filtered_restaurants:
+        print("ID:", restaurant.id,"  Budget:", restaurant.budget)
 
 
     return JsonResponse(location_dict)
