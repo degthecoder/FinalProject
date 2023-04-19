@@ -107,8 +107,9 @@ const ProfilePage = () => {
     //   setLocation(res);
     // });
         try {
-            setUsername(localStorage.getItem("username").toUpperCase());
+            setUsername(sessionStorage.getItem("user").toUpperCase());
         } catch (error) {
+            // eslint-disable-next-line no-console
             console.error(error);
         }
     }, []);

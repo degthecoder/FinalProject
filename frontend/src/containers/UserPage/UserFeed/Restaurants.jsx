@@ -25,7 +25,8 @@ const useStyles = makeStyles(() => ({
         width: "80vw",
         borderRadius: 10,
         background: "#FDF0D5",
-        padding: 10
+        padding: 10,
+        overflow: 'scroll',
     },
     image: {
         objectFit: "cover",

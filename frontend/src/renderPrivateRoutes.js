@@ -6,11 +6,11 @@ import { useAuth } from './context/AuthContext';
 
 
 const CreatePrivateRoute = ({ children }) => {
-    const {isLoggedIn, authUser} = useAuth();
-    // if (!isLoggedIn) {
-        // return (<Navigate to="/auth/login" replace />);
-    // } 
-    localStorage.setItem(authUser, isLoggedIn);
+    const {isLoggedIn} = useAuth();
+
+    if (!isLoggedIn) {
+        return (<Navigate to="/auth/login" replace />);
+    } 
     return children;
 };
 

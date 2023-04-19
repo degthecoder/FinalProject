@@ -25,6 +25,10 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.beige.main,
         fontWeight: "bold"
     },
+    ambiance: {
+        color: theme.palette.beige.main,
+        fontWeight: "bold"
+    },
     image:{
         width: "100%",
         borderRadius:10
@@ -69,7 +73,7 @@ const CreateRestaurant = (props) => {
                 </Box>
                 <Box p={2}>
                     <Typography variant="h6" className={classes.header}>{name}</Typography>
-                    <Typography variant="body1">{ambiance}</Typography>
+                    <Typography variant="body1" className={classes.ambiance}>{ambiance}</Typography>
                     <Rating value={3.5} readOnly />
                 </Box>
             </Box>

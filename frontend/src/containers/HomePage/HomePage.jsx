@@ -1,10 +1,9 @@
-import { React, useEffect } from "react";
+import { React } from "react";
 import { Box, makeStyles, ThemeProvider, Typography } from "@material-ui/core";
 import theme from "../../themes/theme";
 import foodBG from "../../images/food-background.jpg";
 import NavBar from "../../layouts/LandingPage/NavBar";
 import Footer from "../../layouts/LandingPage/Footer";
-import { useAuth } from "../../context/AuthContext";
 // import AspectRatio from '@mui/joy';
 const useStyles = makeStyles(() => ({
     paperContainer: {
@@ -50,13 +49,6 @@ const useStyles = makeStyles(() => ({
 
 const HomePage = () => {
     const classes = useStyles();
-    const { isLoggedIn, authUser, setLoggedIn } = useAuth(); 
-    useEffect(() => {
-        if (!isLoggedIn){
-            setLoggedIn(localStorage.getItem(authUser));
-        }
-    }, [isLoggedIn])
-    
 
     return (
         <ThemeProvider theme={theme}>
