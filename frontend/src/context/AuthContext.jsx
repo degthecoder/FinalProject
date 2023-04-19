@@ -7,11 +7,15 @@ const useAuth = () => {
 };
 
 const AuthProvider = (props) => {
-    const [authUser, setAuthUser] = useState(null);
-    const [isLoggedIn, setLoggedIn] = useState(false);
+    const [authUser, setAuthUser] = useState(
+        sessionStorage.getItem('user') ? sessionStorage.getItem('user') : null
+    );
+    const [isLoggedIn, setLoggedIn] = useState(
+        authUser ? true : false
+    );
 
     const value = { authUser, setAuthUser, isLoggedIn, setLoggedIn };
-
+    
     return (
         <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>
     );

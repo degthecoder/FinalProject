@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./App.css";
 import { Route, Routes, Navigate } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/core";
@@ -10,51 +10,67 @@ import UserHomePage from "./containers/UserPage/UserHomePage.jsx";
 import CreatePrivateRoute from "./renderPrivateRoutes";
 import ProfilePage from "./containers/UserPage/ProfilePage.jsx";
 import Preferences from "./containers/UserPage/Preferences/Preferences.jsx";
-import { AuthProvider } from "./context/AuthContext.jsx";
+import Restaurants from "./containers/UserPage/UserFeed/Restaurants";
+// import { useAuth } from "./context/AuthContext";
 
 const App = () => {
+    // const { setLoggedIn, setAuthUser, isLoggedIn, authUser } = useAuth();
 
-    useEffect(() => {
-        // eslint-disable-next-line no-console
-        console.log(localStorage.getItem("username"));
-    }, []);
+    // useEffect(() => {
+    //     // eslint-disable-next-line no-console
+    //     const user = sessionStorage.getItem("user");
+    //     if (user !== undefined) {
+    //         setAuthUser(user);
+    //         setLoggedIn(true);
+    //     }
+    //     // eslint-disable-next-line no-console
+    //     console.log("deneme");
+    //     // eslint-disable-next-line no-console
+    //     console.log(authUser);
+    // }, [authUser, setAuthUser, setLoggedIn, isLoggedIn]);
 
     return (
         <div>
             <ThemeProvider theme={theme}>
-                <AuthProvider>
-                    <Routes>
-                        <Route path="/" element={<Navigate to="/home" />} />
-                        <Route path="/home" element={<HomePage />} />
-                        <Route path="/auth/login" element={<LoginPage />} />
-                        <Route path="/auth/register" element={<SignUpPage />} />
-                        <Route
-                            path="/user"
-                            element={
-                                <CreatePrivateRoute>
-                                    <UserHomePage />
-                                </CreatePrivateRoute>
-                            }
-                        />
+                <Routes>
+                    <Route path="/" element={<Navigate to="/home" />} />
+                    <Route path="/home" element={<HomePage />} />
+                    <Route path="/auth/login" element={<LoginPage />} />
+                    <Route path="/auth/register" element={<SignUpPage />} />
+                    <Route
+                        path="/user"
+                        element={
+                            <CreatePrivateRoute>
+                                <UserHomePage />
+                            </CreatePrivateRoute>
+                        }
+                    />
 
-                        <Route
-                            path="/user/profile"
-                            element={
-                                <CreatePrivateRoute>
-                                    <ProfilePage />
-                                </CreatePrivateRoute>
-                            }
-                        />
-                        <Route
-                            path="/user/newuser"
-                            element={
-                                <CreatePrivateRoute>
-                                    <Preferences />
-                                </CreatePrivateRoute>
-                            }
-                        />
-                    </Routes>
-                </AuthProvider>
+                    <Route
+                        path="/user/profile"
+                        element={
+                            <CreatePrivateRoute>
+                                <ProfilePage />
+                            </CreatePrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/user/newuser"
+                        element={
+                            <CreatePrivateRoute>
+                                <Preferences />
+                            </CreatePrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/user/restaurants"
+                        element={
+                            <CreatePrivateRoute>
+                                <Restaurants />
+                            </CreatePrivateRoute>
+                        }
+                    />
+                </Routes>
                 {/* <ScrollToHashElement /> */}
             </ThemeProvider>
         </div>

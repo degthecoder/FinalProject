@@ -7,10 +7,10 @@ import {
     ButtonGroup,
     Button
 } from "@material-ui/core";
-import theme from "../../themes/theme";
 import Footer from "../../layouts/LandingPage/Footer";
 import UserNavBar from "../../layouts/UserPage/UserNavbar";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import theme from "../../themes/theme";
 // import { fetchLocation } from "../../api/authentication";
 
 // import AspectRatio from '@mui/joy';
@@ -107,8 +107,9 @@ const ProfilePage = () => {
     //   setLocation(res);
     // });
         try {
-            setUsername(localStorage.getItem("username").toUpperCase());
+            setUsername(sessionStorage.getItem("user").toUpperCase());
         } catch (error) {
+            // eslint-disable-next-line no-console
             console.error(error);
         }
     }, []);

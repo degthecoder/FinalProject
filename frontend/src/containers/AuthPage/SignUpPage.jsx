@@ -85,6 +85,7 @@ const SignUpPage = () => {
         if (response.data) {
           setLoggedIn(true);
           setAuthUser(credentials.username);
+          sessionStorage.setItem("user", credentials.username);
           navigate("/user/newuser");
         } else {
           setColor("red");

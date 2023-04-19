@@ -17,10 +17,7 @@ const MenuIcon = () => {
     };
 
     const logOut = () => {
-        const username = localStorage.getItem("username");
-        localStorage.removeItem("username");
-        localStorage.removeItem(username);
-        console.log("Delete");
+        sessionStorage.clear();
         navigate("/home");
         setAnchorEl(null);
     };

@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
     paperContainer: {
-        background: "#C1121F",
+        background: theme.palette.secondary.main,
         height: "120vh",
         position: "relative",
         overflow: "hidden",

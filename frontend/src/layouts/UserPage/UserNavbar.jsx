@@ -66,7 +66,7 @@ const UserNavBar = () => {
               Feed
                         </Typography>
                     </Link>
-                    <Link className={classes.link} to="/user">
+                    <Link className={classes.link} to="/user/restaurants">
                         <Typography variant="h6" component="div" className={classes.text}>
               Restaurants
                         </Typography>
