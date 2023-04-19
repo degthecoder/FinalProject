@@ -25,14 +25,29 @@ def retrieve_location(request):
     location_dict= {"city" : returned_city, "ip" : ip_data["ip"]}
 
 
-    # Restaurant listing test : TO BE DELETED
-    cuisine = "French"
-    filtered_restaurants = Restaurant.objects.filter_restaurants('cuisine',cuisine)
+    ########################### START OF RESTAURANT FILTERING ########################### 
+    ##################################  TO BE MOVED   ###################################
 
-    # Iterate over the results and do something with each restaurant
+    # Enter the specification on value
+    cuisine = "Italian"
+
+    # Call the filtered restaurants with the following parameters: 
+    # (field_name_to_field_on , operator , field_value_to_match , field_name_to_order_by)
+    filtered_restaurants = Restaurant.filter_restaurants('cuisine','e',cuisine, 'id')
+
+    # Display matching restaurant information
+    for restaurant in filtered_restaurants:
+        print("ID:", restaurant.id,"Cuisine:", restaurant.cuisine,"  Budget:", restaurant.budget)
+
+    # Another example with less than or equal to operator on the budget
+    budget = 2
+    filtered_restaurants = Restaurant.filter_restaurants('budget','lte', budget, 'id')
+
+    # Display matching restaurant information
     for restaurant in filtered_restaurants:
         print("ID:", restaurant.id,"  Budget:", restaurant.budget)
 
+    ########################### END OF RESTAURANT FILTERING ########################## 
 
     return JsonResponse(location_dict)
     
