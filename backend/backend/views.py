@@ -45,7 +45,15 @@ def retrieve_location(request):
 
     # Display matching restaurant information
     for restaurant in filtered_restaurants:
-        print("ID:", restaurant.id,"  Budget:", restaurant.budget)
+        print("ID:", restaurant.id,"  Budget:", restaurant.budget, "  Town:", restaurant.town)
+
+    # Another example with equal operator on the town
+    town = "Bakirkoy"
+    filtered_restaurants = Restaurant.filter_restaurants('town','e', town, 'id')
+
+    # Display matching restaurant information 
+    for restaurant in filtered_restaurants:
+        print("ID:", restaurant.id,"  Budget:", restaurant.budget, "  Town:", restaurant.town)
 
     ########################### END OF RESTAURANT FILTERING ########################## 
 

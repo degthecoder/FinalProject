@@ -19,7 +19,6 @@ class Restaurant(models.Model):
     @classmethod
     def filter_restaurants(cls, field, operation, value, order_by):
         print("Field: ", field, "Operation: ", operation, "  Value: ", value, "  Order by: ", order_by)
-
         # Get all Restaurants
         restaurants = Restaurant.objects.all()
 
@@ -28,7 +27,7 @@ class Restaurant(models.Model):
             return cls.objects.filter(**{field: value}).order_by(order_by)
         elif operation in ['lte','lt','gte', 'gt']:
             field_name = field + '__' + operation
-            return cls.objects.filter(**{field_name: value}).order_by(order_by)
+            return cls.objects.filter(**{field_name: value}).order_by(order_by) 
 
         
         
