@@ -14,6 +14,7 @@ frontend/__pycache__
 backend/__pycache__
 backend/backend/__pycache__
 backend/authentication/__pycache__
+backend/restaurants/__pycache__
 # production
 frontend/build
 

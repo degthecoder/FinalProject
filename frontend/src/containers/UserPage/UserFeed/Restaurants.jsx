@@ -6,6 +6,7 @@ import Footer from "../../../layouts/LandingPage/Footer";
 import theme from "../../../themes/theme";
 import foodBG from "../../../images/food-background.jpg"
 import { fetchLocation } from "../../../api/authentication";
+import { fetchNearRestaurants } from "../../../api/restaurant";
 import CreateRestaurant from "./CreateRestaurant";
 
 const useStyles = makeStyles(() => ({
@@ -97,6 +98,8 @@ const Restaurants = () => {
         fetchLocation().then((res) => {
             setLocation(res);
         });
+        fetchNearRestaurants();
+        //const data = fetchNearRestaurants().then((res) => console.log(res)).catch()
     }, []);
 
     return (

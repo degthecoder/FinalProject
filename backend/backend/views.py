@@ -14,31 +14,16 @@ def index(request):
 @api_view(['POST'])
 def retrieve_location(request):
     
-    d = request.data
-
-    #print(d)
-    if len(d.keys()) !=0:
-
-        #print("d_name:", d["d_name"])
-        kd = d["town"]
-        print("Town: ",kd)
+    location_data = request.data
+    while(len(location_data.keys()) ==0):
+        continue
     
-    #user_ip = requests.get('https://api.ipify.org?format=json') #IP API
-    #ip_data = json.loads(user_ip.text)
-    #res = requests.get('http://ip-api.com/json/' + ip_data["ip"]) #Getting detailed location from IP
-    #location_data_one = res.text
-    #location_data = json.loads(location_data_one)
-    #print(type(location_data))  
+    town = location_data["town"]
+    print("Town: ",town)
 
-    #city,zone = constants.city_zone_name(location_data["lat"],location_data["lon"])
-    
-    #returned_city = city + ", Zone: " + str(zone)
-    location_dict = {"city" : "ab"}
-
-    
-
-
-
+    constants.set_user_town(constants.turkish_to_ascii(town))
+    print("const user town: ", constants.user_town)
+    location_dict = {"town" : constants.get_user_town()}
 
     return JsonResponse(location_dict)
     
