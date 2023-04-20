@@ -8,14 +8,5 @@ from rest_framework.decorators import api_view
 @api_view(['POST'])
 def insert_preferences(request):
 
-    print(request.data)
-    print("----")
-    data = request.data.get("Greek")
-    print(data)
-
-    print("HEEEEEELLLOOOOOOOO")
-    print(request)
-
-
-
-    return JsonResponse([],safe=False)
+    data = request.data
+    return JsonResponse(list(data.keys()),safe=False)
