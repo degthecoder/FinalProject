@@ -94,6 +94,8 @@ return null;
 
 */
 const UserHomePage = () => {
+    let town_name;
+
     let d_name;
 
     const classes = useStyles();
@@ -116,10 +118,13 @@ const UserHomePage = () => {
       // Use the fetched data as needed
         console.log(data);
         d_name= data.display_name;
+        town_name = data.address["town"]
+        console.log(data.address["town"])
       // ... do something with the data ...
       setLocation({
 
-            
+        town : town_name,
+
         disp_name : d_name,
         latitude: position.coords.latitude,
         longitude: position.coords.longitude,

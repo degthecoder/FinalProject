@@ -13,11 +13,15 @@ def index(request):
 
 @api_view(['POST'])
 def retrieve_location(request):
-    print("h")
-    ud = request.data
-    print(ud)
-    #d = ud["disp_name"]
+    
+    d = request.data
+
     #print(d)
+    if len(d.keys()) !=0:
+
+        #print("d_name:", d["d_name"])
+        kd = d["town"]
+        print("Town: ",kd)
     
     #user_ip = requests.get('https://api.ipify.org?format=json') #IP API
     #ip_data = json.loads(user_ip.text)
