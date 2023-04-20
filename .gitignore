@@ -18,6 +18,8 @@ backend/restaurants/__pycache__
 backend/restaurants/migrations/__pycache__
 backend/customer/migrations/__pycache__
 backend/customer/__pycache__
+backend/reviews/migrations/__pycache__
+backend/reviews/__pycache__
 
 
 
