@@ -7,7 +7,8 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate,login
 from restaurants.models import Restaurant
-
+from backend.constants import set_user_id
+from customer.models import Customer
 
 @api_view(['POST'])
 def retrieve_user(request):
@@ -42,6 +43,9 @@ def signup(request):
     try:
         myuser = User.objects.create_user(username,email,password)
         myuser.save()
+        set_user_id(myuser.id)
+
+        
         print("sign up ")
         print(username)
         print(email)

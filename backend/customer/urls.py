@@ -18,11 +18,7 @@ from django.urls import path, include
 from . import views  
 
 urlpatterns = [
-    path('admin/', admin.site.urls),  
-    path('home/', views.retrieve_location, name='retrieve_location'),
-    path('auth/', include('authentication.urls')),
-    path('user/restaurants/', include('restaurants.urls')),
-    path('user/newuser/', include('customer.urls'))
+    path('', views.insert_preferences, name='insert_preferences'),
 
     #path('register/', include('authentication.urls'))
 ]
