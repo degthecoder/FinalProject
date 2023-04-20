@@ -18,7 +18,7 @@ from django.urls import path, include
 from . import views  
 
 urlpatterns = [
-    path('restaurants/', views.retrieve_near_restaurants, name='retrieve_near_restaurants'),
+    path('', views.retrieve_near_restaurants, name='retrieve_near_restaurants'),
 
     #path('register/', include('authentication.urls'))
 ]
