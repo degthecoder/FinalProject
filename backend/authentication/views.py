@@ -9,7 +9,7 @@ from django.contrib.auth import authenticate,login
 from restaurants.models import Restaurant
 
 
-@api_view(['POST']) 
+@api_view(['POST'])
 def retrieve_user(request):
 
         ########################### START OF RESTAURANT FILTERING ########################### 
@@ -34,13 +34,13 @@ def retrieve_user(request):
     for restaurant in filtered_restaurants:
         print("ID:", restaurant.id,"  Budget:", restaurant.budget, "  Town:", restaurant.town)
 
-    # Another example with equal operator on the town
-    town = "Bakirkoy"
-    filtered_restaurants = Restaurant.filter_restaurants('town','e', town, 'id')
+    # Another example with equal operator on the name
+    name = "Exotic Fufu"
+    filtered_restaurants = Restaurant.filter_restaurants('name','e', name, 'id')
 
     # Display matching restaurant information 
     for restaurant in filtered_restaurants:
-        print("ID:", restaurant.id,"  Budget:", restaurant.budget, "  Town:", restaurant.town)
+        print("ID:", restaurant.id,"  Budget:", restaurant.budget, "  Name:", restaurant.name)
 
     ########################### END OF RESTAURANT FILTERING ########################## 
 

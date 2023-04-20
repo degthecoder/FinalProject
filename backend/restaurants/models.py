@@ -21,7 +21,16 @@ class Restaurant(models.Model):
         print("Field: ", field, "Operation: ", operation, "  Value: ", value, "  Order by: ", order_by)
         # Get all Restaurants
         restaurants = Restaurant.objects.all()
+        """
+        if field == "name":
+            for i in range(4):
+                res = restaurants[i]
+                print("name: ", res.name)
+                print("name (val): ", value)
 
+                print("len: ", len(res.name))
+                print("len (val): ", len(value))
+        """
         # Filter on field name based on Operator
         if operation == 'e':
             return cls.objects.filter(**{field: value}).order_by(order_by)
