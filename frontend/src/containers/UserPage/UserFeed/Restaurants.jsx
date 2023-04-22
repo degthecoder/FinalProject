@@ -98,8 +98,8 @@ const Restaurants = () => {
         fetchLocation().then((res) => {
             setLocation(res);
         });
-        fetchNearRestaurants();
-        //const data = fetchNearRestaurants().then((res) => console.log(res)).catch()
+        //fetchNearRestaurants();
+        const data = fetchNearRestaurants().then((res) => console.log(res)).catch()
     }, []);
 
     return (
