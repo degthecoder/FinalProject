@@ -1,12 +1,12 @@
 /* eslint-disable */
-import { React , useEffect, useState } from "react";
+import { React , useState } from "react";
 import { Box, makeStyles, ThemeProvider, Button } from "@material-ui/core";
 import theme from "../../../themes/theme.jsx";
 import Footer from "../../../layouts/LandingPage/Footer.jsx";
 // import UserNavBar from "../../../layouts/UserPage/UserNavbar";
 import CreatePreference from "./CreatePreference.jsx";
 import { useNavigate } from "react-router-dom";
-import { fetchCustomerPreference } from "../../../api/customer_preference";
+import { fetchAmbiencePreference, postAmbiencePreference } from "../../../api/customer_preference";
 
 
 const useStyles = makeStyles(() => ({
@@ -54,12 +54,13 @@ const useStyles = makeStyles(() => ({
 // color3: ffffff
 // fira sans code
 
-const Preferences = () => {
+const Ambience = () => {
     const classes = useStyles();
     // eslint-disable-next-line no-unused-vars
     const navigate = useNavigate();
     const [prefState, setPrefState] = useState();
     const [foodPreferences, setFoodPreferences] = useState(null);
+
 
     const handlePreferenceChange = (preference, isChecked) => {
         setPrefState((prevState) => ({
@@ -71,9 +72,9 @@ const Preferences = () => {
     const handleClick = () => {
         // eslint-disable-next-line no-console
         console.log(prefState);
-        postCustomerPreference(prefState);
+        postAmbiencePreference(prefState);
 
-        navigate("/user/newuser/ambience");
+        navigate("/user");
     };
 
     useEffect(()=> {
@@ -101,4 +102,4 @@ const Preferences = () => {
     );
 };
 
-export default Preferences;
+export default Ambience;
