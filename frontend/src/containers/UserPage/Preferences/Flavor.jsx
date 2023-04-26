@@ -6,7 +6,7 @@ import Footer from "../../../layouts/LandingPage/Footer.jsx";
 // import UserNavBar from "../../../layouts/UserPage/UserNavbar";
 import CreatePreference from "./CreatePreference.jsx";
 import { useNavigate } from "react-router-dom";
-import { fetchCuisinePreference, postCuisinePreference } from "../../../api/customerPreference.js";
+import { fetchFlavorPreference, postFlavorPreference } from "../../../api/customerPreference";
 
 
 const useStyles = makeStyles(() => ({
@@ -54,12 +54,13 @@ const useStyles = makeStyles(() => ({
 // color3: ffffff
 // fira sans code
 
-const Preferences = () => {
+const Flavor = () => {
     const classes = useStyles();
     // eslint-disable-next-line no-unused-vars
     const navigate = useNavigate();
     const [prefState, setPrefState] = useState();
     const [foodPreferences, setFoodPreferences] = useState(null);
+
 
     const handlePreferenceChange = (preference, isChecked) => {
         setPrefState((prevState) => ({
@@ -71,9 +72,9 @@ const Preferences = () => {
     const handleClick = () => {
         // eslint-disable-next-line no-console
         console.log(prefState);
-        postCuisinePreference(prefState);
+        postFlavorPreference(prefState);
 
-        navigate("/user/newuser/ambience");
+        navigate("/user");
     };
 
     const renderPreferences = () => {
@@ -88,7 +89,7 @@ const Preferences = () => {
     };
 
     useEffect(()=> {
-        setFoodPreferences(fetchCuisinePreference());
+        setFoodPreferences(fetchFlavorPreference());
     }, []);
 
     return (
@@ -96,7 +97,7 @@ const Preferences = () => {
             {/* <UserNavBar /> */}
             <Box className={classes.paperContainer}>
                 <Box className={classes.formContainer}>
-                    {renderPreferences()}
+                    {renderPreferences}
                     <Box className={classes.buttonContainer}>
                         <Button className={classes.button} onClick={handleClick}>
               Submit Preferences
@@ -109,4 +110,4 @@ const Preferences = () => {
     );
 };
 
-export default Preferences;
+export default Flavor;

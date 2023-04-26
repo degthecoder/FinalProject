@@ -47,16 +47,25 @@ const CreateRestaurant = (props) => {
     const [checked, setChecked] = useState(false);
     // eslint-disable-next-line react/prop-types
     // const preference = props.name;
-    const name = props.name;
-    const ambiance =props.ambiance;
-    const cuisine = props.cuisine;
+    const { name, cuisine, ambiance } = props;
 
- 
+    
     const handleCheckboxClick = () => {
         setChecked(!checked);
         // eslint-disable-next-line react/prop-types, no-console
-        console.log(name, " ", ambiance, " ", cuisine);
+        // console.log(name, " ", ambiance, " ", cuisine);
         // props.onPreferenceChange(preference, !checked);
+    };
+    
+    const ambianceArray = JSON.parse(ambiance.replace(/'/g, '"'));
+    const renderAmbiance = () => {
+        if (Array.isArray(ambianceArray)) {
+            return ambianceArray.join(", ");
+        } else if (typeof ambianceArray === "string") {
+            return ambianceArray;
+        } else {
+            return "";
+        }
     };
 
 
@@ -73,7 +82,8 @@ const CreateRestaurant = (props) => {
                 </Box>
                 <Box p={2}>
                     <Typography variant="h6" className={classes.header}>{name}</Typography>
-                    <Typography variant="body1" className={classes.ambiance}>{ambiance}</Typography>
+                    <Typography variant="subtitle1" className={classes.ambiance}>{cuisine}</Typography>
+                    <Typography variant="body2" className={classes.ambiance}>{renderAmbiance()}</Typography>
                     <Rating value={3.5} readOnly />
                 </Box>
             </Box>
