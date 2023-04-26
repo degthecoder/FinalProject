@@ -8,11 +8,33 @@ from backend.constants import get_user_id
 from customer.models import Customer
 # Create your views here.
 @api_view(['POST'])
-def insert_preferences(request):
+def insert_cuisine_preferences(request):
     data = request.data
     this_customer = Customer(user_customer_id=get_user_id(),cuisine_preference =list(data.keys()))
     this_customer.save()
-    
-
-
     return JsonResponse(list(data.keys()),safe=False)
+
+@api_view(['POST'])
+def insert_ambiance_preferences(request):
+    data = request.data
+    this_customer = Customer.objects.get(user_customer_id=get_user_id())
+    this_customer.ambiance_preference=list(data.keys())
+    this_customer.save()
+    return JsonResponse(list(data.keys()),safe=False)
+
+@api_view(['POST'])
+def insert_flavor_preferences(request):
+    data = request.data
+    this_customer = Customer.objects.get(user_customer_id=get_user_id())
+    this_customer.flavor_preference=list(data.keys())
+    this_customer.save()
+    return JsonResponse(list(data.keys()),safe=False)
+
+@api_view(['POST'])
+def insert_interest_preferences(request):
+    data = request.data
+    this_customer = Customer.objects.get(user_customer_id=get_user_id())
+    this_customer.interest_preference=list(data.keys())
+    this_customer.save()
+    return JsonResponse(list(data.keys()),safe=False)
+

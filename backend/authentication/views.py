@@ -44,7 +44,6 @@ def signup(request):
         myuser = User.objects.create_user(username,email,password)
         myuser.save()
         set_user_id(myuser.id)
-
         
         print("sign up ")
         print(username)

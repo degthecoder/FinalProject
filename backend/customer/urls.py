@@ -18,7 +18,11 @@ from django.urls import path, include
 from . import views  
 
 urlpatterns = [
-    path('', views.insert_preferences, name='insert_preferences'),
+    path('cuisine', views.insert_cuisine_preferences, name='insert_cuisine_preferences'),
+    path('ambiance', views.insert_ambiance_preferences, name='insert_ambiance_preferences'),
+    path('flavor', views.insert_flavor_preferences, name='insert_flavor_preferences'),
+    path('interest', views.insert_interest_preferences, name='insert_interest_preferences'),
 
     #path('register/', include('authentication.urls'))
 ]
+  
