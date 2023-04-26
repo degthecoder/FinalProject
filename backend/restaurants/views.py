@@ -17,7 +17,7 @@ def retrieve_near_restaurants(request):
     nearby_restaurants = [] 
     # Display matching restaurant information 
     for restaurant in filtered_restaurants:
-        print("ID:", restaurant.id,"  Name:", restaurant.name, "  Cuisine:", restaurant.cuisine, "  Town:", restaurant.town)
+        #print("ID:", restaurant.id,"  Name:", restaurant.name, "  Cuisine:", restaurant.cuisine, "  Town:", restaurant.town)
         restaurant_dict = {"name" : restaurant.name, "cuisine": restaurant.cuisine, "ambiance": restaurant.ambiance}
         nearby_restaurants.append(restaurant_dict)
     
