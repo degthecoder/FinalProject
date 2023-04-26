@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
     height: "100vh",
     width: "100vw",
-    backgroundColor: "rgba(54, 133, 181)",
+    backgroundColor: theme.palette.secondary.main,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",

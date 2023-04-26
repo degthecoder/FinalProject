@@ -1,12 +1,12 @@
 /* eslint-disable */
-import { React , useState } from "react";
+import { React , useEffect, useState } from "react";
 import { Box, makeStyles, ThemeProvider, Button } from "@material-ui/core";
 import theme from "../../../themes/theme.jsx";
 import Footer from "../../../layouts/LandingPage/Footer.jsx";
 // import UserNavBar from "../../../layouts/UserPage/UserNavbar";
 import CreatePreference from "./CreatePreference.jsx";
 import { useNavigate } from "react-router-dom";
-import { fetchAmbiencePreference, postAmbiencePreference } from "../../../api/customer_preference";
+import { fetchAmbiencePreference, postAmbiencePreference } from "../../../api/customerPreference";
 
 
 const useStyles = makeStyles(() => ({
@@ -77,8 +77,19 @@ const Ambience = () => {
         navigate("/user");
     };
 
+    const renderPreferences = () => {
+        try {
+            return foodPreferences.map((preference, index) => {
+                return <CreatePreference key={index} name={preference} 
+                    onPreferenceChange={handlePreferenceChange} />;
+            })
+        } catch(error) {
+            console.error(error);
+        }
+    };
+
     useEffect(()=> {
-        setFoodPreferences(fetchCustomerPreference());
+        setFoodPreferences(fetchAmbiencePreference());
     }, []);
 
     return (
@@ -86,10 +97,7 @@ const Ambience = () => {
             {/* <UserNavBar /> */}
             <Box className={classes.paperContainer}>
                 <Box className={classes.formContainer}>
-                    {foodPreferences.map((preference, index) => {
-                        return <CreatePreference key={index} name={preference} 
-                            onPreferenceChange={handlePreferenceChange} />;
-                    })}
+                    {renderPreferences}
                     <Box className={classes.buttonContainer}>
                         <Button className={classes.button} onClick={handleClick}>
               Submit Preferences

@@ -28,6 +28,14 @@ const useStyles = makeStyles(() => ({
         background: "#FDF0D5",
         padding: 10,
         overflow: 'scroll',
+        padding: 10
+    },
+    noLocation: {
+        height: "100vh",
+        width: "80vw",
+        borderRadius: 10,
+        background: "#FDF0D5",
+        fontSize: 30,
     },
     image: {
         objectFit: "cover",
@@ -39,22 +47,26 @@ const useStyles = makeStyles(() => ({
 
 const Restaurants = () => {
     const classes = useStyles();
-    const [restaurants, setRestaurants] = useState();
-    
+    const [restaurants, setRestaurants] = useState([]);
+
     const handleRestaurants = async () => {
-        const data = fetchNearRestaurants().then((res) => {
-            console.log(res);
+        fetchNearRestaurants().then((res) => {
+            setRestaurants(res.data);
         })
-        setRestaurants(data.data);
     };
 
+    const renderRestaurants = () => {
+        try {
+            return restaurants.map((restaurant, index) => {
+                return <CreateRestaurant key={index} name={restaurant.name} cuisine={restaurant.cuisine} ambiance={restaurant.ambiance}/>;
+            }); 
+        } catch (error) {
+            return <Typography className={classes.noLocation}> It looks like your location is not accessible. Please try again after allowing location services!</Typography>
+        }
+    };
    
     useEffect(() => {
-        fetchLocation().then((res) => {
-            setLocation(res);
-        });
         handleRestaurants();
-        const data = fetchNearRestaurants().then((res) => console.log(res)).catch((err) => console.error(err));
     }, []);
 
     return (
@@ -63,9 +75,7 @@ const Restaurants = () => {
             <Box className={classes.paperContainer}>
                 <img src={foodBG} alt="food-background" className={classes.image} />
                 <Box className={classes.container}>
-                    {/* {restaurants.map((restaurant, index) => {
-                        return <CreateRestaurant key={index} name={restaurant.name} cuisine={restaurant.cuisine} ambiance={restaurant.ambiance}/>;
-                    })} */}
+                    {restaurants.length > 0 ? renderRestaurants() : <Typography className={classes.noLocation}>Loading...</Typography>}
                 </Box>
             </Box>
             <Footer />
