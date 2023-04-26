@@ -6,7 +6,8 @@ import Footer from "../../../layouts/LandingPage/Footer.jsx";
 // import UserNavBar from "../../../layouts/UserPage/UserNavbar";
 import CreatePreference from "./CreatePreference.jsx";
 import { useNavigate } from "react-router-dom";
-import { fetchCuisinePreference, postCuisinePreference } from "../../../api/customerPreference.js";
+import { postCuisinePreference } from "../../../api/customerPreference.js";
+import { cuisines } from "../../../api/constants.js";
 
 
 const useStyles = makeStyles(() => ({
@@ -73,7 +74,7 @@ const Preferences = () => {
         console.log(prefState);
         postCuisinePreference(prefState);
 
-        navigate("/user/newuser/ambience");
+        navigate("/user/newuser/ambiance");
     };
 
     const renderPreferences = () => {
@@ -88,7 +89,8 @@ const Preferences = () => {
     };
 
     useEffect(()=> {
-        setFoodPreferences(fetchCuisinePreference());
+        console.log(cuisines);
+        setFoodPreferences(cuisines);
     }, []);
 
     return (
