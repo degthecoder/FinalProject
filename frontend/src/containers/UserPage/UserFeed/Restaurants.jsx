@@ -23,6 +23,7 @@ const useStyles = makeStyles(() => ({
         top: "15%",
         right: "10%",
         height: "100vh",
+        // minHeight: 'auto',
         width: "80vw",
         borderRadius: 10,
         background: "#FDF0D5",

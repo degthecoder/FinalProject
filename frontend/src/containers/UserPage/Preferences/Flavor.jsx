@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { React , useEffect, useState } from "react";
-import { Box, makeStyles, ThemeProvider, Button } from "@material-ui/core";
+import { Box, makeStyles, ThemeProvider, Button, Typography } from "@material-ui/core";
 import theme from "../../../themes/theme.jsx";
 import Footer from "../../../layouts/LandingPage/Footer.jsx";
 // import UserNavBar from "../../../layouts/UserPage/UserNavbar";
@@ -13,7 +13,7 @@ import { flavors } from "../../../api/constants.js";
 const useStyles = makeStyles(() => ({
     paperContainer: {
         background: theme.palette.secondary.main,
-        height: "120vh",
+        minHeight: "100vh",
         position: "relative",
         overflow: "hidden",
         objectFit: "cover",
@@ -21,8 +21,9 @@ const useStyles = makeStyles(() => ({
         justifyContent: "center"
     },
     formContainer: {
-        right: "10%",
-        height: "100vh",
+        // right: "10%",
+        // height: "100vh",
+        minHeight: 'auto',
         width: "80vw",
         borderRadius: 10,
         background: "#FDF0D5",
@@ -41,6 +42,9 @@ const useStyles = makeStyles(() => ({
         alignItems: "center",
         justifyContent: "flex-start",
         padding: 20
+    },
+    text: {
+        color: theme.palette.beige.main,
     },
     button: {
         color: theme.palette.secondary.main,
@@ -97,6 +101,7 @@ const Flavor = () => {
         <ThemeProvider theme={theme}>
             {/* <UserNavBar /> */}
             <Box className={classes.paperContainer}>
+                <Typography variant="h3" className={classes.text} >Tell us about your favourite flavors!</Typography>
                 <Box className={classes.formContainer}>
                     {renderPreferences()}
                     <Box className={classes.buttonContainer}>
