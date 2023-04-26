@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { React , useEffect, useState } from "react";
-import { Box, makeStyles, ThemeProvider, Button } from "@material-ui/core";
+import { Box, makeStyles, ThemeProvider, Button, Typography } from "@material-ui/core";
 import theme from "../../../themes/theme.jsx";
 import Footer from "../../../layouts/LandingPage/Footer.jsx";
 // import UserNavBar from "../../../layouts/UserPage/UserNavbar";
@@ -21,16 +21,14 @@ const useStyles = makeStyles(() => ({
         justifyContent: "center"
     },
     formContainer: {
-        right: "10%",
-        height: "100vh",
-        width: "80vw",
+        minHeight: 'auto',
+        // minWidth: "50vw",
         borderRadius: 10,
         background: "#FDF0D5",
         padding: 10
     },
     buttonContainer: {
         display: "flex",
-
         padding: 10,
         objectFit: "cover",
         justifyContent: "center"
@@ -41,6 +39,9 @@ const useStyles = makeStyles(() => ({
         alignItems: "center",
         justifyContent: "flex-start",
         padding: 20
+    },
+    text: {
+        color: theme.palette.beige.main,
     },
     button: {
         color: theme.palette.secondary.main,
@@ -97,6 +98,7 @@ const Ambiance = () => {
         <ThemeProvider theme={theme}>
             {/* <UserNavBar /> */}
             <Box className={classes.paperContainer}>
+                <Typography variant="h3" className={classes.text} >Tell us about your ambiance preferences!</Typography>
                 <Box className={classes.formContainer}>
                     {renderPreferences()}
                     <Box className={classes.buttonContainer}>
