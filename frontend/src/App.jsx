@@ -11,7 +11,9 @@ import CreatePrivateRoute from "./renderPrivateRoutes";
 import ProfilePage from "./containers/UserPage/ProfilePage.jsx";
 import Preferences from "./containers/UserPage/Preferences/Preferences.jsx";
 import Restaurants from "./containers/UserPage/UserFeed/Restaurants";
-import Ambience from "./containers/UserPage/Preferences/Ambience";
+import Ambiance from "./containers/UserPage/Preferences/Ambiance";
+import Flavor from "./containers/UserPage/Preferences/Flavor";
+import Interest from "./containers/UserPage/Preferences/Interest";
 // import { useAuth } from "./context/AuthContext";
 
 const App = () => {
@@ -46,7 +48,6 @@ const App = () => {
                             </CreatePrivateRoute>
                         }
                     />
-
                     <Route
                         path="/user/profile"
                         element={
@@ -64,10 +65,26 @@ const App = () => {
                         }
                     />
                     <Route
-                        path="/user/newuser/ambience"
+                        path="/user/newuser/ambiance"
                         element={
                             <CreatePrivateRoute>
-                                <Ambience />
+                                <Ambiance />
+                            </CreatePrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/user/newuser/flavor"
+                        element={
+                            <CreatePrivateRoute>
+                                <Flavor />
+                            </CreatePrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/user/newuser/interest"
+                        element={
+                            <CreatePrivateRoute>
+                                <Interest />
                             </CreatePrivateRoute>
                         }
                     />

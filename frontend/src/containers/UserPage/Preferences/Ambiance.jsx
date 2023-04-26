@@ -6,7 +6,8 @@ import Footer from "../../../layouts/LandingPage/Footer.jsx";
 // import UserNavBar from "../../../layouts/UserPage/UserNavbar";
 import CreatePreference from "./CreatePreference.jsx";
 import { useNavigate } from "react-router-dom";
-import { fetchAmbiencePreference, postAmbiencePreference } from "../../../api/customerPreference";
+import { postAmbiancePreference } from "../../../api/customerPreference.js";
+import { ambiances } from "../../../api/constants.js";
 
 
 const useStyles = makeStyles(() => ({
@@ -54,7 +55,7 @@ const useStyles = makeStyles(() => ({
 // color3: ffffff
 // fira sans code
 
-const Ambience = () => {
+const Ambiance = () => {
     const classes = useStyles();
     // eslint-disable-next-line no-unused-vars
     const navigate = useNavigate();
@@ -72,9 +73,9 @@ const Ambience = () => {
     const handleClick = () => {
         // eslint-disable-next-line no-console
         console.log(prefState);
-        postAmbiencePreference(prefState);
+        postAmbiancePreference(prefState);
 
-        navigate("/user");
+        navigate("/user/newuser/flavor");
     };
 
     const renderPreferences = () => {
@@ -89,7 +90,7 @@ const Ambience = () => {
     };
 
     useEffect(()=> {
-        setFoodPreferences(fetchAmbiencePreference());
+        setFoodPreferences(ambiances);
     }, []);
 
     return (
@@ -97,7 +98,7 @@ const Ambience = () => {
             {/* <UserNavBar /> */}
             <Box className={classes.paperContainer}>
                 <Box className={classes.formContainer}>
-                    {renderPreferences}
+                    {renderPreferences()}
                     <Box className={classes.buttonContainer}>
                         <Button className={classes.button} onClick={handleClick}>
               Submit Preferences
@@ -110,4 +111,4 @@ const Ambience = () => {
     );
 };
 
-export default Ambience;
+export default Ambiance;

@@ -6,7 +6,8 @@ import Footer from "../../../layouts/LandingPage/Footer.jsx";
 // import UserNavBar from "../../../layouts/UserPage/UserNavbar";
 import CreatePreference from "./CreatePreference.jsx";
 import { useNavigate } from "react-router-dom";
-import { fetchInterestPreference, postInterestPreference } from "../../../api/customerPreference";
+import { postInterestPreference } from "../../../api/customerPreference";
+import { interests } from "../../../api/constants.js";
 
 
 const useStyles = makeStyles(() => ({
@@ -74,7 +75,7 @@ const Interest = () => {
         console.log(prefState);
         postInterestPreference(prefState);
 
-        navigate("/user");
+        navigate("/user/");
     };
 
     const renderPreferences = () => {
@@ -89,7 +90,7 @@ const Interest = () => {
     };
 
     useEffect(()=> {
-        setFoodPreferences(fetchInterestPreference());
+        setFoodPreferences(interests);
     }, []);
 
     return (
@@ -97,7 +98,7 @@ const Interest = () => {
             {/* <UserNavBar /> */}
             <Box className={classes.paperContainer}>
                 <Box className={classes.formContainer}>
-                    {renderPreferences}
+                    {renderPreferences()}
                     <Box className={classes.buttonContainer}>
                         <Button className={classes.button} onClick={handleClick}>
               Submit Preferences
