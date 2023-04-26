@@ -8,7 +8,7 @@ from backend.constants import get_user_town
 from restaurants.models import Restaurant
 
 # Create your views here.
-@api_view(['POST'])
+@api_view(['GET'])
 def retrieve_near_restaurants(request):
     print("const user town: ", get_user_town())
     town = get_user_town()
