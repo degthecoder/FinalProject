@@ -14,22 +14,5 @@ const CreatePrivateRoute = ({ children }) => {
     return children;
 };
 
-// const RenderPrivateRoutes = (children) => {
-//     return (
-//         <Route path="/user">
-//             <CreatePrivateRoute auth={true}>
-//                 {children}
-//             </CreatePrivateRoute>
-//         </Route>
-//     );
-// };
-
-// function CreatePrivateRoute({ auth, children }) {
-//     console.log(auth)
-//     if (!auth) {
-//         return (<Navigate to="/login" replace />);
-//     }
-//     return children
-// }
 
 export default CreatePrivateRoute;

@@ -17,20 +17,6 @@ import Interest from "./containers/UserPage/Preferences/Interest";
 // import { useAuth } from "./context/AuthContext";
 
 const App = () => {
-    // const { setLoggedIn, setAuthUser, isLoggedIn, authUser } = useAuth();
-
-    // useEffect(() => {
-    //     // eslint-disable-next-line no-console
-    //     const user = sessionStorage.getItem("user");
-    //     if (user !== undefined) {
-    //         setAuthUser(user);
-    //         setLoggedIn(true);
-    //     }
-    //     // eslint-disable-next-line no-console
-    //     console.log("deneme");
-    //     // eslint-disable-next-line no-console
-    //     console.log(authUser);
-    // }, [authUser, setAuthUser, setLoggedIn, isLoggedIn]);
 
     return (
         <div>

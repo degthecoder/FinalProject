@@ -1,12 +1,21 @@
 import React, { useState } from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { IconButton, Menu, MenuItem } from "@material-ui/core";
+import { IconButton, Menu, MenuItem, makeStyles } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
+import theme from "../../themes/theme";
+
+const useStyles = makeStyles({
+    icon:{
+        color: theme.palette.beige.main
+    }
+});
+
 
 const MenuIcon = () => {
     const [anchorEl, setAnchorEl] = useState(false);
     const navigate = useNavigate();
     const open = Boolean(anchorEl);
+    const classes =  useStyles();
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -30,7 +39,7 @@ const MenuIcon = () => {
     return (
         <>
             <IconButton onClick={handleClick}>
-                <AccountCircleIcon fontSize="large"/>
+                <AccountCircleIcon className={classes.icon} fontSize="large"/>
             </IconButton>
             <Menu
                 id="basic-menu"

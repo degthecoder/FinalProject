@@ -17,9 +17,3 @@ export const fetchRegister = (userData) => {
     return authenticate;
 };
 
-
-export const fetchLocation = async (userData) => {
-    const locData =  await axios.post(`${url}/home/`,userData);
-    
-    return locData;
-};  

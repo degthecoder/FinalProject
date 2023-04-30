@@ -1,12 +1,11 @@
-/* eslint-disable */
-import { React, useState, useEffect } from "react";
+// /* eslint-disable */
+import { React } from "react";
 import { Box, makeStyles, ThemeProvider, Typography } from "@material-ui/core";
 import theme from "../../themes/theme";
 import foodBG from "../../images/food-background.jpg";
 import Footer from "../../layouts/LandingPage/Footer";
-import { fetchLocation } from "../../api/authentication";
 import UserNavBar from "../../layouts/UserPage/UserNavbar";
-// import AspectRatio from '@mui/joy';
+
 const useStyles = makeStyles(() => ({
     root: {
         backgroundColor: theme.palette.background.dark,
@@ -53,140 +52,8 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-// color1: f75342
-// color2: 763333
-// color3: ffffff
-// fira sans code
-/*
-const findMyState = () =>{
-const status = document.querySelector('.status');
-
-const success = (position) => {
-    console.log(position)
-}
-
-const error = () => {
-status.textContent = 'Unable to retrieve your location';
-}
-navigator.geolocation.getCurrentPosition(success, error);
-
-}
-*/
-/*
-const GeolocationComponent = () => {
-    useEffect(() => {
-      // Request permission to access geolocation
-      navigator.geolocation.getCurrentPosition(
-        function(position) {
-          // Success callback
-          console.log("Latitude: " + position.coords.latitude);
-          console.log("Longitude: " + position.coords.longitude);
-          console.log("Accuracy: " + position.coords.accuracy + " meters");
-        },
-        function(error) {
-          // Error callback
-          console.error("Error getting location:", error);
-        }
-      );
-    }, []); // Empty dependency array to ensure the effect only runs once
-return null;
-}
-
-*/
-const UserHomePage = () => {
-    let town_name;
-
-    let d_name;
-
-    const classes = useStyles();
-
-    const [location, setLocation] = useState(null);
-    useEffect(() => {
-      // Request permission to access geolocation
-      navigator.geolocation.getCurrentPosition(
-       async function(position) {
-          // Success callback
-          console.log("Latitude: " + position.coords.latitude);
-          console.log("Longitude: " + position.coords.longitude);
-          //console.log("Accuracy: " + position.coords.accuracy + " meters");
-          
-          const geoApiUrl = `https://geocode.maps.co/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}`;
-          fetch(geoApiUrl) // Replace with the URL of your API
-        .then(response => response.json())
-        .then(data => {
-
-      // Use the fetched data as needed
-        console.log(data);
-        d_name= data.display_name;
-        town_name = data.address["town"]
-        console.log(data.address["town"])
-      // ... do something with the data ...
-      setLocation({
-
-        town : town_name,
-
-        disp_name : d_name,
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
-        accuracy: position.coords.accuracy
-        
-      });
-      
-        })
-        
-
-        
-          
-        
-        
-
-          // Update state with location values
-          
-        },
-        function(error) {
-          // Error callback
-          console.error("Error getting location:", error);
-        }
-      );
-    }, 
-    
-    []);
-    fetchLocation(location); 
-    return (
-        <ThemeProvider theme={theme}>
-            <UserNavBar />
-            <Box className={classes.paperContainer}>
-                <img
-                    src={foodBG}
-                    alt="food-background"
-                    className={classes.image}
-                />
-                <Box className={classes.container}>
-                    <Typography className={classes.location}>
-                    
-                    {location ? `Your Location is ${location.disp_name}`  : "Loading..."}                    </Typography>
-                </Box>
-            </Box>
-            <Footer />
-        </ThemeProvider>
-    );
-};
-
-export default UserHomePage;
-
-
-
-
-/*
 const UserHomePage = () => {
     const classes = useStyles();
-    const [location, setLocation] = useState(null);
-
-    useEffect(() => {
-        fetchLocation().then((res) => {
-            setLocation(res);
-        });
-    }, []);
 
     return (
         <ThemeProvider theme={theme}>
@@ -199,7 +66,7 @@ const UserHomePage = () => {
                 />
                 <Box className={classes.container}>
                     <Typography className={classes.location}>
-                        {location ? `Your Location is ${location}` : "Loading..."}
+                       
                     </Typography>
                 </Box>
             </Box>
@@ -209,4 +76,3 @@ const UserHomePage = () => {
 };
 
 export default UserHomePage;
-*/
