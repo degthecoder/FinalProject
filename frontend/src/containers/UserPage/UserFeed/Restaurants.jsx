@@ -21,7 +21,7 @@ const useStyles = makeStyles(() => ({
         display: "flex",
         flexDirection: "row",
         // alignItems: "center",
-        color: theme.palette.beige.main,
+        background: theme.palette.beige.main,
         overflow: "hidden"
     },
     container: {
@@ -30,7 +30,7 @@ const useStyles = makeStyles(() => ({
         minHeight: "auto",
         width: "85vw",
         borderRadius: 10,
-        background: "#FDF0D5",
+        background: theme.palette.beige.main,
         padding: 10,
         overflow: "scroll",
         padding: 10
@@ -40,7 +40,7 @@ const useStyles = makeStyles(() => ({
         // height: "100vh",
         minHeight: "auto",
         borderRadius: 10,
-        background: "#FDF0D5",
+        background: theme.palette.beige.main,
         padding: 10,
         overflow: "scroll",
         padding: 10
@@ -49,7 +49,7 @@ const useStyles = makeStyles(() => ({
         height: "100vh",
         width: "80vw",
         borderRadius: 10,
-        background: "#FDF0D5",
+        background: theme.palette.beige.main,
         fontSize: 30
     },
     image: {
@@ -62,7 +62,8 @@ const useStyles = makeStyles(() => ({
 
 const Restaurants = () => {
     const classes = useStyles();
-    const [restaurants, setRestaurants] = useState([]);
+    const [restaurantlist, setRestaurants] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
 
     const handleRestaurants = async () => {
         fetchNearRestaurants().then((res) => {
@@ -72,7 +73,24 @@ const Restaurants = () => {
 
     const renderRestaurants = () => {
         try {
-            return restaurants.map((restaurant, index) => {
+            if(searchTerm !== null) {
+                const filteredItems = restaurantlist.filter(item => item.name.
+                    toLowerCase().includes(searchTerm.toLowerCase()));
+                    
+                return filteredItems.map((restaurant, index) => {
+                    return (
+                        <CreateRestaurant
+                            key={index}
+                            name={restaurant.name}
+                            cuisine={restaurant.cuisine}
+                            ambiance={restaurant.ambiance}
+                        />
+                    );
+                });
+                    
+            }
+            
+            return restaurantlist.map((restaurant, index) => {
                 return (
                     <CreateRestaurant
                         key={index}
@@ -82,6 +100,7 @@ const Restaurants = () => {
                     />
                 );
             });
+            
         } catch (error) {
             return (
                 <Typography className={classes.noLocation}>
@@ -91,6 +110,10 @@ const Restaurants = () => {
                 </Typography>
             );
         }
+    };
+
+    const handleSearch = (event) => {
+        setSearchTerm(event.target.value);
     };
 
     useEffect(() => {
@@ -103,14 +126,16 @@ const Restaurants = () => {
             <Box className={classes.paperContainer}>
                 {/* <img src={foodBG} alt="food-background" className={classes.image} /> */}
                 <Box className={classes.container}>
-                    {restaurants.length > 0 ? (
+                    {restaurantlist.length > 0 ? (
                         renderRestaurants()
                     ) : (
                         <Typography className={classes.noLocation}>Loading...</Typography>
                     )}
                 </Box>
-                <Box className={classes.searchcontainer}>
-                    <TextField variant="outlined"
+                <Box className={classes.searchcontainer} border={1}>
+                    <TextField id="outlined-search"
+                        onChange={handleSearch}
+                        label="Search for a restaurant"
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">
