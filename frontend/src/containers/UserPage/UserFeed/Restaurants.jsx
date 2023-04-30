@@ -26,22 +26,18 @@ const useStyles = makeStyles(() => ({
     },
     container: {
         paddingTop: "15vh",
-        // height: "100vh",
-        minHeight: "auto",
+        height: "auto",
+        minHeight: "100vh",
         width: "85vw",
-        borderRadius: 10,
         background: theme.palette.beige.main,
-        padding: 10,
         overflow: "scroll",
         padding: 10
     },
     searchcontainer: {
         paddingTop: "15vh",
-        // height: "100vh",
-        minHeight: "auto",
-        borderRadius: 10,
+        height: "auto",
+        minHeight: "100vh",
         background: theme.palette.beige.main,
-        padding: 10,
         overflow: "scroll",
         padding: 10
     },
