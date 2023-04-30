@@ -70,8 +70,10 @@ const Restaurants = () => {
     const renderRestaurants = () => {
         try {
             if(searchTerm !== null) {
-                const filteredItems = restaurantlist.filter(item => item.name.
-                    toLowerCase().includes(searchTerm.toLowerCase()));
+                const filteredItems = restaurantlist.filter(item => 
+                    item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                     item.cuisine.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                      item.ambiance.toLowerCase().includes(searchTerm.toLowerCase()));
                     
                 return filteredItems.map((restaurant, index) => {
                     return (

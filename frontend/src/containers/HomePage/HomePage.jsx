@@ -65,7 +65,10 @@ const HomePage = () => {
                     <Typography className={classes.header2}>
             What&apos;s Nearby?
                     </Typography>
-                    <Typography className={classes.body}>Our goal is providing personalized restaurant recommendations based on user preferences and community reviews to enhance the dining experience.</Typography>
+                    <Typography className={classes.body}>
+                        Our goal is providing personalized restaurant recommendations based on user preferences
+                        and community reviews to enhance the dining experience.
+                    </Typography>
                 </Box>
             </Box>
             <Footer />
