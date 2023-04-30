@@ -4,6 +4,7 @@ import {
     Box,
     InputAdornment,
     makeStyles,
+    Slider,
     TextField,
     ThemeProvider,
     Typography
@@ -25,7 +26,7 @@ const useStyles = makeStyles(() => ({
         overflow: "hidden"
     },
     container: {
-        paddingTop: "15vh",
+        paddingTop: "80px",
         height: "auto",
         minHeight: "100vh",
         width: "85vw",
@@ -34,11 +35,9 @@ const useStyles = makeStyles(() => ({
         padding: 10
     },
     searchcontainer: {
-        paddingTop: "15vh",
-        height: "auto",
-        minHeight: "100vh",
         background: theme.palette.beige.main,
-        overflow: "scroll",
+        paddingTop: "100px",
+        justifyContent:"space-between",
         padding: 10
     },
     noLocation: {
@@ -47,6 +46,12 @@ const useStyles = makeStyles(() => ({
         borderRadius: 10,
         background: theme.palette.beige.main,
         fontSize: 30
+    },
+    searchtext: {
+        marginTop: 15,
+        color: theme.palette.primary.main,
+        fontSize: 12,
+        top:"10"
     },
     image: {
         objectFit: "cover",
@@ -60,6 +65,7 @@ const Restaurants = () => {
     const classes = useStyles();
     const [restaurantlist, setRestaurants] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
+    const [slideValue, setSlideValue] = useState([0, 10]);
 
     const handleRestaurants = async () => {
         fetchNearRestaurants().then((res) => {
@@ -70,8 +76,10 @@ const Restaurants = () => {
     const renderRestaurants = () => {
         try {
             if(searchTerm !== null) {
-                const filteredItems = restaurantlist.filter(item => item.name.
-                    toLowerCase().includes(searchTerm.toLowerCase()));
+                const filteredItems = restaurantlist.filter(item => 
+                    item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                     item.cuisine.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                      item.ambiance.toLowerCase().includes(searchTerm.toLowerCase()));
                     
                 return filteredItems.map((restaurant, index) => {
                     return (
@@ -112,6 +120,10 @@ const Restaurants = () => {
         setSearchTerm(event.target.value);
     };
 
+    const handleSliderChange =  (event, newValue) => {
+        setSlideValue(newValue);
+    };
+
     useEffect(() => {
         handleRestaurants();
     }, []);
@@ -139,7 +151,17 @@ const Restaurants = () => {
                                 </InputAdornment>
                             )
                         }}
-                    ></TextField>
+                    />
+                    <Typography gutterBottom className={classes.searchtext}>Rating</Typography>
+                    <Slider
+                        onChange={handleSliderChange}
+                        valueLabelDisplay="auto"
+                        value={slideValue}
+                        step={1}
+                        marks
+                        min={0}
+                        max={10}
+                    />
                 </Box>
             </Box>
             <Footer />
