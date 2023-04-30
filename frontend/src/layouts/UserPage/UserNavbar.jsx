@@ -7,7 +7,8 @@ import MenuIcon from "./MenuIcon";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { fetchLocation } from "../../api/location";
 import theme from "../../themes/theme";
-// import { useNavigate } from "react-router-dom";
+import { useMediaQuery } from '@mui/material';
+import ListIcon from '@mui/icons-material/List';
 
 const useStyles = makeStyles({
     icon: {
@@ -60,7 +61,7 @@ const useStyles = makeStyles({
 const UserNavBar = () => {
     const classes = useStyles();
     const [location, setLocation] = useState("");
-    
+    const isMobile = useMediaQuery('(max-width:600px)');
 
     useEffect(() => {
         fetchLocation().then(res => setLocation(res));
@@ -76,23 +77,30 @@ const UserNavBar = () => {
                 <a href="/user">
                     <img className={classes.icon} src={image} alt="ConceptLogosx" />
                 </a>
-                <Box className={classes.container}>
-                    <Link className={classes.link} to="/user">
-                        <Typography variant="h6" component="div" className={classes.text}>
-              Feed
+                {!isMobile ? 
+                    <>
+                        <Box className={classes.container}>
+                            <Link className={classes.link} to="/user">
+                                <Typography variant="h6" component="div" className={classes.text}>
+                                    Feed
+                                </Typography>
+                            </Link>
+                            <Link className={classes.link} to="/user/restaurants">
+                                <Typography variant="h6" component="div" className={classes.text}>
+                                    Restaurants
+                                </Typography>
+                            </Link>
+                        </Box>
+                        <LocationOnIcon className={classes.locIcon}/>
+                        <Typography className={classes.location}>
+                            {location ? `${location}`  : "Loading..."}
                         </Typography>
-                    </Link>
-                    <Link className={classes.link} to="/user/restaurants">
-                        <Typography variant="h6" component="div" className={classes.text}>
-              Restaurants
-                        </Typography>
-                    </Link>
-                </Box>
-                <LocationOnIcon className={classes.locIcon}/>
-                <Typography className={classes.location}>
-                    {location ? `${location}`  : "Loading..."}
-                </Typography>
-                <MenuIcon />
+                        <MenuIcon />
+                    </> : 
+                    <>
+                        <ListIcon className={classes.locIcon} fontSize="large"></ListIcon>
+                    </>
+                }
             </Toolbar>
         </AppBar>
     );
