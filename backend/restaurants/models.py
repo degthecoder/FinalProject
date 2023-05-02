@@ -15,6 +15,12 @@ class Restaurant(models.Model):
     latitude = models.FloatField(default=0, null=True)
     town = models.CharField(max_length=100, null=True)
 
+    ambiance_rating = models.FloatField(null=True,default=1)
+    taste_rating = models.FloatField(null=True,default=1)
+    service_rating = models.FloatField(null=True,default=1)
+    overall_rating = models.FloatField(null=True,default=1)
+    review_count = models.IntegerField(null=False, default=1)
+
     # Restaurant Filtering Method
     @classmethod
     def filter_restaurants(cls, field, operation, value, order_by):
