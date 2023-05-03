@@ -75,32 +75,22 @@ const Restaurants = () => {
 
     const renderRestaurants = () => {
         try {
-            if(searchTerm !== null) {
-                const filteredItems = restaurantlist.filter(item => 
-                    item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            const filteredItems = restaurantlist.filter(item => 
+                item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                      item.cuisine.toLowerCase().includes(searchTerm.toLowerCase()) ||
                       item.ambiance.toLowerCase().includes(searchTerm.toLowerCase()));
-                    
-                return filteredItems.map((restaurant, index) => {
-                    return (
-                        <CreateRestaurant
-                            key={index}
-                            name={restaurant.name}
-                            cuisine={restaurant.cuisine}
-                            ambiance={restaurant.ambiance}
-                        />
-                    );
-                });
-                    
-            }
-            
-            return restaurantlist.map((restaurant, index) => {
+
+            const extraFilter = filteredItems.filter(item => (slideValue[1]>item.overall_rating
+                    && item.overall_rating > slideValue[0]));
+                      
+            return extraFilter.map((restaurant, index) => {
                 return (
                     <CreateRestaurant
                         key={index}
                         name={restaurant.name}
                         cuisine={restaurant.cuisine}
                         ambiance={restaurant.ambiance}
+                        rating={restaurant.overall_rating}
                     />
                 );
             });
@@ -108,9 +98,8 @@ const Restaurants = () => {
         } catch (error) {
             return (
                 <Typography className={classes.noLocation}>
-                    {" "}
-          It looks like your location is not accessible. Please try again after
-          allowing location services!
+                    It looks like your location is not accessible. Please try again after
+                    allowing location services!
                 </Typography>
             );
         }
