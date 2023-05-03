@@ -6,9 +6,10 @@ export const fetchLocation = async () => {
         navigator.geolocation.getCurrentPosition(resolve, reject);
     });
       
-    const geoApiUrl = `https://geocode.maps.co/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}`;
+    const geoApiUrl = `https://geocode.maps.co/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&format=json`;
     const response = await fetch(geoApiUrl);
     const data = await response.json();
+    console.log(data);
     const d_name = data.display_name;
     const town_name = data.address["town"]
     const location = {
