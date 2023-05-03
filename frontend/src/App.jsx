@@ -3,6 +3,7 @@ import "./App.css";
 import { Route, Routes, Navigate } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/core";
 import theme from "./themes/theme.jsx";
+import NotFound from "./containers/HomePage/NotFound.jsx";
 import HomePage from "./containers/HomePage/HomePage.jsx";
 import LoginPage from "./containers/AuthPage/LoginPage.jsx";
 import SignUpPage from "./containers/AuthPage/SignUpPage.jsx";
@@ -14,6 +15,7 @@ import Restaurants from "./containers/UserPage/UserFeed/Restaurants";
 import Ambiance from "./containers/UserPage/Preferences/Ambiance";
 import Flavor from "./containers/UserPage/Preferences/Flavor";
 import Interest from "./containers/UserPage/Preferences/Interest";
+
 // import { useAuth } from "./context/AuthContext";
 
 const App = () => {
@@ -22,6 +24,7 @@ const App = () => {
         <div>
             <ThemeProvider theme={theme}>
                 <Routes>
+                    <Route path="*" element={<NotFound />} />
                     <Route path="/" element={<Navigate to="/home" />} />
                     <Route path="/home" element={<HomePage />} />
                     <Route path="/auth/login" element={<LoginPage />} />
