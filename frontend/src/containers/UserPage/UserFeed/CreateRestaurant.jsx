@@ -17,7 +17,8 @@ const useStyles = makeStyles((theme) => ({
         margin: "10px"
     },
     content: {
-        width: "4",
+        display: 'flex',
+        width: "auto",
         fontWeight: "bold",
         userSelect: "none"
     },
@@ -31,6 +32,10 @@ const useStyles = makeStyles((theme) => ({
     },
     image:{
         width: "100%",
+        borderRadius:10
+    },
+    contentcontainer:{
+        width: "22vw",
         borderRadius:10
     },
     imagecontainer:{
@@ -80,11 +85,11 @@ const CreateRestaurant = (props) => {
                 <Box className={classes.imagecontainer}>
                     <img src={exampleRes} alt="Box Image" className={classes.image}/>
                 </Box>
-                <Box p={2}>
+                <Box p={2} className={classes.contentcontainer}>
                     <Typography variant="h6" className={classes.header}>{name}</Typography>
                     <Typography variant="subtitle1" className={classes.ambiance}>{cuisine}</Typography>
                     <Typography variant="body2" className={classes.ambiance}>{renderAmbiance()}</Typography>
-                    <Rating value={rating} max={10} precision={0.5}  readOnly />
+                    <Rating value={rating} precision={0.5}  readOnly />
                 </Box>
             </Box>
         </Box>
