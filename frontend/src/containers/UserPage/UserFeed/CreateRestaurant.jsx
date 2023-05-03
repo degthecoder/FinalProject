@@ -47,7 +47,7 @@ const CreateRestaurant = (props) => {
     const [checked, setChecked] = useState(false);
     // eslint-disable-next-line react/prop-types
     // const preference = props.name;
-    const { name, cuisine, ambiance } = props;
+    const { name, cuisine, ambiance, rating } = props;
 
     
     const handleCheckboxClick = () => {
@@ -84,7 +84,7 @@ const CreateRestaurant = (props) => {
                     <Typography variant="h6" className={classes.header}>{name}</Typography>
                     <Typography variant="subtitle1" className={classes.ambiance}>{cuisine}</Typography>
                     <Typography variant="body2" className={classes.ambiance}>{renderAmbiance()}</Typography>
-                    <Rating value={3.5} readOnly />
+                    <Rating value={rating} max={10} precision={0.5}  readOnly />
                 </Box>
             </Box>
         </Box>
