@@ -75,7 +75,7 @@ def retrieve_preferences(request):
     print(context_df["Guest"])
     print(context_df["Work"])
 
-    return resp_json
+    return context_df
 
 def create_customer_df(df):
   cust = df
@@ -101,6 +101,7 @@ def create_customer_df(df):
   return result_cus
 
 def prepare_context(dtf_context):
+  
   dtf_context_= copy.deepcopy(dtf_context)
   tags = [i.split("|") for i in dtf_context["ambience_preference"].unique()]
   columns = ['FamilyFriendly', 'Ethnic', 'Romantic', 'Lively', 'Elegant', 'Sport', 'FineDining', 'Cozy', 'CasualDining']
@@ -135,3 +136,5 @@ def prepare_context(dtf_context):
   dtf_context_3= dtf_context_
   dtf_context_3=dtf_context_3.drop(['reason_of_visit','ambience_preference','interest_preference','cuisine_preference','flavor_preference'], axis=1)
   return dtf_context_3
+
+
