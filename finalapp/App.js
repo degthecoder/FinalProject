@@ -1,12 +1,39 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+// import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, View } from 'react-native';
+import TabNavigator from './layouts/navigator';
+import { createStackNavigator} from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { loadFonts } from "./assets/themes/theme";
+import { useEffect, useState } from 'react';
+
+
+const Stack = createStackNavigator();
 
 export default function App() {
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+
+  useEffect(() => {
+    const loadAsync = async () => {
+      await loadFonts();
+      setFontsLoaded(true);
+    };
+
+    loadAsync();
+  }, []);
+
+
+  if(!fontsLoaded){
+    console.log("Not Loadded");
+    return (<View/>)
+  }
+  console.log("Loadded");
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{headerShown: false}} >
+        <Stack.Screen name="Details" component= {TabNavigator}/>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
