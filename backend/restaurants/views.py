@@ -6,6 +6,7 @@ from rest_framework.decorators import api_view
 from backend.constants import get_user_town
 
 from restaurants.models import Restaurant
+from customer.models import Customer
 
 # Create your views here.
 @api_view(['GET'])
@@ -21,4 +22,7 @@ def retrieve_near_restaurants(request):
         restaurant_dict = {"name" : restaurant.name, "cuisine": restaurant.cuisine, "ambiance": restaurant.ambiance, "overall_rating": restaurant.overall_rating}
         nearby_restaurants.append(restaurant_dict)
     
+    print(Customer.retrieve_preferences(request))
+
+
     return JsonResponse(nearby_restaurants, safe=False)
