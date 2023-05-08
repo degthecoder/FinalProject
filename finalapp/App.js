@@ -8,8 +8,6 @@ import { AuthContext, AuthProvider } from './context/context';
 import ContextNavigator from "./layouts/ContextNavigator";
 
 
-
-
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
 
@@ -25,7 +23,7 @@ export default function App() {
   if(!fontsLoaded){
     return (<View/>)
   }
-  
+
   return (
     <AuthProvider>
       <ContextNavigator/>

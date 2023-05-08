@@ -6,6 +6,7 @@ import LoginScreen from "../components/splash/Login";
 import { Ionicons } from '@expo/vector-icons';
 import { theme } from "../assets/themes/theme";
 import Profile from "../components/profile/Profile";
+import Search from "../components/search/Search";
 
 const Tab = createBottomTabNavigator();
 
@@ -39,7 +40,7 @@ const TabNavigator = () => {
       />
       <Tab.Screen
         name="Match"
-        component={Home}
+        component={Search}
         options={{
           tabBarIcon: ({ focused, color }) => {
             const size = focused ? 36 : 28;
