@@ -2,13 +2,16 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from "../components/Home";
+import LoginScreen from "../components/splash/Login";
 import { Ionicons } from '@expo/vector-icons';
 import { theme } from "../assets/themes/theme";
+import Profile from "../components/profile/Profile";
 
 const Tab = createBottomTabNavigator();
 
 const styles = StyleSheet.create({
   tabBar: {
+    borderTopWidth: 0,
     backgroundColor: theme.palette.darkBlue.main,
   },
 });
@@ -47,7 +50,7 @@ const TabNavigator = () => {
       />
       <Tab.Screen
         name="Profile"
-        component={Home}
+        component={Profile}
         options={{
           tabBarIcon: ({ focused, color }) => {
             const size = focused ? 36 : 28;

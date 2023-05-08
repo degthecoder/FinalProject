@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://127.0.0.1:8000';
+const url = 'http://192.168.1.4:8000';
 
 export const fetchLogin = (userData) => {
     // eslint-disable-next-line no-console
