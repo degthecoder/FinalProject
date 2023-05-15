@@ -78,7 +78,7 @@ def retrieve_preferences(request):
     return context_df
 
 def create_customer_df(df):
-  cust = df
+  cust = copy.deepcopy(df)
   columns_to_vectorize = ['interest_preference', 'ambience_preference', 'cuisine_preference', 'flavor_preference','reason_of_visit']
 
   # Vectorize the columns and create new dataframes
@@ -103,13 +103,11 @@ def create_customer_df(df):
 def prepare_context(dtf_context):
   
   dtf_context_= copy.deepcopy(dtf_context)
-  tags = [i.split("|") for i in dtf_context["ambience_preference"].unique()]
   columns = ['FamilyFriendly', 'Ethnic', 'Romantic', 'Lively', 'Elegant', 'Sport', 'FineDining', 'Cozy', 'CasualDining']
   
   for col in columns:
       dtf_context_[col] = dtf_context["ambience_preference"].apply(lambda x: 1 if col in x else 0)
 
-  tags = [i.split("|") for i in dtf_context["interest_preference"].unique()]
   columns = ['Foodie', 'Music', 'Traveller', 'Family', 'Hectic', 'Reading', 'Clasic', 'Student', 'Cinema', 'StandUp', 'Experiments', 'ESport', 'Theatre', 'Businessman', 'SportsPerson']
   for col in columns:
       rename_col = col
@@ -117,24 +115,21 @@ def prepare_context(dtf_context):
         rename_col = "Family_profile"
       dtf_context_[rename_col] = dtf_context["interest_preference"].apply(lambda x: 1 if col in x else 0)
 
-  tags = ["Guest"]
   columns = ['Family', 'Guest', 'Work', 'Date', 'Friend']
   print(columns)
   for col in columns:
       dtf_context_[col] = dtf_context["reason_of_visit"].apply(lambda x: 1 if col in x else 0)
 
-  tags = [i.split("|") for i in dtf_context["cuisine_preference"].unique()]
   columns = ['Turkish', 'Korean', 'Japanese', 'Greek', 'Cafeteria', 'Seafood', 'Dutch', 'French', 'LatinAmerican', 'BarPubBrewery', 'Asian', 'Wine', 'American', 'Juice', 'IceCream', 'Mexican', 'Burgers', 'Sandwiches', 'Pizzeria', 'Coffee', 'Steaks', 'Italian', 'Chinese', 'African', 'International', 'Contemporary', 'FastFood', 'Bakery', 'Bar', 'Vegetarian']
-
   for col in columns:
       dtf_context_[col] = dtf_context["cuisine_preference"].apply(lambda x: 1 if col in x else 0)
 
-  tags = [i.split("|") for i in dtf_context["flavor_preference"].unique()]
   columns = ['ramen', 'tomato', 'umami', 'mustard', 'mcncheese', 'spicy', 'snacks', 'pasta', 'doner', 'salsa', 'herbs', 'taco', 'waffle', 'fish', 'crab', 'snack', 'tofu', 'wrap', 'charcuterie', 'kimchi', 'icecream', 'cake', 'pastry', 'panini', 'vegetable', 'wine', 'stew', 'juice', 'sushi', 'fusion', 'curry', 'vegeterian', 'smoke', 'sousage', 'seafood', 'global', 'diverse', 'shrimp', 'kebab', 'cofee', 'patato', 'fry', 'pubfood', 'cheese', 'salad', 'tex_mex', 'boiled', 'salty', 'soup', 'tempura', 'bread', 'beer', 'sweet', 'rice', 'cocktail', 'pizza', 'meat', 'souce', 'grill', 'fruit', 'indigenous', 'chicken', 'tapas', 'burger', 'fermented', 'burrito', 'tea', 'bbq', 'smoothie', 'eclectic', 'truffle', 'noodle', 'risotto', 'fresh', 'feta', 'world', 'oil', 'sandwich', 'baklava', 'souvlaki', 'modern', 'aromatic', 'chocolate']
   for col in columns:
       dtf_context_[col] = dtf_context["flavor_preference"].apply(lambda x: 1 if col in x else 0)
   dtf_context_3= dtf_context_
   dtf_context_3=dtf_context_3.drop(['reason_of_visit','ambience_preference','interest_preference','cuisine_preference','flavor_preference'], axis=1)
+  print("\nDTF CONTEXT 3: \n", dtf_context_3)
   return dtf_context_3
 
 
