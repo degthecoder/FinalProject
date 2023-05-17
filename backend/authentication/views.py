@@ -24,6 +24,12 @@ def retrieve_user(request):
     if user_auth is not None:
           bool = login(request,user_auth)
           print("true")
+
+
+          this_user = User.objects.get(username = user_name)
+          print("HELLO ID", this_user.id)
+          set_user_id(this_user.id)
+
           return Response( True)
                 
     else:
