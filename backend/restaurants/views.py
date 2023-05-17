@@ -42,14 +42,11 @@ def retrieve_near_restaurants(request):
         nearby_restaurants.append(restaurant_dict)
     
     context_df = retrieve_preferences(request)
-    taste_model = load_model('recommendation/new_taste_model_45')
-    general_model = load_model('recommendation/new_general_model_25')
-    ambiance_model = load_model('recommendation/new__new_ambiance_model_20')
+    taste_model = load_model('recommendation/last_good_taste_for_real')
+    general_model = load_model('recommendation/last_good_over_for_real')
+    ambiance_model = load_model('recommendation/last_good_ambiance_for_real_40')
     region,budget_amount,cust_id,topk=1,3,45,10 
     taste_results_of_all_results,top_k_cuisine_preffered,all_results,all_res,all_res_taste,ambiance_results_of_all_results,all_res_ambiance = all_at_once(region,budget_amount,cust_id,get_restaurant_df(),topk,general_model,get_context(),get_features(),get_context_taste(),taste_model,get_features_taste(),context_df.iloc[0],ambiance_model,get_features_ambiance(),get_context_ambiance())
-    #taste_results_of_all_results,top_k_cuisine_preffered,all_results,all_res,all_res_taste,ambiance_results_of_all_results,all_res_ambiance = all_at_once(region,budget_amount,cust_id,final_products_df,topk,general_model,context,features,context_taste,taste_model,features_taste,info_cust,ambiance_model,features_ambiance,context_ambiance)
-
-    
 
     return JsonResponse(nearby_restaurants, safe=False)
 
@@ -88,21 +85,24 @@ def give_me_ratings_of_overall(list_of_df_top_5, context_taste, taste_model,feat
 
 def give_me_top_k_overall_of_customer_preffered(cus,res,top_k):
   tags = []
-  new_df = pd.DataFrame([cus]).pivot_table(index="customer_id") 
+  new_df = copy.deepcopy(pd.DataFrame([cus]).pivot_table(index="customer_id"))
   for col in new_df.columns:
     if new_df.iloc[0][col] ==1:
-      tags.append(col)
+      if  col in (all_cuisines):
+        tags.append(col)
   rrrr=[]
   for i,el in enumerate(tags) :
     if i == 0:
       rrrr.append([res["cuisine"]==el])
     else:
       rrrr.append( [res["cuisine"]==el])
+   
   __aa=[]
   for i in range(len(tags)):
     __aa.append(res[rrrr[i][0]][ len(res[rrrr[i][0]])-top_k:len(res[rrrr[i][0]])  ])
   top_k_cuisine_preffered=__aa
   customer_cuisine_prefference = tags
+   
   return customer_cuisine_prefference,top_k_cuisine_preffered
 
 
@@ -148,19 +148,19 @@ def all_at_once_2(region,budget_amount,cust_id,products_df,topk,general_model,co
   #all_res_taste burada overall ratingden gelen top k ların taste matchi  yhat=> taste ratingleri
   all_res_taste  =give_me_ratings_of_overall(all_res, context_taste, taste_model,features_taste)
   #all_res_ambiance burada overall ratingden gelen top k ların ambiance matchi  yhat=> ambiance ratingleri
-  all_res_ambiance = []
-  #all_res_ambiance   =give_me_ratings_of_overall(all_res, ambiance_context, ambiance_model,ambiance_features)
+  #all_res_ambiance = []
+  all_res_ambiance   =give_me_ratings_of_overall(all_res, ambiance_context, ambiance_model,ambiance_features)
   
   #top_k_cuisine_preffered  =>>> adamin tercih ettigi cuisinelerin overall matchingi  yhat=> overall ratingleri
-  customer_cuisine_prefference= []
-  top_k_cuisine_preffered = []
-  #customer_cuisine_prefference,top_k_cuisine_preffered = give_me_top_k_overall_of_customer_preffered(raw_context,all_results,topk)
+  #customer_cuisine_prefference= []
+  #top_k_cuisine_preffered = []
+  customer_cuisine_prefference,top_k_cuisine_preffered = give_me_top_k_overall_of_customer_preffered(raw_context,all_results,topk)
   #taste_results_of_all_results ===>>>adamin tercih ettigi cuisinelerin taste matchingi  yhat=> taste ratingleri
   taste_results_of_all_results=give_me_ratings_of_overall(top_k_cuisine_preffered, context_taste, taste_model,features_taste)
 
   #ambiance_results_of_all_results ===>>>adamin tercih ettigi cuisinelerin ambiance matchingi  yhat=> ambiance ratingleri
-  ambiance_results_of_all_results = []
-  #ambiance_results_of_all_results=give_me_ratings_of_overall(top_k_cuisine_preffered, ambiance_context, ambiance_model,ambiance_features)
+  #ambiance_results_of_all_results = []
+  ambiance_results_of_all_results=give_me_ratings_of_overall(top_k_cuisine_preffered, ambiance_context, ambiance_model,ambiance_features)
   return taste_results_of_all_results,top_k_cuisine_preffered,all_results,all_res,all_res_taste,ambiance_results_of_all_results,all_res_ambiance
 
 
