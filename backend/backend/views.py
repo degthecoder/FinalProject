@@ -25,6 +25,8 @@ def retrieve_location(request):
     print("const user town: ", constants.user_town)
     location_dict = {"town" : constants.get_user_town()}
 
+    constants.initialize_restaurant_df()
+
     return JsonResponse(location_dict)
     
     
