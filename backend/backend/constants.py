@@ -603,6 +603,37 @@ context_taste = ['Asian_context',
  'salty_context',
  'icecream_context']
 
+all_cuisines =  [ 'FastFood',
+ 'Coffee',
+ 'French',
+ 'Bakery',
+ 'Cafeteria',
+ 'Dutch',
+ 'Steaks',
+ 'Bar',
+ 'Sandwiches',
+ 'BarPubBrewery',
+ 'Burgers',
+ 'Seafood',
+ 'Asian',
+ 'LatinAmerican',
+ 'Juice',
+ 'Korean',
+ 'Greek',
+ 'Japanese',
+ 'Chinese',
+ 'Wine',
+ 'IceCream',
+ 'African',
+ 'American',
+ 'Vegetarian',
+ 'Contemporary',
+ 'Turkish',
+ 'Italian',
+ 'International',
+ 'Pizzeria',
+ 'Mexican']
+
 # getters
 def get_features():
    global features
@@ -627,3 +658,7 @@ def get_features_taste():
 def get_context_taste():
    global context_taste
    return context_taste
+
+def get_all_cuisines():
+   global all_cuisines
+   return all_cuisines

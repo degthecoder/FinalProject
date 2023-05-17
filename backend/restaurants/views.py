@@ -22,7 +22,7 @@ import pandas as pd
 
 from rest_framework.decorators import api_view
 from backend.constants import get_user_town
-from backend.constants import get_restaurant_df, get_context, get_features, get_context_ambiance, get_features_ambiance, get_context_taste, get_features_taste
+from backend.constants import get_restaurant_df, get_context, get_features, get_context_ambiance, get_features_ambiance, get_context_taste, get_features_taste, get_all_cuisines, get_user_id
 
 from restaurants.models import Restaurant
 from customer.views import retrieve_preferences
@@ -30,7 +30,6 @@ from customer.views import retrieve_preferences
 # Create your views here.
 @api_view(['GET'])
 def retrieve_near_restaurants(request):
-    print("const user town: ", get_user_town())
     town = get_user_town()
     filtered_restaurants = Restaurant.filter_restaurants('town','e', town, 'id')
 
@@ -47,6 +46,8 @@ def retrieve_near_restaurants(request):
     ambiance_model = load_model('recommendation/last_good_ambiance_for_real_40')
     region,budget_amount,cust_id,topk=1,3,45,10 
     taste_results_of_all_results,top_k_cuisine_preffered,all_results,all_res,all_res_taste,ambiance_results_of_all_results,all_res_ambiance = all_at_once(region,budget_amount,cust_id,get_restaurant_df(),topk,general_model,get_context(),get_features(),get_context_taste(),taste_model,get_features_taste(),context_df.iloc[0],ambiance_model,get_features_ambiance(),get_context_ambiance())
+    
+    #all_results,all_res,all_res_taste,all_res_ambiance = all_at_once_solo(region,budget_amount,cust_id,get_restaurant_df(),topk,general_model,get_context(),get_features(),get_context_taste(),taste_model,get_features_taste(),context_df.iloc[0],ambiance_model,get_features_ambiance(),get_context_ambiance(), 3)
 
     return JsonResponse(nearby_restaurants, safe=False)
 
@@ -65,7 +66,23 @@ def desing_test_based(region,budget_amount,cust_id,products_df,raw_context):
   test=test.reset_index()
   test=test[test["budget"]<=budget_amount]
   test=test[test["restaurant_id"]%region==0 ]
-  print(test)
+  return test 
+
+def desing_test_based_solo(region,budget_amount,cust_id,products_df,raw_context, restaurant_id):
+  # create a new dataframe with just that row
+  products_df2= copy.deepcopy(products_df.reset_index().iloc[restaurant_id])
+  row = raw_context
+  row["customer_id"]=cust_id
+  new_df = pd.DataFrame([row]).pivot_table(index="customer_id")
+  duplicated_rows = pd.concat([new_df])
+  duplicated_rows.reset_index(inplace=True)
+  duplicated_rows['restaurant_id'] = duplicated_rows.index 
+  duplicated_rows=duplicated_rows.set_index(["customer_id","restaurant_id"])
+  test=  duplicated_rows.add_suffix('_context').join(products_df2, on=['restaurant_id'])
+  test = test.drop("restaurant_id", axis=1)
+  test=test.reset_index()
+  test=test[test["budget"]<=budget_amount]
+  test=test[test["restaurant_id"]%region==0 ]
   return test 
 
 def give_me_ratings_of_overall(list_of_df_top_5, context_taste, taste_model,features_taste):
@@ -73,10 +90,6 @@ def give_me_ratings_of_overall(list_of_df_top_5, context_taste, taste_model,feat
   for i in range(len(list_of_df_top_5)):
       if (len(list_of_df_top_5[i])!=0):
         prod_to_predict =copy.deepcopy(list_of_df_top_5[i])
-        print("Customer ID: \n", prod_to_predict["customer_id"])
-        print("Restaurant ID: \n",prod_to_predict["restaurant_id"])
-        print("Features Taste: \n",prod_to_predict[features_taste])
-        print("Context Taste: \n",prod_to_predict[context_taste])
         prod_to_predict["yhat"] = taste_model.predict([prod_to_predict["customer_id"], prod_to_predict["restaurant_id"], prod_to_predict[features_taste], prod_to_predict[context_taste]])
         prod_to_predict = prod_to_predict.sort_values('yhat')
         to_append.append(prod_to_predict)
@@ -88,7 +101,7 @@ def give_me_top_k_overall_of_customer_preffered(cus,res,top_k):
   new_df = copy.deepcopy(pd.DataFrame([cus]).pivot_table(index="customer_id"))
   for col in new_df.columns:
     if new_df.iloc[0][col] ==1:
-      if  col in (all_cuisines):
+      if  col in get_all_cuisines():
         tags.append(col)
   rrrr=[]
   for i,el in enumerate(tags) :
@@ -120,22 +133,28 @@ def all_at_once(region,budget_amount,cust_id,products_df,topk,general_model,cont
   all_res =give_me_top_k_general_results(all_results,topk)
   #all_res_taste burada overall ratingden gelen top k ların taste matchi  yhat=> taste ratingleri
   all_res_taste  =give_me_ratings_of_overall(all_res, context_taste, taste_model,features_taste)
-  print("\nAll Res Taste: \n", all_res_taste[0])
-  print("\nInfo Cust: \n", raw_context)
-  print("\nALL RES AMBIANCE INPUTS: \n")
 
   #all_res_ambiance burada overall ratingden gelen top k ların ambiance matchi  yhat=> ambiance ratingleri
-  #all_res_ambiance = []
   all_res_ambiance   =give_me_ratings_of_overall(all_res, ambiance_context, ambiance_model,ambiance_features)
   
   #top_k_cuisine_preffered  =>>> adamin tercih ettigi cuisinelerin overall matchingi  yhat=> overall ratingleri
   customer_cuisine_prefference,top_k_cuisine_preffered = give_me_top_k_overall_of_customer_preffered(raw_context,all_results,topk)
+  
   #taste_results_of_all_results ===>>>adamin tercih ettigi cuisinelerin taste matchingi  yhat=> taste ratingleri
   taste_results_of_all_results=give_me_ratings_of_overall(top_k_cuisine_preffered, context_taste, taste_model,features_taste)
 
   #ambiance_results_of_all_results ===>>>adamin tercih ettigi cuisinelerin ambiance matchingi  yhat=> ambiance ratingleri
-  ambiance_results_of_all_results=[]
-  #ambiance_results_of_all_results=give_me_ratings_of_overall(top_k_cuisine_preffered, ambiance_context, ambiance_model,ambiance_features)
+  ambiance_results_of_all_results=give_me_ratings_of_overall(top_k_cuisine_preffered, ambiance_context, ambiance_model,ambiance_features)
+
+  print("TOP K ALL RESULTS \n", all_res[0])
+
+  print("TOP K ALL RESULTS TASTE \n", all_res_taste[0])
+
+  print("TOP K CUISINE PREFERRED \n", top_k_cuisine_preffered[0])
+  print("TOP K CUISINE PREFERRED \n", top_k_cuisine_preffered[1])
+
+  print("TOP K TASTE PREFERRED \n", taste_results_of_all_results[0])
+  print("TOP K TASTE PREFERRED \n", taste_results_of_all_results[1])
   return taste_results_of_all_results,top_k_cuisine_preffered,all_results,all_res,all_res_taste,ambiance_results_of_all_results,all_res_ambiance
 
 
@@ -163,4 +182,21 @@ def all_at_once_2(region,budget_amount,cust_id,products_df,topk,general_model,co
   ambiance_results_of_all_results=give_me_ratings_of_overall(top_k_cuisine_preffered, ambiance_context, ambiance_model,ambiance_features)
   return taste_results_of_all_results,top_k_cuisine_preffered,all_results,all_res,all_res_taste,ambiance_results_of_all_results,all_res_ambiance
 
+def all_at_once_solo(region,budget_amount,cust_id,products_df,topk,general_model,context,features,context_taste,taste_model,features_taste,raw_context,ambiance_model,ambiance_features,ambiance_context, restaurant_id):
+  test = desing_test_based_solo(region,budget_amount,cust_id,products_df,raw_context, restaurant_id)
+  test["yhat"] = general_model.predict([test["customer_id"], test["restaurant_id"], test[features], test[context]])
+  all_results = test.sort_values('yhat')
+  #all_res burada overall ratingden gelen top k yhat=> overall ratingleri
+  all_res =give_me_top_k_general_results(all_results,topk)
+  #all_res_taste burada overall ratingden gelen top k ların taste matchi  yhat=> taste ratingleri
+  all_res_taste  =give_me_ratings_of_overall(all_res, context_taste, taste_model,features_taste)
+  #all_res_ambiance burada overall ratingden gelen top k ların ambiance matchi  yhat=> ambiance ratingleri
+  #all_res_ambiance = []
+  all_res_ambiance   =give_me_ratings_of_overall(all_res, ambiance_context, ambiance_model,ambiance_features)
+
+  print("ALL AT ONCE SOLO OVERALL RESULT: \n", all_res[0])
+  print("ALL AT ONCE SOLO TASTE: \n", all_res_taste[0])
+  print("ALL AT ONCE SOLO AMBIANCE: \n", all_res_ambiance[0])
+  
+  return all_results,all_res,all_res_taste,all_res_ambiance
 
