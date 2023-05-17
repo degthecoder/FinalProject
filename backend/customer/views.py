@@ -50,7 +50,7 @@ def retrieve_preferences(request):
     flavor_preferences = this_customer.flavor_preference
     budget = this_customer.budget_customer
     reason_of_visit = "[Guest]"
-    resp_dict = {"customer_id": 45,
+    resp_dict = {"customer_id": get_user_id(),
                          "interest_preference": interest_preferences, 
                          "ambience_preference": ambiance_preferences, 
                          "cuisine_preference": cuisine_preferences,

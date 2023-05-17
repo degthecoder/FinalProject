@@ -44,7 +44,7 @@ def retrieve_near_restaurants(request):
     taste_model = load_model('recommendation/last_good_taste_for_real')
     general_model = load_model('recommendation/last_good_over_for_real')
     ambiance_model = load_model('recommendation/last_good_ambiance_for_real_40')
-    region,budget_amount,cust_id,topk=1,3,45,10 
+    region,budget_amount,cust_id,topk=1,3,get_user_id(),10 
     taste_results_of_all_results,top_k_cuisine_preffered,all_results,all_res,all_res_taste,ambiance_results_of_all_results,all_res_ambiance = all_at_once(region,budget_amount,cust_id,get_restaurant_df(),topk,general_model,get_context(),get_features(),get_context_taste(),taste_model,get_features_taste(),context_df.iloc[0],ambiance_model,get_features_ambiance(),get_context_ambiance())
     
     #all_results,all_res,all_res_taste,all_res_ambiance = all_at_once_solo(region,budget_amount,cust_id,get_restaurant_df(),topk,general_model,get_context(),get_features(),get_context_taste(),taste_model,get_features_taste(),context_df.iloc[0],ambiance_model,get_features_ambiance(),get_context_ambiance(), 3)
