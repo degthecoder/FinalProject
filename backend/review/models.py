@@ -17,3 +17,27 @@ class ResReview(models.Model):
     overall_rating = models.FloatField(null=False, default=1)  
     
     comment = models.CharField(max_length=200, default="")
+
+
+
+    @classmethod
+    def filter_reviews(cls, field, operation, value, order_by):
+        print("Field: ", field, "Operation: ", operation, "  Value: ", value, "  Order by: ", order_by)
+        # Get all Restaurants
+        reviews = ResReview.objects.all()
+        """
+        if field == "name":
+            for i in range(4):
+                res = restaurants[i]
+                print("name: ", res.name)
+                print("name (val): ", value)
+
+                print("len: ", len(res.name))
+                print("len (val): ", len(value))
+        """
+        # Filter on field name based on Operator
+        if operation == 'e':
+            return cls.objects.filter(**{field: value}).order_by(order_by)
+        elif operation in ['lte','lt','gte', 'gt']:
+            field_name = field + '__' + operation
+            return cls.objects.filter(**{field_name: value}).order_by(order_by) 
