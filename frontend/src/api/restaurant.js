@@ -7,3 +7,10 @@ export const fetchNearRestaurants = async () => {
     
     return resData;
 };  
+
+
+export const fetchAllRestaurants = async () => {
+    const resData =  await axios.get(`${url}/user/feed/all/`);
+    
+    return resData;
+};  
