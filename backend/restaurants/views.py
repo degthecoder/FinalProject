@@ -26,6 +26,10 @@ from backend.constants import get_restaurant_df, get_context, get_features, get_
 
 from restaurants.models import Restaurant
 from customer.views import retrieve_preferences
+from review.views import return_restaurant_reviews
+from review.views import return_user_reviews
+
+
 
 # Create your views here.
 @api_view(['GET'])
@@ -72,9 +76,9 @@ def retrieve_near_restaurants(request):
         #print("SELECTED\n", selected[selected["restaurant_id"]==int(restaurant.id)]["yhat"])
 
         #print("ID:", restaurant.id,"  Name:", restaurant.name, "  Cuisine:", restaurant.cuisine, "  Town:", restaurant.town, "rate: ",restaurant.overall_rating)
-        restaurant_dict_all = {"name" : restaurant.name, "cuisine": restaurant.cuisine, "ambiance": restaurant.ambiance, "overall_rating": restaurant.overall_rating,"yhat": float(selected_all[selected_all["restaurant_id"]==restaurant.id]["yhat"])}
-        restaurant_dict_taste = {"name" : restaurant.name, "cuisine": restaurant.cuisine, "ambiance": restaurant.ambiance, "overall_rating": restaurant.overall_rating,"yhat": float(selected_taste[selected_taste["restaurant_id"]==restaurant.id]["yhat"])}
-        restaurant_dict_ambiance = {"name" : restaurant.name, "cuisine": restaurant.cuisine, "ambiance": restaurant.ambiance, "overall_rating": restaurant.overall_rating,"yhat": float(selected_ambiance[selected_ambiance["restaurant_id"]==restaurant.id]["yhat"])}
+        restaurant_dict_all = {"id": restaurant.id,"name" : restaurant.name, "cuisine": restaurant.cuisine, "ambiance": restaurant.ambiance, "overall_rating": restaurant.overall_rating,"yhat": float(selected_all[selected_all["restaurant_id"]==restaurant.id]["yhat"])}
+        restaurant_dict_taste = {"id": restaurant.id,"name" : restaurant.name, "cuisine": restaurant.cuisine, "ambiance": restaurant.ambiance, "overall_rating": restaurant.overall_rating,"yhat": float(selected_taste[selected_taste["restaurant_id"]==restaurant.id]["yhat"])}
+        restaurant_dict_ambiance = {"id": restaurant.id,"name" : restaurant.name, "cuisine": restaurant.cuisine, "ambiance": restaurant.ambiance, "overall_rating": restaurant.overall_rating,"yhat": float(selected_ambiance[selected_ambiance["restaurant_id"]==restaurant.id]["yhat"])}
 
         nearby_restaurants_all.append(restaurant_dict_all)
         nearby_restaurants_taste.append(restaurant_dict_taste)
@@ -90,6 +94,9 @@ def retrieve_near_restaurants(request):
     
     print("Sorted ALL\n",sorted_nearby_restaurants_all )
     #return JsonResponse(sorted_nearby_restaurants_all, safe=False),JsonResponse(sorted_nearby_restaurants_taste, safe=False),JsonResponse(sorted_nearby_restaurants_ambiance, safe=False)
+
+    revs = return_user_reviews()
+    print("REVS IN RES\n", revs)
 
     return JsonResponse(sorted_nearby_restaurants_all, safe=False)
 
