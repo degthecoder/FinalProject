@@ -80,7 +80,7 @@ const UserNavBar = () => {
                 {!isMobile ? 
                     <>
                         <Box className={classes.container}>
-                            <Link className={classes.link} to="/user">
+                            <Link className={classes.link} to="/user/feed">
                                 <Typography variant="h6" component="div" className={classes.text}>
                                     Feed
                                 </Typography>
