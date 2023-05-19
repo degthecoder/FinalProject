@@ -15,3 +15,5 @@ class ResReview(models.Model):
     customer_need_fast_slow = models.CharField(max_length=30)
     reason_of_visit = models.CharField(max_length=50)
     overall_rating = models.FloatField(null=False, default=1)  
+    
+    comment = models.CharField(max_length=200, default="")
