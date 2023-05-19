@@ -21,7 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),  
     path('home/', views.retrieve_location, name='retrieve_location'),
     path('auth/', include('authentication.urls')),
-    path('user/restaurants/', include('restaurants.urls')),
+    path('user/feed/', include('restaurants.urls')),
     path('user/newuser/', include('customer.urls'))
 
     #path('register/', include('authentication.urls'))

@@ -43,6 +43,8 @@ def return_restaurant_reviews():
 
     return JsonResponse(rev_list,safe=False)
 
+#@api_view(['GET'])
+#def return_user_reviews(request):
 def return_user_reviews():
     #data = request.data
     #res_id = data.restaurant_id
