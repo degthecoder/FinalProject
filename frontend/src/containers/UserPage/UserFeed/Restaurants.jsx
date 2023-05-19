@@ -69,7 +69,7 @@ const Restaurants = () => {
 
     const handleRestaurants = async () => {
         fetchNearRestaurants().then((res) => {
-            setRestaurants(res.data);
+            setRestaurants(res.data.overall);
         });
     };
 

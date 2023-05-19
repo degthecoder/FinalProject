@@ -91,14 +91,14 @@ def retrieve_near_restaurants(request):
     sorted_nearby_restaurants_taste = sorted(nearby_restaurants_taste, key=lambda x: x["yhat"],reverse=True)
     sorted_nearby_restaurants_ambiance = sorted(nearby_restaurants_ambiance, key=lambda x: x["yhat"],reverse=True)
 
-    
+    all_recommendations={"overall": sorted_nearby_restaurants_all, "taste": sorted_nearby_restaurants_taste,"ambiance":sorted_nearby_restaurants_ambiance }
     print("Sorted ALL\n",sorted_nearby_restaurants_all )
     #return JsonResponse(sorted_nearby_restaurants_all, safe=False),JsonResponse(sorted_nearby_restaurants_taste, safe=False),JsonResponse(sorted_nearby_restaurants_ambiance, safe=False)
 
     revs = return_user_reviews()
     print("REVS IN RES\n", revs)
 
-    return JsonResponse(sorted_nearby_restaurants_all, safe=False)
+    return JsonResponse(all_recommendations, safe=False)
 
 def desing_test_based(region,budget_amount,cust_id,products_df,raw_context):
   # create a new dataframe with just that row
