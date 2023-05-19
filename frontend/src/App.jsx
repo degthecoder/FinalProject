@@ -30,7 +30,7 @@ const App = () => {
                     <Route path="/auth/login" element={<LoginPage />} />
                     <Route path="/auth/register" element={<SignUpPage />} />
                     <Route
-                        path="/user"
+                        path="/user/feed"
                         element={
                             <CreatePrivateRoute>
                                 <UserHomePage />

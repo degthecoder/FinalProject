@@ -89,7 +89,7 @@ const LoginPage = () => {
                 setAuthUser(credentials.username);
                 sessionStorage.setItem("user", credentials.username);
                 setColor("red");
-                navigate("/user");
+                navigate("/user/feed");
             })
             .catch((error) => {
                 // eslint-disable-next-line no-console
