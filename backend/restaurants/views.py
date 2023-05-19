@@ -28,6 +28,19 @@ from restaurants.models import Restaurant
 from customer.views import retrieve_preferences
 from review.views import return_restaurant_reviews
 from review.views import return_user_reviews
+@api_view(['GET'])
+def retrieve_all_restaurants(request):
+    #town = get_user_town()
+    all_restaurants = Restaurant.filter_restaurants('overall_rating','lte', 50, 'overall_rating')
+
+    res_list=[]
+    for restaurant in all_restaurants:
+      restaurant_dict = {"id": restaurant.id,"name" : restaurant.name, "cuisine": restaurant.cuisine, "ambiance": restaurant.ambiance, "overall_rating": restaurant.overall_rating}
+      res_list.append(restaurant_dict)
+
+
+
+    return JsonResponse(res_list,safe=False)
 
 
 

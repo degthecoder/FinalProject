@@ -12,7 +12,7 @@ import {
 import UserNavBar from "../../../layouts/UserPage/UserNavbar";
 import Footer from "../../../layouts/LandingPage/Footer";
 import theme from "../../../themes/theme";
-import { fetchNearRestaurants } from "../../../api/restaurant";
+import { fetchAllRestaurants } from "../../../api/restaurant";
 import CreateRestaurant from "./CreateRestaurant";
 import SearchIcon from '@mui/icons-material/Search';
 
@@ -68,8 +68,8 @@ const Restaurants = () => {
     const [slideValue, setSlideValue] = useState([0, 10]);
 
     const handleRestaurants = async () => {
-        fetchNearRestaurants().then((res) => {
-            setRestaurants(res.data.overall);
+        fetchAllRestaurants().then((res) => {
+            setRestaurants(res.data);
         });
     };
 
