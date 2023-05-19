@@ -35,21 +35,63 @@ def retrieve_near_restaurants(request):
 
     nearby_restaurants = [] 
     # Display matching restaurant information 
+    nearby_ids=[]
     for restaurant in filtered_restaurants:
         #print("ID:", restaurant.id,"  Name:", restaurant.name, "  Cuisine:", restaurant.cuisine, "  Town:", restaurant.town, "rate: ",restaurant.overall_rating)
-        restaurant_dict = {"name" : restaurant.name, "cuisine": restaurant.cuisine, "ambiance": restaurant.ambiance, "overall_rating": restaurant.overall_rating}
-        nearby_restaurants.append(restaurant_dict)
-    
+        #restaurant_dict = {"name" : restaurant.name, "cuisine": restaurant.cuisine, "ambiance": restaurant.ambiance, "overall_rating": restaurant.overall_rating}
+        #nearby_restaurants.append(restaurant_dict)
+        nearby_ids.append(restaurant.id)
     context_df = retrieve_preferences(request)
     taste_model = load_model('recommendation/last_good_taste_for_real')
     general_model = load_model('recommendation/last_good_over_for_real')
     ambiance_model = load_model('recommendation/last_good_ambiance_for_real_40')
-    region,budget_amount,cust_id,topk=1,3,get_user_id(),10 
+    region,budget_amount,cust_id,topk=1,3,get_user_id(),500  
+
+
+
     taste_results_of_all_results,top_k_cuisine_preffered,all_results,all_res,all_res_taste,ambiance_results_of_all_results,all_res_ambiance = all_at_once(region,budget_amount,cust_id,get_restaurant_df(),topk,general_model,get_context(),get_features(),get_context_taste(),taste_model,get_features_taste(),context_df.iloc[0],ambiance_model,get_features_ambiance(),get_context_ambiance())
     
     #all_results,all_res,all_res_taste,all_res_ambiance = all_at_once_solo(region,budget_amount,cust_id,get_restaurant_df(),topk,general_model,get_context(),get_features(),get_context_taste(),taste_model,get_features_taste(),context_df.iloc[0],ambiance_model,get_features_ambiance(),get_context_ambiance(), 3)
 
-    return JsonResponse(nearby_restaurants, safe=False)
+  
+
+    selected_all=all_results   #KESIN WORKS
+    selected_taste=all_res_taste[0]   #bu da works
+    selected_ambiance=all_res_ambiance[0]
+   
+
+    i=0
+    nearby_restaurants_all=[]
+    nearby_restaurants_taste=[]
+
+    nearby_restaurants_ambiance=[]
+
+    for restaurant in filtered_restaurants:
+        
+       
+        #print("SELECTED\n", selected[selected["restaurant_id"]==int(restaurant.id)]["yhat"])
+
+        #print("ID:", restaurant.id,"  Name:", restaurant.name, "  Cuisine:", restaurant.cuisine, "  Town:", restaurant.town, "rate: ",restaurant.overall_rating)
+        restaurant_dict_all = {"name" : restaurant.name, "cuisine": restaurant.cuisine, "ambiance": restaurant.ambiance, "overall_rating": restaurant.overall_rating,"yhat": float(selected_all[selected_all["restaurant_id"]==restaurant.id]["yhat"])}
+        restaurant_dict_taste = {"name" : restaurant.name, "cuisine": restaurant.cuisine, "ambiance": restaurant.ambiance, "overall_rating": restaurant.overall_rating,"yhat": float(selected_taste[selected_taste["restaurant_id"]==restaurant.id]["yhat"])}
+        restaurant_dict_ambiance = {"name" : restaurant.name, "cuisine": restaurant.cuisine, "ambiance": restaurant.ambiance, "overall_rating": restaurant.overall_rating,"yhat": float(selected_ambiance[selected_ambiance["restaurant_id"]==restaurant.id]["yhat"])}
+
+        nearby_restaurants_all.append(restaurant_dict_all)
+        nearby_restaurants_taste.append(restaurant_dict_taste)
+        nearby_restaurants_ambiance.append(restaurant_dict_ambiance)
+
+     
+     
+  
+    sorted_nearby_restaurants_all = sorted(nearby_restaurants_all, key=lambda x: x["yhat"],reverse=True)
+    sorted_nearby_restaurants_taste = sorted(nearby_restaurants_taste, key=lambda x: x["yhat"],reverse=True)
+    sorted_nearby_restaurants_ambiance = sorted(nearby_restaurants_ambiance, key=lambda x: x["yhat"],reverse=True)
+
+    
+    print("Sorted ALL\n",sorted_nearby_restaurants_all )
+    #return JsonResponse(sorted_nearby_restaurants_all, safe=False),JsonResponse(sorted_nearby_restaurants_taste, safe=False),JsonResponse(sorted_nearby_restaurants_ambiance, safe=False)
+
+    return JsonResponse(sorted_nearby_restaurants_all, safe=False)
 
 def desing_test_based(region,budget_amount,cust_id,products_df,raw_context):
   # create a new dataframe with just that row
