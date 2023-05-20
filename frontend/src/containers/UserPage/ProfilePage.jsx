@@ -140,11 +140,6 @@ const ProfilePage = () => {
                         </ButtonGroup>
                     </Box>
                 </Box>
-                <Box className={classes.container}>
-                    {/* <Typography className={classes.location}>
-            {location ? `Your Location is ${location}` : "Loading..."}
-          </Typography> */}
-                </Box>
             </Box>
             <Footer />
         </ThemeProvider>

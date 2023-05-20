@@ -7,7 +7,7 @@ import MenuIcon from "./MenuIcon";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { fetchLocation } from "../../api/location";
 import theme from "../../themes/theme";
-import { useMediaQuery } from '@mui/material';
+import { CircularProgress, useMediaQuery } from '@mui/material';
 import ListIcon from '@mui/icons-material/List';
 
 const useStyles = makeStyles({
@@ -93,7 +93,19 @@ const UserNavBar = () => {
                         </Box>
                         <LocationOnIcon className={classes.locIcon}/>
                         <Typography className={classes.location}>
-                            {location ? `${location}`  : "Loading..."}
+                            {location ? `${location}`  : 
+                                (
+                                    <Box sx={{ 
+                                        display:"flex",
+                                        flexDirection: "row",
+                                        alignItems: "center",
+                                        justifyContent: "center"
+                                    }}>
+                                        <CircularProgress sx={{ color: theme.palette.beige.main }} size={16} />
+                                        <Typography className={classes.loading}>Loading...</Typography>
+                                    </Box>
+                                    
+                                )}
                         </Typography>
                         <MenuIcon />
                     </> : 
