@@ -92,6 +92,7 @@ const Restaurants = () => {
                         cuisine={restaurant.cuisine}
                         ambiance={restaurant.ambiance}
                         rating={restaurant.overall_rating}
+                        id={restaurant.id}
                     />
                 );
             });
