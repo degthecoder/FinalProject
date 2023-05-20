@@ -200,7 +200,7 @@ const CreateRestaurant = (props) => {
                         <Star className={classes.star} />
                         <Typography>{review.overall_rating}</Typography>
                     </Box>
-                    <Typography>Hello, the food was good.</Typography>
+                    <Typography>{review.comment}</Typography>
                 </Box>
             ));
         } else {
@@ -221,7 +221,8 @@ const CreateRestaurant = (props) => {
 
         if (checked) {
             postRestaurantReviews(data)
-                .then((response) => console.log(response))
+                // .then((response) => console.log(response))
+                // eslint-disable-next-line no-console
                 .catch(err=>console.error(err));
         }
     };

@@ -19,7 +19,7 @@ from . import views
 
 urlpatterns = [
     path('', views.return_restaurant_reviews, name='restaurant_reviews'),
-    path('postreviews/', views.insert_review, name='insert_restaurant_reviews'),
+    path('insertreviews/', views.insert_review, name='insert__review'),
 
     # path('all/', views.retrieve_all_restaurants, name='retrieve_all_restaurants')
 
