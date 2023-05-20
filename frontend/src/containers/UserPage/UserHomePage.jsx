@@ -2,38 +2,32 @@
 import { React, useEffect, useState } from "react";
 import { Box, Grid, makeStyles, ThemeProvider, Typography } from "@material-ui/core";
 import theme from "../../themes/theme";
-import foodBG from "../../images/food-background.jpg";
+// import foodBG from "../../images/food-background.jpg";
 import Footer from "../../layouts/LandingPage/Footer";
 import UserNavBar from "../../layouts/UserPage/UserNavbar";
 import CreateRestaurant from "./UserFeed/CreateRestaurant";
 import { fetchNearRestaurants } from "../../api/restaurant";
+import { CircularProgress } from "@mui/material";
 
 const useStyles = makeStyles(() => ({
-    root: {
-        backgroundColor: theme.palette.background.dark,
-        minHeight: "100%",
-        paddingTop: theme.spacing(3),
-        paddingBottom: theme.spacing(3)
-    },
     paperContainer: {
-        height: "100%",
-        position: "relative",
-        overflow: "hidden",
-        marginTop: -10,
-        marginBottom: -10
+        height: "120vh",
+        maxWidth: "100vw",
+        paddingTop: '64px',
+        backgroundColor: theme.palette.beige.main
     },
     header1: {
-        color: "#ffffff",
+        color: theme.palette.darkBlue.main,
         fontSize: 70
     },
     header2: {
-        color: "#ffffff",
+        color: theme.palette.darkBlue.main,
         fontSize: 70,
         fontStyle: "italic ",
         marginTop: 0
     },
     location: {
-        color: "#ffffff",
+        color: theme.palette.darkBlue.main,
         fontSize: 50,
         fontStyle: "bold",
         marginTop: 30
@@ -46,26 +40,21 @@ const useStyles = makeStyles(() => ({
     container: {
         display: "flex",
         flexDirection: "column",
-        position: "absolute",
-        width: "100vw",
         top: "10%"
     },
-    container2: {
-        flexDirection: "column",
-        display: "flex",
-        position: "absolute",
-        top: "40%",
-        width: "100vw"
-    },
-    container3: {
-        flexDirection: "column",
-        display: "flex",
-        position: "absolute",
-        top: "70%",
-        width: "100vw"
-    },
     grid: {
-        flexGrow:1
+        maxHeight: '500px', // Set a maximum height for the grid container
+        overflowY: 'hidden',
+        maxWidth: '102vw'
+    },
+    gridItem: {
+        width: '30vw',
+        flex: 1
+    },
+    loading: {
+        color: theme.palette.primary.main,
+        fontStyle:"bold",
+        fontSize: 30
     }
 }));
 
@@ -86,60 +75,69 @@ const UserHomePage = () => {
     
 
     const renderRestaurants = (which) => {
-        console.log(which);
+        if(overall.length > 0 ){
+            switch (which) {
+            case 1:
+                return (overall.map((restaurant, index) => (
+                    <Grid item xs={12} sm={6} md={5} key={index} className={classes.gridItem}>
+                        <CreateRestaurant
+                            key = {index}
+                            name={restaurant.name}
+                            cuisine={restaurant.cuisine}
+                            ambiance={restaurant.ambiance}
+                            rating={restaurant.overall_rating}
+                            id = {restaurant.id}
+                        />
+                    </Grid>
+                )))
+            case 2: 
+                return (taste.map((restaurant, index) => (
+                    <Grid item xs={12} sm={6} md={5} key={index} className={classes.gridItem}>
+                        <CreateRestaurant
+                            key = {index}
+                            name={restaurant.name}
+                            cuisine={restaurant.cuisine}
+                            ambiance={restaurant.ambiance}
+                            rating={restaurant.rating}
+                            id = {restaurant.id}
+    
+                        />
+                    </Grid>
+                )))
+            case 3:
+                return (ambiance.map((restaurant, index) => (
+                    <Grid item xs={12} sm={6} md={5} key={index} className={classes.gridItem}>
+                        <CreateRestaurant
+                            key = {index}
+                            name={restaurant.name}
+                            cuisine={restaurant.cuisine}
+                            ambiance={restaurant.ambiance}
+                            rating={restaurant.rating}
+                            id = {restaurant.id}
+    
+                        />
+                    </Grid>
+                )))
+            default:
+                break;
+            }
+        } 
 
-        switch (which) {
-        case 1:
-            return (overall.map((restaurant, index) => (
-                <Grid item xs={12} sm={6} md={4} key={index}>
-                    <CreateRestaurant
-                        key = {index}
-                        name={restaurant.name}
-                        cuisine={restaurant.cuisine}
-                        ambiance={restaurant.ambiance}
-                        rating={restaurant.rating}
-                    />
-                </Grid>
-            )))
-        case 2: 
-            return (taste.map((restaurant, index) => (
-                <Grid item xs={12} sm={6} md={4} key={index}>
-                    <CreateRestaurant
-                        key = {index}
-                        name={restaurant.name}
-                        cuisine={restaurant.cuisine}
-                        ambiance={restaurant.ambiance}
-                        rating={restaurant.rating}
-                    />
-                </Grid>
-            )))
-        case 3:
-            return (ambiance.map((restaurant, index) => (
-                <Grid item xs={12} sm={6} md={4} key={index}>
-                    <CreateRestaurant
-                        key = {index}
-                        name={restaurant.name}
-                        cuisine={restaurant.cuisine}
-                        ambiance={restaurant.ambiance}
-                        rating={restaurant.rating}
-                    />
-                </Grid>
-            )))
-        default:
-            break;
-        }
-
-        return (overall.map((restaurant, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index}>
-                <CreateRestaurant
-                    key = {index}
-                    name={restaurant.name}
-                    cuisine={restaurant.cuisine}
-                    ambiance={restaurant.ambiance}
-                    rating={restaurant.rating}
-                />
-            </Grid>
-        )))
+        return (
+            <Box sx={{ 
+                display:"flex",
+                flexDirection: "row",
+                height: "20vh",
+                width:"100vw",
+                marginTop: 10,
+                alignItems: "center",
+                justifyContent: "center"
+                // backgroundColor: theme.palette.secondary.main
+            }}>
+                <CircularProgress sx={{ color: theme.palette.primary.main }} />
+                <Typography className={classes.loading}>Loading...</Typography>
+            </Box>
+        )
     }
 
     useEffect(() => {
@@ -150,46 +148,29 @@ const UserHomePage = () => {
         <ThemeProvider theme={theme}>
             <UserNavBar />
             <Box className={classes.paperContainer}>
-                <img
-                    src={foodBG}
-                    alt="food-background"
-                    className={classes.image}
-                />
                 <Box className={classes.container}>
                     <Typography className={classes.location}>
                         Overall Recommended
                     </Typography>
-                    <div style={{ overflowX: 'auto' }}>
-                        <Grid container spacing={2} wrap="nowrap" className={classes.grid} direction="row">
-                            {overall.length > 0 ? 
-                                (renderRestaurants(1)):
-                                (<Typography className={classes.header1}> </Typography>)}
-                        </Grid>
-                    </div>
+                    <Grid container spacing={4} wrap="nowrap" className={classes.grid} direction="row">
+                        {renderRestaurants(1)}
+                    </Grid>
                 </Box>
-                <Box className={classes.container2}>
+                <Box className={classes.container}>
                     <Typography className={classes.location}>
                         Taste
                     </Typography>
-                    <div style={{ overflowX: 'auto' }}>
-                        <Grid container spacing={1} wrap="nowrap"  direction="row" className={classes.grid}>
-                            {overall.length > 0 ? 
-                                (renderRestaurants(2)):
-                                (<Typography className={classes.header1}> </Typography>)}
-                        </Grid>
-                    </div>
+                    <Grid container spacing={4} wrap="nowrap"  direction="row" className={classes.grid}>
+                        {renderRestaurants(2)}
+                    </Grid>
                 </Box>
-                <Box className={classes.container3}>
+                <Box className={classes.container}>
                     <Typography className={classes.location}>
                         Ambiance
                     </Typography>
-                    <div style={{ overflowX: 'auto' }}>
-                        <Grid container spacing={1} wrap="nowrap"  direction="row" className={classes.grid}>
-                            {overall.length > 0 ? 
-                                (renderRestaurants(3)):
-                                (<Typography className={classes.header1}> </Typography>)}
-                        </Grid>
-                    </div>
+                    <Grid container spacing={4} wrap="nowrap"  direction="row" className={classes.grid}>
+                        {renderRestaurants(3)}
+                    </Grid>
                 </Box>
             </Box>
             <Footer />

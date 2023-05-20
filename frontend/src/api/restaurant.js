@@ -14,3 +14,15 @@ export const fetchAllRestaurants = async () => {
     
     return resData;
 };  
+
+export const fetchRestaurantReviews = async (data) => {
+    const resData =  await axios.post(`${url}/user/restaurant/`, data);
+    
+    return resData;
+}
+
+export const postRestaurantReviews = async (data) => {
+    const resData =  await axios.post(`${url}/user/restaurant/insertreviews`, data);
+    
+    return resData;
+}

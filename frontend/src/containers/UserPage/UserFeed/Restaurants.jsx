@@ -15,6 +15,7 @@ import theme from "../../../themes/theme";
 import { fetchAllRestaurants } from "../../../api/restaurant";
 import CreateRestaurant from "./CreateRestaurant";
 import SearchIcon from '@mui/icons-material/Search';
+import { CircularProgress } from "@mui/material";
 
 const useStyles = makeStyles(() => ({
     paperContainer: {
@@ -41,10 +42,10 @@ const useStyles = makeStyles(() => ({
         padding: 10
     },
     noLocation: {
-        height: "100vh",
-        width: "80vw",
-        borderRadius: 10,
-        background: theme.palette.beige.main,
+        // height: "100vh",
+        // width: "80vw",
+        // borderRadius: 10,
+        color: theme.palette.primary.main,
         fontSize: 30
     },
     searchtext: {
@@ -126,7 +127,18 @@ const Restaurants = () => {
                     {restaurantlist.length > 0 ? (
                         renderRestaurants()
                     ) : (
-                        <Typography className={classes.noLocation}>Loading...</Typography>
+                        <Box sx={{ 
+                            display:"flex",
+                            flexDirection: "row",
+                            height: "40vh",
+                            marginTop: 10,
+                            alignItems: "center",
+                            justifyContent: "center"
+                            // backgroundColor: theme.palette.secondary.main
+                        }}>
+                            <CircularProgress sx={{ color:theme.palette.primary.main }} />
+                            <Typography className={classes.noLocation}>Loading...</Typography>
+                        </Box>
                     )}
                 </Box>
                 <Box className={classes.searchcontainer} border={1}>

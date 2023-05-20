@@ -28,12 +28,13 @@ def insert_review(request):
     return JsonResponse(list1,safe=False)
 
 
-#@api_view(['GET'])
-#def return_restaurant_reviews(request):
-def return_restaurant_reviews():
-    #data = request.data
-    #res_id = data.restaurant_id
-    res_id = 43
+@api_view(['POST'])
+def return_restaurant_reviews(request):
+# def return_restaurant_reviews():
+    data = request.data
+    print("DATA ", data)
+    res_id = data['restaurant_id']
+    print("DATA ", res_id)
     rev_list=[]
     filtered_reviews = ResReview.filter_reviews('review_restaurant','e', res_id, 'overall_rating')
     for review in filtered_reviews:
