@@ -98,6 +98,7 @@ const UserHomePage = () => {
                         cuisine={restaurant.cuisine}
                         ambiance={restaurant.ambiance}
                         rating={restaurant.rating}
+                        id = {restaurant.id}
                     />
                 </Grid>
             )))
@@ -110,6 +111,8 @@ const UserHomePage = () => {
                         cuisine={restaurant.cuisine}
                         ambiance={restaurant.ambiance}
                         rating={restaurant.rating}
+                        id = {restaurant.id}
+
                     />
                 </Grid>
             )))
@@ -122,6 +125,8 @@ const UserHomePage = () => {
                         cuisine={restaurant.cuisine}
                         ambiance={restaurant.ambiance}
                         rating={restaurant.rating}
+                        id = {restaurant.id}
+
                     />
                 </Grid>
             )))
