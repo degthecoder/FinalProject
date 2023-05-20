@@ -11,12 +11,12 @@ from review.models import ResReview
 def insert_review(request):
     data = request.data
     review = ResReview()
-
+    print("here", data)
     review.ambiance_rating=data.ambiance_rating
     review.taste_rating=data.taste_rating
     review.service_rating=data.service_rating
 
-
+    print(review.ambiance_rating, " here")
     review.customer_need_fast_slow=[data.customer_need]  #Liste olup olmamasına dikkat
     review.reason_of_visit=data.reason_of_visit
     review.overall_rating= 0.25 * data.ambiance_rating + 0.25 * data.service_rating + 0.5 * data.taste_rating
