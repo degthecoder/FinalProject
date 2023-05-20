@@ -98,7 +98,7 @@ const UserHomePage = () => {
                             name={restaurant.name}
                             cuisine={restaurant.cuisine}
                             ambiance={restaurant.ambiance}
-                            rating={restaurant.rating}
+                            rating={restaurant.overall_rating}
                             id = {restaurant.id}
     
                         />
@@ -112,7 +112,7 @@ const UserHomePage = () => {
                             name={restaurant.name}
                             cuisine={restaurant.cuisine}
                             ambiance={restaurant.ambiance}
-                            rating={restaurant.rating}
+                            rating={restaurant.overall_rating}
                             id = {restaurant.id}
     
                         />

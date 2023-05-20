@@ -6,25 +6,37 @@ import copy
 from rest_framework.decorators import api_view
 from backend.constants import get_user_id
 from review.models import ResReview
+from customer.models import Customer
+from restaurants.models import Restaurant
 # Create your views here.
 @api_view(['POST'])
 def insert_review(request):
     data = request.data
     review = ResReview()
     print("here", data)
-    review.ambiance_rating=data.ambiance_rating
-    review.taste_rating=data.taste_rating
-    review.service_rating=data.service_rating
+    review.ambiance_rating=data["ambiance_rating"]
+    
+    review.taste_rating=data["taste_rating"]
+    review.service_rating=data["service_rating"]
 
-    print(review.ambiance_rating, " here")
-    review.customer_need_fast_slow=[data.customer_need]  #Liste olup olmamasına dikkat
-    review.reason_of_visit=data.reason_of_visit
-    review.overall_rating= 0.25 * data.ambiance_rating + 0.25 * data.service_rating + 0.5 * data.taste_rating
-    review.review_customer = get_user_id()
-    review.review_restaurant=data.restaurant_id
-    review.comment = data.comment
+    #review.customer_need_fast_slow=[data.customer_need]  #Liste olup olmamasına dikkat
+    #review.reason_of_visit=data.reason_of_visit
+    review.overall_rating= 0.25 * data["ambiance_rating"] + 0.25 * data["service_rating"] + 0.5 * data["taste_rating"]
+
+
+    customer = Customer.objects.get(user_customer_id = get_user_id())
+
+    print("CUST", customer)
+    review.review_customer = customer
+    
+    restaurant = Restaurant.objects.get(id = data["restaurant_id"])
+    
+
+
+    review.review_restaurant=restaurant
+    review.comment = data["comment"]
     review.save()
-    list1=[]
+    list1=[200]
     return JsonResponse(list1,safe=False)
 
 
