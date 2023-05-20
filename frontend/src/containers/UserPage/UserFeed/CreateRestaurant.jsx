@@ -217,7 +217,8 @@ const CreateRestaurant = (props) => {
         const data = { restaurant_id: id, 
             ambiance_rating: ambianceRating,
             taste_rating:tasteRating,
-            service_rating:serviceRating };
+            service_rating:serviceRating,
+            comment: reviewText };
 
         if (checked) {
             postRestaurantReviews(data)
@@ -225,10 +226,11 @@ const CreateRestaurant = (props) => {
                 // eslint-disable-next-line no-console
                 .catch(err=>console.error(err));
         }
+        console.log(data);
     };
 
 
-    const handleReviewChange = () => {
+    const handleReviewChange = (event) => {
         const inputText = event.target.value;
         const words = inputText.split(' ');
         if (words.length <= 200) {
@@ -238,6 +240,7 @@ const CreateRestaurant = (props) => {
 
     const handleServiceRatingChange = (event, value) => {
         setServiceRating(value);
+        console.log(serviceRating);
     };
     
     const handleTasteRatingChange = (event, value) => {
