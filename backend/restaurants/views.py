@@ -207,15 +207,15 @@ def all_at_once(region,budget_amount,cust_id,products_df,topk,general_model,cont
   #ambiance_results_of_all_results ===>>>adamin tercih ettigi cuisinelerin ambiance matchingi  yhat=> ambiance ratingleri
   ambiance_results_of_all_results=give_me_ratings_of_overall(top_k_cuisine_preffered, ambiance_context, ambiance_model,ambiance_features)
 
-  print("TOP K ALL RESULTS \n", all_res[0])
+  #print("TOP K ALL RESULTS \n", all_res[0])
 
-  print("TOP K ALL RESULTS TASTE \n", all_res_taste[0])
+  #print("TOP K ALL RESULTS TASTE \n", all_res_taste[0])
 
-  print("TOP K CUISINE PREFERRED \n", top_k_cuisine_preffered[0])
-  print("TOP K CUISINE PREFERRED \n", top_k_cuisine_preffered[1])
+  #print("TOP K CUISINE PREFERRED \n", top_k_cuisine_preffered[0])
+  #print("TOP K CUISINE PREFERRED \n", top_k_cuisine_preffered[1])
 
-  print("TOP K TASTE PREFERRED \n", taste_results_of_all_results[0])
-  print("TOP K TASTE PREFERRED \n", taste_results_of_all_results[1])
+  #print("TOP K TASTE PREFERRED \n", taste_results_of_all_results[0])
+  #print("TOP K TASTE PREFERRED \n", taste_results_of_all_results[1])
   return taste_results_of_all_results,top_k_cuisine_preffered,all_results,all_res,all_res_taste,ambiance_results_of_all_results,all_res_ambiance
 
 
