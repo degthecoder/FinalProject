@@ -9,7 +9,7 @@ import LoginPage from "./containers/AuthPage/LoginPage.jsx";
 import SignUpPage from "./containers/AuthPage/SignUpPage.jsx";
 import UserHomePage from "./containers/UserPage/UserHomePage.jsx";
 import CreatePrivateRoute from "./renderPrivateRoutes";
-import ProfilePage from "./containers/UserPage/ProfilePage.jsx";
+import ProfilePage from "./containers/UserPage/ProfilePage/ProfilePage.jsx";
 import Preferences from "./containers/UserPage/Preferences/Preferences.jsx";
 import Restaurants from "./containers/UserPage/UserFeed/Restaurants";
 import Ambiance from "./containers/UserPage/Preferences/Ambiance";

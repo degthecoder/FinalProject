@@ -7,13 +7,14 @@ import {
     ButtonGroup,
     Button
 } from "@material-ui/core";
-import Footer from "../../layouts/LandingPage/Footer";
-import UserNavBar from "../../layouts/UserPage/UserNavbar";
+import Footer from "../../../layouts/LandingPage/Footer";
+import UserNavBar from "../../../layouts/UserPage/UserNavbar";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import theme from "../../themes/theme";
-// import { fetchLocation } from "../../api/authentication";
+import theme from "../../../themes/theme";
+import Overview from "./Overview";
+import Settings from "./Settings";
 
-// import AspectRatio from '@mui/joy';
+
 const useStyles = makeStyles(() => ({
     root: {
         backgroundColor: theme.palette.background.dark,
@@ -87,25 +88,39 @@ const useStyles = makeStyles(() => ({
 
 const ProfilePage = () => {
     const classes = useStyles();
-    // const [location, setLocation] = useState(null);
     const [username, setUsername] = useState("");
+    const [selectedComponent, setSelectedComponent] = useState(1);
+
+    const handleButtonClick = (component) => {
+        setSelectedComponent(component);
+    };
+
+
+    const renderViews = (which) => {
+        console.log(selectedComponent);
+        switch (which) {
+        case 1:
+            return <Overview/>;
+        case 0:
+            return <Settings/>;
+        default:
+            return <Typography>Something went wrong</Typography>;
+        }
+    }
 
     const buttons = [
-        <Button key="profile" className={classes.button} variant="text">
-      Profile
+        <Button key="profile" className={classes.button} variant="text" onClick={() => handleButtonClick(0)}>
+            Profile
         </Button>,
-        <Button key="overview" className={classes.button} variant="text">
-      Overview
+        <Button key="overview" className={classes.button} variant="text" onClick={() => handleButtonClick(1)}>
+            Overview
         </Button>,
-        <Button key="settings" className={classes.button} variant="text">
-      Settings
+        <Button key="settings" className={classes.button} variant="text" onClick={() => handleButtonClick(0)}>
+            Settings
         </Button>
     ];
 
     useEffect(() => {
-    // fetchLocation().then((res) => {
-    //   setLocation(res);
-    // });
         try {
             setUsername(sessionStorage.getItem("user").toUpperCase());
         } catch (error) {
@@ -139,8 +154,10 @@ const ProfilePage = () => {
                             {buttons}
                         </ButtonGroup>
                     </Box>
+                    {renderViews(selectedComponent)}
                 </Box>
             </Box>
+
             <Footer />
         </ThemeProvider>
     );

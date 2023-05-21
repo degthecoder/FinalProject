@@ -26,3 +26,9 @@ export const postRestaurantReviews = async (data) => {
     
     return resData;
 }
+
+export const fetchUserReviews = async () => {
+    const resData =  await axios.get(`${url}/user/restaurant/returnreviews/`);
+    
+    return resData;
+}

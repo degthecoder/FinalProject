@@ -56,20 +56,24 @@ def return_restaurant_reviews(request):
 
     return JsonResponse(rev_list,safe=False)
 
-#@api_view(['GET'])
-#def return_user_reviews(request):
-def return_user_reviews():
-    #data = request.data
-    #res_id = data.restaurant_id
-    #user_id = get_user_id()
-    user_id = 43
+@api_view(['GET'])
+# def return_user_reviews(request):
+def return_user_reviews(request):
+    # data = request.data
+    # res_id = data["restaurant_id"]
+    
+   #  print("hERE, " ,user_id)
+    # user_id = get_user_id
+
+    this_customer = Customer.objects.get(user_customer=get_user_id())
+    user_id = this_customer.id
     rev_list=[]
-    filtered_reviews = ResReview.filter_reviews('review_customer','e', 6, 'overall_rating')
+    filtered_reviews = ResReview.filter_reviews('review_customer','e', user_id, 'overall_rating')
     for review in filtered_reviews:
         rev = {"ambiance_rating": review.ambiance_rating,"service_rating": review.service_rating,
                "taste_rating": review.taste_rating,"overall_rating": review.overall_rating, "comment": review.comment}
         rev_list.append(rev)
 
-    #print("LENGTH ",len(rev_list))
+    print("LENGTH ",len(rev_list))
 
     return JsonResponse(rev_list,safe=False)
