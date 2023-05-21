@@ -108,8 +108,7 @@ def retrieve_near_restaurants(request):
     print("Sorted ALL\n",sorted_nearby_restaurants_all )
     #return JsonResponse(sorted_nearby_restaurants_all, safe=False),JsonResponse(sorted_nearby_restaurants_taste, safe=False),JsonResponse(sorted_nearby_restaurants_ambiance, safe=False)
 
-    revs = return_user_reviews()
-    print("REVS IN RES\n", revs)
+   
 
     return JsonResponse(all_recommendations, safe=False)
 
