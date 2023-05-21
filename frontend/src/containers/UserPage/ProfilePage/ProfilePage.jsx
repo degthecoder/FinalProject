@@ -89,7 +89,7 @@ const useStyles = makeStyles(() => ({
 const ProfilePage = () => {
     const classes = useStyles();
     const [username, setUsername] = useState("");
-    const [selectedComponent, setSelectedComponent] = useState(0);
+    const [selectedComponent, setSelectedComponent] = useState(1);
 
     const handleButtonClick = (component) => {
         setSelectedComponent(component);
@@ -99,9 +99,9 @@ const ProfilePage = () => {
     const renderViews = (which) => {
         console.log(selectedComponent);
         switch (which) {
-        case 0:
-            return <Overview/>;
         case 1:
+            return <Overview/>;
+        case 0:
             return <Settings/>;
         default:
             return <Typography>Something went wrong</Typography>;
