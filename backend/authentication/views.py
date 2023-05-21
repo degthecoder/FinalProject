@@ -23,7 +23,7 @@ def retrieve_user(request):
 #     print("retrieve  a"  + str(user_auth))
     if user_auth is not None:
           bool = login(request,user_auth)
-          print("true")
+          #print("true")
 
 
           this_user = User.objects.get(username = user_name)
@@ -51,7 +51,7 @@ def signup(request):
         myuser.save()
         set_user_id(myuser.id)
         
-        print("sign up ")
+        #print("sign up ")
         print(username)
         print(email)
         print(password)

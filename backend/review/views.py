@@ -59,18 +59,14 @@ def return_restaurant_reviews(request):
 @api_view(['GET'])
 # def return_user_reviews(request):
 def return_user_reviews(request):
-    # data = request.data
-    # res_id = data["restaurant_id"]
     
-   #  print("hERE, " ,user_id)
-    # user_id = get_user_id
-
     this_customer = Customer.objects.get(user_customer=get_user_id())
     user_id = this_customer.id
     rev_list=[]
     filtered_reviews = ResReview.filter_reviews('review_customer','e', user_id, 'overall_rating')
     for review in filtered_reviews:
-        rev = {"ambiance_rating": review.ambiance_rating,"service_rating": review.service_rating,
+
+        rev = {"ambiance_rating": review.ambiance_rating,"service_rating": review.service_rating,"restaurant_name": review.review_restaurant.name,
                "taste_rating": review.taste_rating,"overall_rating": review.overall_rating, "comment": review.comment}
         rev_list.append(rev)
 
