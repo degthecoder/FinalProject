@@ -74,7 +74,7 @@ const UserNavBar = () => {
             className={classes.outerContainer}
         >
             <Toolbar>
-                <a href="/user">
+                <a href="/user/feed">
                     <img className={classes.icon} src={image} alt="ConceptLogosx" />
                 </a>
                 {!isMobile ? 
