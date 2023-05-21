@@ -20,16 +20,19 @@ const useStyles = makeStyles(() => ({
         padding: 10
     },
     header1: {
-        // color: "#C1121F",
         color: theme.palette.primary.main,
         fontSize: 70
     },
     header2: {
-        // color: "#C1121F",
         color: theme.palette.primary.main,
         fontSize: 30,
-        // fontStyle: "italic",
         marginTop: 0
+    },
+    header: {
+        color: theme.palette.darkBlue.main,
+        fontSize: 20,
+        fontStyle: 'bold',
+        borderBottom: "1px solid",
     },
     container: {
         alignItems: "left",
@@ -88,6 +91,7 @@ const Overview = () => {
         if (review.length > 0) {
             return review.map((review, index) => (
                 <Box key={index} className={classes.review}>
+                    <Typography variant="h1" className={classes.header}>{review.restaurant_name}</Typography>
                     <Box className={classes.reviewRating}>
                         <Typography>Ambiance: </Typography>
                         <Star className={classes.star} />
