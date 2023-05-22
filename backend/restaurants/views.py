@@ -25,9 +25,11 @@ from backend.constants import get_user_town
 from backend.constants import get_restaurant_df, get_context, get_features, get_context_ambiance, get_features_ambiance, get_context_taste, get_features_taste, get_all_cuisines, get_user_id
 
 from restaurants.models import Restaurant
+from customer.models import Customer
 from customer.views import retrieve_preferences
 from review.views import return_restaurant_reviews
 from review.views import return_user_reviews
+
 @api_view(['GET'])
 def retrieve_all_restaurants(request):
     #town = get_user_town()
@@ -61,7 +63,9 @@ def retrieve_near_restaurants(request):
     taste_model = load_model('recommendation/last_good_taste_for_real')
     general_model = load_model('recommendation/last_good_over_for_real')
     ambiance_model = load_model('recommendation/last_good_ambiance_for_real_40')
-    region,budget_amount,cust_id,topk=1,3,get_user_id(),20  
+    customer = Customer.objects.get(user_customer_id = get_user_id())
+    region,budget_amount,cust_id,topk=1,3,customer.id,20  
+    print("\nCustomer ID: \n", cust_id)
 
     # Call ML Models with Nearby Restaurant ids
     all_results,all_res,all_res_taste,all_res_ambiance = all_at_once_n(region,budget_amount,cust_id,get_restaurant_df(),topk,general_model,get_context(),get_features(),get_context_taste(),taste_model,get_features_taste(),context_df.iloc[0],ambiance_model,get_features_ambiance(),get_context_ambiance(), nearby_ids)
@@ -296,11 +300,11 @@ def all_at_once_n(region,budget_amount,cust_id,products_df,topk,general_model,co
   
   #print("TOP K ALL RESULTS TASTE \n", all_res_taste[0])
   print("Customer Cuisine Preference \n", customer_cuisine_prefference)
-  #print("TOP K CUISINE PREFERRED 0 \n", top_k_cuisine_preffered[0])
-  #print("TOP K CUISINE PREFERRED 1 \n", top_k_cuisine_preffered[1])
+  print("TOP K CUISINE PREFERRED 0 \n", top_k_cuisine_preffered[0])
+  print("TOP K CUISINE PREFERRED 1 \n", top_k_cuisine_preffered[1])
 
-  #print("TOP K TASTE PREFERRED 0 \n", taste_results_of_all_results[0])
-  #print("TOP K TASTE PREFERRED 1 \n", taste_results_of_all_results[1])
+  print("TOP K TASTE PREFERRED 0 \n", taste_results_of_all_results[0])
+  print("TOP K TASTE PREFERRED 1 \n", taste_results_of_all_results[1])
   
   ### UNCOMMENT BELOW FOR MORE OUTPUTS ###
   #return taste_results_of_all_results,top_k_cuisine_preffered,all_results,all_res,all_res_taste,ambiance_results_of_all_results,all_res_ambiance
