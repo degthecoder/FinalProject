@@ -68,16 +68,23 @@ def retrieve_near_restaurants(request):
     print("\nCustomer ID: \n", cust_id)
 
     # Call ML Models with Nearby Restaurant ids
-    all_results,all_res,all_res_taste,all_res_ambiance = all_at_once_n(region,budget_amount,cust_id,get_restaurant_df(),topk,general_model,get_context(),get_features(),get_context_taste(),taste_model,get_features_taste(),context_df.iloc[0],ambiance_model,get_features_ambiance(),get_context_ambiance(), nearby_ids)
+    customer_cuisine_preferences, top_k_cuisine_taste,top_k_cuisine_overall,all_res,all_res_taste,top_k_cuisine_ambiance,all_res_ambiance = all_at_once_n(region,budget_amount,cust_id,get_restaurant_df(),topk,general_model,get_context(),get_features(),get_context_taste(),taste_model,get_features_taste(),context_df.iloc[0],ambiance_model,get_features_ambiance(),get_context_ambiance(), nearby_ids)
+    
+    topk_recommended_all = {}
+    topk_recommended_taste = {}
+    topk_recommended_ambiance = {}
 
-    #taste_results_of_all_results,top_k_cuisine_preffered,all_results,all_res,all_res_taste,ambiance_results_of_all_results,all_res_ambiance = all_at_once(region,budget_amount,cust_id,get_restaurant_df(),topk,general_model,get_context(),get_features(),get_context_taste(),taste_model,get_features_taste(),context_df.iloc[0],ambiance_model,get_features_ambiance(),get_context_ambiance())
-
+    print("Customer Cuisine Preference \n", customer_cuisine_preferences)
+    for c in range(len(customer_cuisine_preferences)):
+      print("Top", topk, customer_cuisine_preferences[c], "Restaurants Recommended (Overall Match) \n", top_k_cuisine_overall[c])
+      print("Top", topk, customer_cuisine_preferences[c], "Restaurants Recommended (Taste Match) \n", top_k_cuisine_taste[c])
+      print("Top", topk, customer_cuisine_preferences[c], "Restaurants Recommended (Ambiance Match) \n", top_k_cuisine_ambiance[c])
 
     #selected_all=all_results   #KESIN WORKS
+    selected_all=all_res[0]   #KESIN WORKS
     selected_taste=all_res_taste[0]   #bu da works
     selected_ambiance=all_res_ambiance[0]
-
-    selected_all=all_res[0]   #KESIN WORKS
+    
 
     i=0
     nearby_restaurants_all=[]
@@ -295,20 +302,9 @@ def all_at_once_n(region,budget_amount,cust_id,products_df,topk,general_model,co
   #ambiance_results_of_all_results ===>>>adamin tercih ettigi cuisinelerin ambiance matchingi  yhat=> ambiance ratingleri
   ambiance_results_of_all_results=give_me_ratings_of_overall(top_k_cuisine_preffered, ambiance_context, ambiance_model,ambiance_features)
 
-  #print("TOP K ALL RESULTS \n", all_res[0])
+  #return all_results,all_res,all_res_taste,all_res_ambiance
+  return customer_cuisine_prefference,taste_results_of_all_results,top_k_cuisine_preffered,all_res,all_res_taste,ambiance_results_of_all_results,all_res_ambiance
 
   
-  #print("TOP K ALL RESULTS TASTE \n", all_res_taste[0])
-  print("Customer Cuisine Preference \n", customer_cuisine_prefference)
-
-  for c in range(len(customer_cuisine_prefference)):
-    print("Top", topk, customer_cuisine_prefference[c], "Restaurants Recommended (Overall Match) \n", top_k_cuisine_preffered[c])
-    print("Top", topk, customer_cuisine_prefference[c], "Restaurants Recommended (Taste Match) \n", taste_results_of_all_results[c])
-    print("Top", topk, customer_cuisine_prefference[c], "Restaurants Recommended (Ambiance Match) \n", ambiance_results_of_all_results[c])
-  
-  ### UNCOMMENT BELOW FOR MORE OUTPUTS ###
-  #return taste_results_of_all_results,top_k_cuisine_preffered,all_results,all_res,all_res_taste,ambiance_results_of_all_results,all_res_ambiance
-
-  return all_results,all_res,all_res_taste,all_res_ambiance
 
 
