@@ -55,38 +55,20 @@ def retrieve_near_restaurants(request):
     for restaurant in filtered_restaurants:
         nearby_ids.append(restaurant.id)
 
-    print("--------------------------")
-    print("NEARBY IDs: ", nearby_ids)
-    print("--------------------------")
-
     context_df = retrieve_preferences(request)
     taste_model = load_model('recommendation/last_good_taste_for_real')
     general_model = load_model('recommendation/last_good_over_for_real')
     ambiance_model = load_model('recommendation/last_good_ambiance_for_real_40')
     customer = Customer.objects.get(user_customer_id = get_user_id())
     region,budget_amount,cust_id,topk=1,3,customer.id,20  
-    print("\nCustomer ID: \n", cust_id)
 
     # Call ML Models with Nearby Restaurant ids
     customer_cuisine_preferences, top_k_cuisine_taste,top_k_cuisine_overall,all_res,all_res_taste,top_k_cuisine_ambiance,all_res_ambiance = all_at_once_n(region,budget_amount,cust_id,get_restaurant_df(),topk,general_model,get_context(),get_features(),get_context_taste(),taste_model,get_features_taste(),context_df.iloc[0],ambiance_model,get_features_ambiance(),get_context_ambiance(), nearby_ids)
     
-    topk_recommended_all = {}
-    topk_recommended_taste = {}
-    topk_recommended_ambiance = {}
-
-    print("Customer Cuisine Preference \n", customer_cuisine_preferences)
-    for c in range(len(customer_cuisine_preferences)):
-      print("Top", topk, customer_cuisine_preferences[c], "Restaurants Recommended (Overall Match) \n", top_k_cuisine_overall[c])
-      print("Top", topk, customer_cuisine_preferences[c], "Restaurants Recommended (Taste Match) \n", top_k_cuisine_taste[c])
-      print("Top", topk, customer_cuisine_preferences[c], "Restaurants Recommended (Ambiance Match) \n", top_k_cuisine_ambiance[c])
-
-    #selected_all=all_results   #KESIN WORKS
-    selected_all=all_res[0]   #KESIN WORKS
-    selected_taste=all_res_taste[0]   #bu da works
+    selected_all=all_res[0]
+    selected_taste=all_res_taste[0]  
     selected_ambiance=all_res_ambiance[0]
     
-
-    i=0
     nearby_restaurants_all=[]
     nearby_restaurants_taste=[]
     nearby_restaurants_ambiance=[]
@@ -105,10 +87,58 @@ def retrieve_near_restaurants(request):
     sorted_nearby_restaurants_taste = sorted(nearby_restaurants_taste, key=lambda x: x["yhat"],reverse=True)
     sorted_nearby_restaurants_ambiance = sorted(nearby_restaurants_ambiance, key=lambda x: x["yhat"],reverse=True)
 
-    all_recommendations={"overall": sorted_nearby_restaurants_all, "taste": sorted_nearby_restaurants_taste,"ambiance":sorted_nearby_restaurants_ambiance }
-    print("Sorted ALL\n",sorted_nearby_restaurants_all )
+    # Dictionaries for storing the cuisine-specific model outputs
+    # Format : { "cuisine 1": [ {restaurant 1} , {restaurant 2}, ..]}
+    topk_recommended_all = {}
+    topk_recommended_taste = {}
+    topk_recommended_ambiance = {}
 
+    print("Customer Cuisine Preferences \n", customer_cuisine_preferences)
 
+    # If there are no restaurants of customer's cuisine choice, return empty dicts for topk recommended restaurants
+    if top_k_cuisine_overall[0].empty:
+      print("No restaurants with matching cuisines in town!")
+      all_recommendations={"overall": sorted_nearby_restaurants_all, "taste": sorted_nearby_restaurants_taste,"ambiance":sorted_nearby_restaurants_ambiance, 
+                         "overall by cuisine": topk_recommended_all, "taste by cuisine": topk_recommended_taste, "ambiance by cuisine": topk_recommended_ambiance}
+
+      print(all_recommendations["ambiance by cuisine"])
+      return JsonResponse(all_recommendations, safe=False)
+
+    # Iterate over the cuisine preferences of customer
+    for c in range(len(customer_cuisine_preferences)):
+      cuisine_name = customer_cuisine_preferences[c]
+      print("Top", topk, cuisine_name, "Restaurants Recommended (Overall Match) \n", top_k_cuisine_overall[c])
+      print("Top", topk, cuisine_name, "Restaurants Recommended (Taste Match) \n", top_k_cuisine_taste[c])
+      print("Top", topk, cuisine_name, "Restaurants Recommended (Ambiance Match) \n", top_k_cuisine_ambiance[c])
+      
+      topk_recommended_all[cuisine_name] = []
+      topk_recommended_taste[cuisine_name] = []
+      topk_recommended_ambiance[cuisine_name] = []
+
+      # iterate over the restaurants in town with the same cuisine (among customer's preferences)
+      for index, row in top_k_cuisine_overall[c].iterrows():
+        restaurant = Restaurant.objects.get(id = row["restaurant_id"])
+        restaurant_dict_all = {"id": restaurant.id,"name" : restaurant.name, "cuisine": restaurant.cuisine, "ambiance": restaurant.ambiance, "overall_rating": restaurant.overall_rating,"yhat": float(top_k_cuisine_overall[c][top_k_cuisine_overall[c]["restaurant_id"]==restaurant.id]["yhat"])}
+        restaurant_dict_taste = {"id": restaurant.id,"name" : restaurant.name, "cuisine": restaurant.cuisine, "ambiance": restaurant.ambiance, "overall_rating": restaurant.overall_rating,"yhat": float(top_k_cuisine_taste[c][top_k_cuisine_taste[c]["restaurant_id"]==restaurant.id]["yhat"])}
+        restaurant_dict_ambiance = {"id": restaurant.id,"name" : restaurant.name, "cuisine": restaurant.cuisine, "ambiance": restaurant.ambiance, "overall_rating": restaurant.overall_rating,"yhat": float(top_k_cuisine_ambiance[c][top_k_cuisine_ambiance[c]["restaurant_id"]==restaurant.id]["yhat"])}
+        
+        topk_recommended_all[cuisine_name].append(restaurant_dict_all)
+        topk_recommended_taste[cuisine_name].append(restaurant_dict_taste)
+        topk_recommended_ambiance[cuisine_name].append(restaurant_dict_ambiance)
+
+      sorted_topk_recommended_all = sorted(topk_recommended_all[cuisine_name], key=lambda x: x["yhat"],reverse=True)
+      sorted_topk_recommended_taste = sorted(topk_recommended_taste[cuisine_name], key=lambda x: x["yhat"],reverse=True)
+      sorted_topk_recommended_ambiance = sorted(topk_recommended_ambiance[cuisine_name], key=lambda x: x["yhat"],reverse=True)
+      
+      topk_recommended_all[cuisine_name] = sorted_topk_recommended_all
+      topk_recommended_taste[cuisine_name] = sorted_topk_recommended_taste
+      topk_recommended_ambiance[cuisine_name] = sorted_topk_recommended_ambiance 
+
+    # Outputs of 6 ML models are stored in all_recommendations dictionary
+    all_recommendations={"overall": sorted_nearby_restaurants_all, "taste": sorted_nearby_restaurants_taste,"ambiance":sorted_nearby_restaurants_ambiance, 
+                         "overall by cuisine": topk_recommended_all, "taste by cuisine": topk_recommended_taste, "ambiance by cuisine": topk_recommended_ambiance}
+
+    print(all_recommendations["ambiance by cuisine"])
     return JsonResponse(all_recommendations, safe=False)
 
 def desing_test_based(region,budget_amount,cust_id,products_df,raw_context):
@@ -225,15 +255,6 @@ def all_at_once(region,budget_amount,cust_id,products_df,topk,general_model,cont
   #ambiance_results_of_all_results ===>>>adamin tercih ettigi cuisinelerin ambiance matchingi  yhat=> ambiance ratingleri
   ambiance_results_of_all_results=give_me_ratings_of_overall(top_k_cuisine_preffered, ambiance_context, ambiance_model,ambiance_features)
 
-  #print("TOP K ALL RESULTS \n", all_res[0])
-
-  #print("TOP K ALL RESULTS TASTE \n", all_res_taste[0])
-
-  #print("TOP K CUISINE PREFERRED \n", top_k_cuisine_preffered[0])
-  #print("TOP K CUISINE PREFERRED \n", top_k_cuisine_preffered[1])
-
-  #print("TOP K TASTE PREFERRED \n", taste_results_of_all_results[0])
-  #print("TOP K TASTE PREFERRED \n", taste_results_of_all_results[1])
   return taste_results_of_all_results,top_k_cuisine_preffered,all_results,all_res,all_res_taste,ambiance_results_of_all_results,all_res_ambiance
 
 
@@ -271,10 +292,6 @@ def all_at_once_solo(region,budget_amount,cust_id,products_df,topk,general_model
   #all_res_ambiance burada overall ratingden gelen top k ların ambiance matchi  yhat=> ambiance ratingleri
   all_res_ambiance   =give_me_ratings_of_overall(all_res, ambiance_context, ambiance_model,ambiance_features)
 
-  print("ALL AT ONCE SOLO OVERALL RESULT: \n", all_res[0])
-  print("ALL AT ONCE SOLO TASTE: \n", all_res_taste[0])
-  print("ALL AT ONCE SOLO AMBIANCE: \n", all_res_ambiance[0])
-  
   return all_results,all_res,all_res_taste,all_res_ambiance
 
 # Model Outputs for a given list of restaurant ids
@@ -289,10 +306,6 @@ def all_at_once_n(region,budget_amount,cust_id,products_df,topk,general_model,co
   #all_res_ambiance burada overall ratingden gelen top k ların ambiance matchi  yhat=> ambiance ratingleri
   all_res_ambiance   =give_me_ratings_of_overall(all_res, ambiance_context, ambiance_model,ambiance_features)
 
-  print("ALL AT ONCE SOLO OVERALL RESULT: \n", all_res[0])
-  print("ALL AT ONCE SOLO TASTE: \n", all_res_taste[0])
-  print("ALL AT ONCE SOLO AMBIANCE: \n", all_res_ambiance[0])
-  
   #top_k_cuisine_preffered  =>>> adamin tercih ettigi cuisinelerin overall matchingi  yhat=> overall ratingleri
   customer_cuisine_prefference,top_k_cuisine_preffered = give_me_top_k_overall_of_customer_preffered(raw_context,all_results,topk)
   
