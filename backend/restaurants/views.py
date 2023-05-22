@@ -300,11 +300,11 @@ def all_at_once_n(region,budget_amount,cust_id,products_df,topk,general_model,co
   
   #print("TOP K ALL RESULTS TASTE \n", all_res_taste[0])
   print("Customer Cuisine Preference \n", customer_cuisine_prefference)
-  print("TOP K CUISINE PREFERRED 0 \n", top_k_cuisine_preffered[0])
-  print("TOP K CUISINE PREFERRED 1 \n", top_k_cuisine_preffered[1])
 
-  print("TOP K TASTE PREFERRED 0 \n", taste_results_of_all_results[0])
-  print("TOP K TASTE PREFERRED 1 \n", taste_results_of_all_results[1])
+  for c in range(len(customer_cuisine_prefference)):
+    print("Top", topk, customer_cuisine_prefference[c], "Restaurants Recommended (Overall Match) \n", top_k_cuisine_preffered[c])
+    print("Top", topk, customer_cuisine_prefference[c], "Restaurants Recommended (Taste Match) \n", taste_results_of_all_results[c])
+    print("Top", topk, customer_cuisine_prefference[c], "Restaurants Recommended (Ambiance Match) \n", ambiance_results_of_all_results[c])
   
   ### UNCOMMENT BELOW FOR MORE OUTPUTS ###
   #return taste_results_of_all_results,top_k_cuisine_preffered,all_results,all_res,all_res_taste,ambiance_results_of_all_results,all_res_ambiance
