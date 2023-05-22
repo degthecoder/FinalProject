@@ -43,14 +43,14 @@ def insert_interest_preferences(request):
 
 
 def retrieve_preferences(request):
-    this_customer = Customer.objects.get(user_customer_id=45)
+    this_customer = Customer.objects.get(user_customer_id=get_user_id())
     interest_preferences = this_customer.interest_preference
     ambiance_preferences = this_customer.ambiance_preference
     cuisine_preferences = this_customer.cuisine_preference
     flavor_preferences = this_customer.flavor_preference
     budget = this_customer.budget_customer
     reason_of_visit = "[Guest]"
-    resp_dict = {"customer_id": get_user_id(),
+    resp_dict = {"customer_id": this_customer.id,
                          "interest_preference": interest_preferences, 
                          "ambience_preference": ambiance_preferences, 
                          "cuisine_preference": cuisine_preferences,
