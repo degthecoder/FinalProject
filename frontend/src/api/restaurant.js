@@ -3,9 +3,20 @@ import axios from 'axios';
 const url = 'http://127.0.0.1:8000';
 
 export const fetchNearRestaurants = async () => {
-    const resData =  await axios.get(`${url}/user/feed/`);
-    
-    return resData;
+    if(sessionStorage.getItem("location")){
+        const resData =  await axios.get(`${url}/user/feed/`);
+
+        return resData;
+    }
+
+    setTimeout(async () => {
+        const resData =  await axios.get(`${url}/user/feed/`);
+
+        return resData
+    }
+    , 2000);
+        
+
 };  
 
 

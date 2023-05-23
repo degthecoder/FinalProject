@@ -11,7 +11,7 @@ import { CircularProgress } from "@mui/material";
 
 const useStyles = makeStyles(() => ({
     paperContainer: {
-        height: "120vh",
+        minHeight: "120vh",
         maxWidth: "100vw",
         paddingTop: '64px',
         backgroundColor: theme.palette.beige.main
