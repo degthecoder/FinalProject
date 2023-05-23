@@ -21,6 +21,8 @@ class Restaurant(models.Model):
     overall_rating = models.FloatField(null=True,default=1)
     review_count = models.IntegerField(null=False, default=1)
 
+    model_id = models.IntegerField(null=False, default=1)
+
     # Restaurant Filtering Method
     @classmethod
     def filter_restaurants(cls, field, operation, value, order_by):
