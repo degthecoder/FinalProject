@@ -33,7 +33,8 @@ from review.views import return_user_reviews
 @api_view(['GET'])
 def retrieve_all_restaurants(request):
     #town = get_user_town()
-    all_restaurants = Restaurant.filter_restaurants('overall_rating','lte', 50, 'overall_rating')
+    all_restaurants = Restaurant.filter_restaurants('id','lte', 500, 'overall_rating')
+    #all_restaurants = Restaurant.filter_restaurants('id','lte', 1600, 'id')
 
     res_list=[]
     for restaurant in all_restaurants:
@@ -50,10 +51,10 @@ def retrieve_near_restaurants(request):
     town = get_user_town()
     filtered_restaurants = Restaurant.filter_restaurants('town','e', town, 'id')
 
-    # Get nearby restaurant ids
+    # Get nearby restaurant model ids
     nearby_ids=[]
     for restaurant in filtered_restaurants:
-        nearby_ids.append(restaurant.id)
+        nearby_ids.append(restaurant.model_id)
 
     context_df = retrieve_preferences(request)
     taste_model = load_model('recommendation/last_good_taste_for_real')
@@ -73,15 +74,17 @@ def retrieve_near_restaurants(request):
     nearby_restaurants_taste=[]
     nearby_restaurants_ambiance=[]
 
-    for restaurant in filtered_restaurants:
-        
-        restaurant_dict_all = {"id": restaurant.id,"name" : restaurant.name, "cuisine": restaurant.cuisine, "ambiance": restaurant.ambiance, "overall_rating": restaurant.overall_rating,"yhat": float(selected_all[selected_all["restaurant_id"]==restaurant.id]["yhat"])}
-        restaurant_dict_taste = {"id": restaurant.id,"name" : restaurant.name, "cuisine": restaurant.cuisine, "ambiance": restaurant.ambiance, "overall_rating": restaurant.overall_rating,"yhat": float(selected_taste[selected_taste["restaurant_id"]==restaurant.id]["yhat"])}
-        restaurant_dict_ambiance = {"id": restaurant.id,"name" : restaurant.name, "cuisine": restaurant.cuisine, "ambiance": restaurant.ambiance, "overall_rating": restaurant.overall_rating,"yhat": float(selected_ambiance[selected_ambiance["restaurant_id"]==restaurant.id]["yhat"])}
 
-        nearby_restaurants_all.append(restaurant_dict_all)
-        nearby_restaurants_taste.append(restaurant_dict_taste)
-        nearby_restaurants_ambiance.append(restaurant_dict_ambiance)
+    for index, row in selected_all.iterrows():
+      
+      restaurant = Restaurant.objects.get(model_id = row["restaurant_id"], town=get_user_town()) 
+      restaurant_dict_all = {"id": restaurant.id,"name" : restaurant.name, "cuisine": restaurant.cuisine, "ambiance": restaurant.ambiance, "overall_rating": restaurant.overall_rating,"yhat": float(row["yhat"])}
+      restaurant_dict_taste = {"id": restaurant.id,"name" : restaurant.name, "cuisine": restaurant.cuisine, "ambiance": restaurant.ambiance, "overall_rating": restaurant.overall_rating,"yhat": float(selected_taste[selected_taste["restaurant_id"]==restaurant.model_id]["yhat"])}
+      restaurant_dict_ambiance = {"id": restaurant.id,"name" : restaurant.name, "cuisine": restaurant.cuisine, "ambiance": restaurant.ambiance, "overall_rating": restaurant.overall_rating,"yhat": float(selected_ambiance[selected_ambiance["restaurant_id"]==restaurant.model_id]["yhat"])}
+
+      nearby_restaurants_all.append(restaurant_dict_all)
+      nearby_restaurants_taste.append(restaurant_dict_taste)
+      nearby_restaurants_ambiance.append(restaurant_dict_ambiance)
   
     sorted_nearby_restaurants_all = sorted(nearby_restaurants_all, key=lambda x: x["yhat"],reverse=True)
     sorted_nearby_restaurants_taste = sorted(nearby_restaurants_taste, key=lambda x: x["yhat"],reverse=True)
@@ -107,6 +110,7 @@ def retrieve_near_restaurants(request):
     # Iterate over the cuisine preferences of customer
     for c in range(len(customer_cuisine_preferences)):
       cuisine_name = customer_cuisine_preferences[c]
+
       print("Top", topk, cuisine_name, "Restaurants Recommended (Overall Match) \n", top_k_cuisine_overall[c])
       print("Top", topk, cuisine_name, "Restaurants Recommended (Taste Match) \n", top_k_cuisine_taste[c])
       print("Top", topk, cuisine_name, "Restaurants Recommended (Ambiance Match) \n", top_k_cuisine_ambiance[c])
@@ -117,10 +121,10 @@ def retrieve_near_restaurants(request):
 
       # iterate over the restaurants in town with the same cuisine (among customer's preferences)
       for index, row in top_k_cuisine_overall[c].iterrows():
-        restaurant = Restaurant.objects.get(id = row["restaurant_id"])
-        restaurant_dict_all = {"id": restaurant.id,"name" : restaurant.name, "cuisine": restaurant.cuisine, "ambiance": restaurant.ambiance, "overall_rating": restaurant.overall_rating,"yhat": float(top_k_cuisine_overall[c][top_k_cuisine_overall[c]["restaurant_id"]==restaurant.id]["yhat"])}
-        restaurant_dict_taste = {"id": restaurant.id,"name" : restaurant.name, "cuisine": restaurant.cuisine, "ambiance": restaurant.ambiance, "overall_rating": restaurant.overall_rating,"yhat": float(top_k_cuisine_taste[c][top_k_cuisine_taste[c]["restaurant_id"]==restaurant.id]["yhat"])}
-        restaurant_dict_ambiance = {"id": restaurant.id,"name" : restaurant.name, "cuisine": restaurant.cuisine, "ambiance": restaurant.ambiance, "overall_rating": restaurant.overall_rating,"yhat": float(top_k_cuisine_ambiance[c][top_k_cuisine_ambiance[c]["restaurant_id"]==restaurant.id]["yhat"])}
+        restaurant = Restaurant.objects.get(model_id = row["restaurant_id"], town=get_user_town())
+        restaurant_dict_all = {"id": restaurant.id,"name" : restaurant.name, "cuisine": restaurant.cuisine, "ambiance": restaurant.ambiance, "overall_rating": restaurant.overall_rating,"yhat": float(top_k_cuisine_overall[c][top_k_cuisine_overall[c]["restaurant_id"]==restaurant.model_id]["yhat"])}
+        restaurant_dict_taste = {"id": restaurant.id,"name" : restaurant.name, "cuisine": restaurant.cuisine, "ambiance": restaurant.ambiance, "overall_rating": restaurant.overall_rating,"yhat": float(top_k_cuisine_taste[c][top_k_cuisine_taste[c]["restaurant_id"]==restaurant.model_id]["yhat"])}
+        restaurant_dict_ambiance = {"id": restaurant.id,"name" : restaurant.name, "cuisine": restaurant.cuisine, "ambiance": restaurant.ambiance, "overall_rating": restaurant.overall_rating,"yhat": float(top_k_cuisine_ambiance[c][top_k_cuisine_ambiance[c]["restaurant_id"]==restaurant.model_id]["yhat"])}
         
         topk_recommended_all[cuisine_name].append(restaurant_dict_all)
         topk_recommended_taste[cuisine_name].append(restaurant_dict_taste)
