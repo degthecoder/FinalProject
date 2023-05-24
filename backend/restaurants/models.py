@@ -26,7 +26,7 @@ class Restaurant(models.Model):
     # Restaurant Filtering Method
     @classmethod
     def filter_restaurants(cls, field, operation, value, order_by):
-        print("Field: ", field, "Operation: ", operation, "  Value: ", value, "  Order by: ", order_by)
+        #print("Field: ", field, "Operation: ", operation, "  Value: ", value, "  Order by: ", order_by)
         # Get all Restaurants
         restaurants = Restaurant.objects.all()
         """
