@@ -63,6 +63,9 @@ const UserHomePage = () => {
     const [overall, setOverall] = useState([]);
     const [taste, setTaste] = useState([]);
     const [ambiance, setAmbiance] = useState([]);
+    const [ocuisine, setOCuisine] = useState([]);
+    const [tcuisine, setTcuisine] = useState([]);
+    const [acuisine, setAcuisine] = useState([]);
 
 
     const handleRestaurants = async () => {
@@ -70,12 +73,21 @@ const UserHomePage = () => {
             setOverall(res.data.overall);
             setTaste(res.data.taste);
             setAmbiance(res.data.ambiance);
+            setOCuisine(res.data.overall_by_cuisine);
+            setAcuisine(res.data.ambiance_by_cuisine);
+            setTcuisine(res.data.taste_by_cuisine);
         });
     };
     
 
     const renderRestaurants = (which) => {
-        if(overall.length > 0 ){
+
+        console.log(overall),
+        console.log(ocuisine),
+        console.log(acuisine),
+        console.log(tcuisine)
+        // && ocuisine.length > 0 && acuisine.length > 0 && tcuisine.length > 0)
+        if(overall.length > 0 ) {
             switch (which) {
             case 1:
                 return (overall.map((restaurant, index) => (
@@ -115,6 +127,46 @@ const UserHomePage = () => {
                             rating={restaurant.overall_rating}
                             id = {restaurant.id}
     
+                        />
+                    </Grid>
+                )))
+
+            case 4:
+                return (ocuisine.map((restaurant, index) => (
+                    <Grid item xs={12} sm={6} md={5} key={index} className={classes.gridItem}>
+                        <CreateRestaurant
+                            key = {index}
+                            name={restaurant.name}
+                            cuisine={restaurant.cuisine}
+                            ambiance={restaurant.ambiance}
+                            rating={restaurant.overall_rating}
+                            id = {restaurant.id}
+                        />
+                    </Grid>
+                )))
+            case 5:
+                return (tcuisine.map((restaurant, index) => (
+                    <Grid item xs={12} sm={6} md={5} key={index} className={classes.gridItem}>
+                        <CreateRestaurant
+                            key = {index}
+                            name={restaurant.name}
+                            cuisine={restaurant.cuisine}
+                            ambiance={restaurant.ambiance}
+                            rating={restaurant.overall_rating}
+                            id = {restaurant.id}
+                        />
+                    </Grid>
+                )))
+            case 6:
+                return (acuisine.map((restaurant, index) => (
+                    <Grid item xs={12} sm={6} md={5} key={index} className={classes.gridItem}>
+                        <CreateRestaurant
+                            key = {index}
+                            name={restaurant.name}
+                            cuisine={restaurant.cuisine}
+                            ambiance={restaurant.ambiance}
+                            rating={restaurant.overall_rating}
+                            id = {restaurant.id}
                         />
                     </Grid>
                 )))
@@ -170,6 +222,30 @@ const UserHomePage = () => {
                     </Typography>
                     <Grid container spacing={4} wrap="nowrap"  direction="row" className={classes.grid}>
                         {renderRestaurants(3)}
+                    </Grid>
+                </Box>
+                <Box className={classes.container}>
+                    <Typography className={classes.location}>
+                        Cuisine
+                    </Typography>
+                    <Grid container spacing={4} wrap="nowrap"  direction="row" className={classes.grid}>
+                        {renderRestaurants(4)}
+                    </Grid>
+                </Box>
+                <Box className={classes.container}>
+                    <Typography className={classes.location}>
+                        Taste by Cuisine
+                    </Typography>
+                    <Grid container spacing={4} wrap="nowrap"  direction="row" className={classes.grid}>
+                        {renderRestaurants(5)}
+                    </Grid>
+                </Box>
+                <Box className={classes.container}>
+                    <Typography className={classes.location}>
+                        Ambiance by Cuisine
+                    </Typography>
+                    <Grid container spacing={4} wrap="nowrap"  direction="row" className={classes.grid}>
+                        {renderRestaurants(6)}
                     </Grid>
                 </Box>
             </Box>
