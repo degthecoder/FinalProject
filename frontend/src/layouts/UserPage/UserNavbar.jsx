@@ -92,7 +92,7 @@ const UserNavBar = () => {
                             </Link>
                         </Box>
                         <LocationOnIcon className={classes.locIcon}/>
-                        <Typography className={classes.location}>
+                        <Box className={classes.location}>
                             {location ? `${location}`  : 
                                 (
                                     <Box sx={{ 
@@ -106,7 +106,7 @@ const UserNavBar = () => {
                                     </Box>
                                     
                                 )}
-                        </Typography>
+                        </Box>
                         <MenuIcon />
                     </> : 
                     <>
