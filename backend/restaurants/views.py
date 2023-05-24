@@ -103,7 +103,7 @@ def retrieve_near_restaurants(request):
     if top_k_cuisine_overall[0].empty:
       print("No restaurants with matching cuisines in town!")
       all_recommendations={"overall": sorted_nearby_restaurants_all, "taste": sorted_nearby_restaurants_taste,"ambiance":sorted_nearby_restaurants_ambiance, 
-                         "overall by cuisine": cuisine_recommended_all, "taste by cuisine": cuisine_recommended_taste, "ambiance by cuisine": cuisine_recommended_ambiance}
+                         "overall_by_cuisine": cuisine_recommended_all, "taste_by_cuisine": cuisine_recommended_taste, "ambiance_by_cuisine": cuisine_recommended_ambiance}
       return JsonResponse(all_recommendations, safe=False)
 
     # Iterate over the cuisine preferences of customer
