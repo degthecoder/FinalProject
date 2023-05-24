@@ -14,6 +14,7 @@ import TopBar from "../../layouts/LandingPage/TopBar";
 import { fetchRegister } from "../../api/authentication";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { fetchLocation } from "../../api/location.js";
 
 const useStyles = makeStyles((theme) => ({
   outerContainer: {

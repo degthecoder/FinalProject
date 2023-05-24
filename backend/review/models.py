@@ -22,7 +22,7 @@ class ResReview(models.Model):
 
     @classmethod
     def filter_reviews(cls, field, operation, value, order_by):
-        print("Field: ", field, "Operation: ", operation, "  Value: ", value, "  Order by: ", order_by)
+        #print("Field: ", field, "Operation: ", operation, "  Value: ", value, "  Order by: ", order_by)
         # Get all Restaurants
         reviews = ResReview.objects.all()
         """

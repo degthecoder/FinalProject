@@ -97,7 +97,7 @@ def retrieve_near_restaurants(request):
     cuisine_recommended_taste = []
     cuisine_recommended_ambiance = []
 
-    print("Customer Cuisine Preferences \n", customer_cuisine_preferences)
+    #print("Customer Cuisine Preferences \n", customer_cuisine_preferences)
 
     # If there are no restaurants of customer's cuisine choice, return empty dicts for topk recommended restaurants
     if top_k_cuisine_overall[0].empty:
@@ -110,9 +110,9 @@ def retrieve_near_restaurants(request):
     for c in range(len(customer_cuisine_preferences)):
       cuisine_name = customer_cuisine_preferences[c]
 
-      print("Top", topk, cuisine_name, "Restaurants Recommended (Overall Match) \n", top_k_cuisine_overall[c])
-      print("Top", topk, cuisine_name, "Restaurants Recommended (Taste Match) \n", top_k_cuisine_taste[c])
-      print("Top", topk, cuisine_name, "Restaurants Recommended (Ambiance Match) \n", top_k_cuisine_ambiance[c])
+      #print("Top", topk, cuisine_name, "Restaurants Recommended (Overall Match) \n", top_k_cuisine_overall[c])
+      #print("Top", topk, cuisine_name, "Restaurants Recommended (Taste Match) \n", top_k_cuisine_taste[c])
+      #print("Top", topk, cuisine_name, "Restaurants Recommended (Ambiance Match) \n", top_k_cuisine_ambiance[c])
 
       # iterate over the restaurants in town with the same cuisine (among customer's preferences)
       for index, row in top_k_cuisine_overall[c].iterrows():
@@ -133,8 +133,8 @@ def retrieve_near_restaurants(request):
     all_recommendations={"overall": sorted_nearby_restaurants_all, "taste": sorted_nearby_restaurants_taste,"ambiance":sorted_nearby_restaurants_ambiance, 
                          "overall by cuisine": sorted_cuisine_recommended_all, "taste by cuisine": sorted_cuisine_recommended_taste, "ambiance by cuisine": sorted_cuisine_recommended_ambiance}
 
-    print("\nAmbiance \n", all_recommendations["ambiance"])
-    print("\nAmbiance by Cuisine\n", all_recommendations["ambiance by cuisine"])
+    #print("\nAmbiance \n", all_recommendations["ambiance"])
+    #print("\nAmbiance by Cuisine\n", all_recommendations["ambiance by cuisine"])
     return JsonResponse(all_recommendations, safe=False)
 
 def desing_test_based(region,budget_amount,cust_id,products_df,raw_context):

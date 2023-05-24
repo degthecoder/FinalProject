@@ -13,7 +13,7 @@ from restaurants.models import Restaurant
 def insert_review(request):
     data = request.data
     review = ResReview()
-    print("here", data)
+    #print("here", data)
     review.ambiance_rating=data["ambiance_rating"]
     
     review.taste_rating=data["taste_rating"]
@@ -26,7 +26,7 @@ def insert_review(request):
 
     customer = Customer.objects.get(user_customer_id = get_user_id())
 
-    print("CUST", customer)
+    #print("CUST", customer)
     review.review_customer = customer
     
     restaurant = Restaurant.objects.get(id = data["restaurant_id"])
@@ -44,9 +44,9 @@ def insert_review(request):
 def return_restaurant_reviews(request):
 # def return_restaurant_reviews():
     data = request.data
-    print("DATA ", data)
+    #print("DATA ", data)
     res_id = data['restaurant_id']
-    print("DATA ", res_id)
+    #print("DATA ", res_id)
     rev_list=[]
     filtered_reviews = ResReview.filter_reviews('review_restaurant','e', res_id, 'overall_rating')
     for review in filtered_reviews:
@@ -70,6 +70,6 @@ def return_user_reviews(request):
                "taste_rating": review.taste_rating,"overall_rating": review.overall_rating, "comment": review.comment}
         rev_list.append(rev)
 
-    print("LENGTH ",len(rev_list))
+    #print("LENGTH ",len(rev_list))
 
     return JsonResponse(rev_list,safe=False)

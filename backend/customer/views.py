@@ -63,17 +63,17 @@ def retrieve_preferences(request):
     # create DataFrame from dictionary
     df = pd.DataFrame(resp_dict, index=[0])
 
-    print(df["ambience_preference"])
+    #print(df["ambience_preference"])
 
     customer_df = create_customer_df(df)
-    print(customer_df["ambience_preference"])
+    #print(customer_df["ambience_preference"])
 
     context_df = prepare_context(customer_df)
-    print(context_df["Elegant"])
-    print(context_df["Reading"])
-    print(context_df["Ethnic"])
-    print(context_df["Guest"])
-    print(context_df["Work"])
+    #print(context_df["Elegant"])
+    #print(context_df["Reading"])
+    #print(context_df["Ethnic"])
+    #print(context_df["Guest"])
+    #print(context_df["Work"])
 
     return context_df
 
@@ -116,7 +116,7 @@ def prepare_context(dtf_context):
       dtf_context_[rename_col] = dtf_context["interest_preference"].apply(lambda x: 1 if col in x else 0)
 
   columns = ['Family', 'Guest', 'Work', 'Date', 'Friend']
-  print(columns)
+  #print(columns)
   for col in columns:
       dtf_context_[col] = dtf_context["reason_of_visit"].apply(lambda x: 1 if col in x else 0)
 
@@ -129,7 +129,7 @@ def prepare_context(dtf_context):
       dtf_context_[col] = dtf_context["flavor_preference"].apply(lambda x: 1 if col in x else 0)
   dtf_context_3= dtf_context_
   dtf_context_3=dtf_context_3.drop(['reason_of_visit','ambience_preference','interest_preference','cuisine_preference','flavor_preference'], axis=1)
-  print("\nDTF CONTEXT 3: \n", dtf_context_3)
+  #print("\nDTF CONTEXT 3: \n", dtf_context_3)
   return dtf_context_3
 
 

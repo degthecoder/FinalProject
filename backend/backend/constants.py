@@ -35,7 +35,7 @@ def initialize_restaurant_df():
   
   global restaurant_data
   restaurant_data = pd.read_csv("backend/Restaurant_OHE.csv")
-  print(restaurant_data.head())
+  #print(restaurant_data.head())
 
 def get_restaurant_df():
   global restaurant_data
