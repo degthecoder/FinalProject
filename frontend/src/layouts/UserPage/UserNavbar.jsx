@@ -5,7 +5,6 @@ import { makeStyles } from "@material-ui/styles";
 import { Link } from "react-router-dom";
 import MenuIcon from "./MenuIcon";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import { fetchLocation } from "../../api/location";
 import theme from "../../themes/theme";
 import { CircularProgress, useMediaQuery } from '@mui/material';
 import ListIcon from '@mui/icons-material/List';
@@ -64,7 +63,10 @@ const UserNavBar = () => {
     const isMobile = useMediaQuery('(max-width:600px)');
 
     useEffect(() => {
-        fetchLocation().then(res => setLocation(res));
+        // fetchLocation().then(res => setLocation(res));
+        if(sessionStorage.getItem("location")) {
+            setLocation(sessionStorage.getItem("locdata"));
+        }
     }, []);
     
     return (

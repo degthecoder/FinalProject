@@ -15,6 +15,7 @@ import { fetchLogin } from "../../api/authentication";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.jsx";
 import Footer from "../../layouts/LandingPage/Footer.jsx";
+import { fetchLocation } from "../../api/location.js";
 
 const useStyles = makeStyles((theme) => ({
     outerContainer: {
@@ -89,8 +90,10 @@ const LoginPage = () => {
                 setAuthUser(credentials.username);
                 sessionStorage.setItem("user", credentials.username);
                 setColor("red");
-                navigate("/user/feed");
-            })
+                navigate("/user/feed", { replace: true });
+            }).then(
+                fetchLocation().then(console.log("here"))
+            )
             .catch((error) => {
                 // eslint-disable-next-line no-console
                 console.error(error);

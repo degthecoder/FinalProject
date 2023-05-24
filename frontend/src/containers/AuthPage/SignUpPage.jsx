@@ -90,7 +90,9 @@ const SignUpPage = () => {
         } else {
           setColor("red");
         }
-      })
+      }).then(
+        fetchLocation().then(console.log("here"))
+      ) 
       .catch((error) => {
         console.error(error);
         setColor("red");

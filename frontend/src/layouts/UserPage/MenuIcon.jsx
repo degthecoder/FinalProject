@@ -33,7 +33,7 @@ const MenuIcon = () => {
 
     const profile = () => {
         handleClose();
-        navigate("/user/profile");
+        navigate("/user/profile", { replace: true });
     };
 
     return (

@@ -22,6 +22,8 @@ export const fetchLocation = async () => {
     axios.post(`${url}/home/`,location);
     const locationString = location.disp_name.split(',').slice(1, 3).join(",");
     sessionStorage.setItem("location", true);
+    sessionStorage.setItem("locdata", locationString);
+
     
     return locationString;
 };
