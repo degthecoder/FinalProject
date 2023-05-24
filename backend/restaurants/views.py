@@ -131,7 +131,7 @@ def retrieve_near_restaurants(request):
 
     # Outputs of 6 ML models are stored in all_recommendations dictionary
     all_recommendations={"overall": sorted_nearby_restaurants_all, "taste": sorted_nearby_restaurants_taste,"ambiance":sorted_nearby_restaurants_ambiance, 
-                         "overall by cuisine": sorted_cuisine_recommended_all, "taste by cuisine": sorted_cuisine_recommended_taste, "ambiance by cuisine": sorted_cuisine_recommended_ambiance}
+                         "overall_by_cuisine": sorted_cuisine_recommended_all, "taste_by_cuisine": sorted_cuisine_recommended_taste, "ambiance_by_cuisine": sorted_cuisine_recommended_ambiance}
 
     #print("\nAmbiance \n", all_recommendations["ambiance"])
     #print("\nAmbiance by Cuisine\n", all_recommendations["ambiance by cuisine"])
