@@ -19,7 +19,9 @@ from . import views
 
 urlpatterns = [
     path('', views.retrieve_near_restaurants, name='retrieve_near_restaurants'),
-    path('all/', views.retrieve_all_restaurants, name='retrieve_all_restaurants')
+    path('all/', views.retrieve_all_restaurants, name='retrieve_all_restaurants'),
+    path('reasonOfVisit/', views.set_reason_of_visit, name='set_reason_of_visit')
+
 
     #path('register/', include('authentication.urls'))
 ]

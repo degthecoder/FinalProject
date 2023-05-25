@@ -53,8 +53,11 @@ const ReasonVisit = () => {
         setReason(value);
     }
 
-    const handleClick = () => {
-        postReasonOfVisit(reason).then(navigate("user/feed/")).catch(err=>console.error(err))
+    const handleClick = (event) => {
+        event.preventDefault()
+        const data={ reason_of_visit:reason } 
+        postReasonOfVisit(data).then().catch(err=>console.error(err))
+    
     }
 
     
