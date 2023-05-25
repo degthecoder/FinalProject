@@ -8,7 +8,7 @@ import copy
 from rest_framework.decorators import api_view
 from backend.constants import get_user_id
 from customer.models import Customer
-from backend.constants import get_rov
+#from backend.constants import get_rov
 from backend.constants import set_rov
 # Create your views here.
 @api_view(['POST'])
