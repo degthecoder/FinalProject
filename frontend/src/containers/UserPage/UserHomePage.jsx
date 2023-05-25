@@ -187,7 +187,7 @@ const UserHomePage = () => {
                 // backgroundColor: theme.palette.secondary.main
             }}>
                 <CircularProgress sx={{ color: theme.palette.primary.main }} />
-                <Typography className={classes.loading}>Loading...</Typography>
+                <Typography className={classes.loading}>Matching you with nearby restaurants...</Typography>
             </Box>
         )
     }
@@ -202,7 +202,7 @@ const UserHomePage = () => {
             <Box className={classes.paperContainer}>
                 <Box className={classes.container}>
                     <Typography className={classes.location}>
-                        Overall Recommended
+                        Best of the best, just for you
                     </Typography>
                     <Grid container spacing={4} wrap="nowrap" className={classes.grid} direction="row">
                         {renderRestaurants(1)}
@@ -210,7 +210,7 @@ const UserHomePage = () => {
                 </Box>
                 <Box className={classes.container}>
                     <Typography className={classes.location}>
-                        Taste
+                        Personalized for your taste!
                     </Typography>
                     <Grid container spacing={4} wrap="nowrap"  direction="row" className={classes.grid}>
                         {renderRestaurants(2)}
@@ -218,7 +218,7 @@ const UserHomePage = () => {
                 </Box>
                 <Box className={classes.container}>
                     <Typography className={classes.location}>
-                        Ambiance
+                        For your vibe
                     </Typography>
                     <Grid container spacing={4} wrap="nowrap"  direction="row" className={classes.grid}>
                         {renderRestaurants(3)}
@@ -226,7 +226,7 @@ const UserHomePage = () => {
                 </Box>
                 <Box className={classes.container}>
                     <Typography className={classes.location}>
-                        Cuisine
+                        Considering your cuisine choices..
                     </Typography>
                     <Grid container spacing={4} wrap="nowrap"  direction="row" className={classes.grid}>
                         {renderRestaurants(4)}
@@ -234,7 +234,7 @@ const UserHomePage = () => {
                 </Box>
                 <Box className={classes.container}>
                     <Typography className={classes.location}>
-                        Taste by Cuisine
+                        Taste tailored favorites
                     </Typography>
                     <Grid container spacing={4} wrap="nowrap"  direction="row" className={classes.grid}>
                         {renderRestaurants(5)}
@@ -242,7 +242,7 @@ const UserHomePage = () => {
                 </Box>
                 <Box className={classes.container}>
                     <Typography className={classes.location}>
-                        Ambiance by Cuisine
+                        Cuisine Ambiance Combo
                     </Typography>
                     <Grid container spacing={4} wrap="nowrap"  direction="row" className={classes.grid}>
                         {renderRestaurants(6)}
