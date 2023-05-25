@@ -130,7 +130,7 @@ const Restaurants = () => {
     const onClick=() => {
 
         const data = { district: dist }
-        fetchAllRestaurants(data).then(res=>setRestaurants(res));
+        fetchAllRestaurants(data).then(res=>setRestaurants(res.data));
     }
 
     const handleSliderChange =  (event, newValue) => {
