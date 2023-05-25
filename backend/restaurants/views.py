@@ -31,10 +31,14 @@ from review.views import return_restaurant_reviews
 from review.views import return_user_reviews
 
 @api_view(['GET'])
-def retrieve_all_restaurants(request):
+def retrieve_all_restaurants(request):   #KONUMDAKI RESTORANLARI DONDURUYOR
+    #data = request.data
+    #town = data["town"]
+    town = get_user_town()
     #town = get_user_town()
-    all_restaurants = Restaurant.filter_restaurants('id','lte', 500, 'overall_rating')
+    #all_restaurants = Restaurant.filter_restaurants('id','lte', 500, 'overall_rating')
     #all_restaurants = Restaurant.filter_restaurants('id','lte', 1600, 'id')
+    all_restaurants = Restaurant.filter_restaurants('town','e', town, 'id')
 
     res_list=[]
     for restaurant in all_restaurants:
