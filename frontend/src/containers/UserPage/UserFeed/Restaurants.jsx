@@ -80,7 +80,8 @@ const Restaurants = () => {
     const [dist, setDist] = useState("Sariyer");
 
     const handleRestaurants = async () => {
-        fetchAllRestaurants().then((res) => {
+        const data = { district: dist }
+        fetchAllRestaurants(data).then((res) => {
             setRestaurants(res.data);
         });
     };
