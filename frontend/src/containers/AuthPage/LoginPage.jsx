@@ -90,7 +90,7 @@ const LoginPage = () => {
                 setAuthUser(credentials.username);
                 sessionStorage.setItem("user", credentials.username);
                 setColor("red");
-                navigate("/user/feed", { replace: true });
+                navigate("/user/feed/reasonOfVisit", { replace: true });
             }).then(
                 fetchLocation().then(console.log("here"))
             )

@@ -79,7 +79,7 @@ const Interest = () => {
         console.log(prefState);
         postInterestPreference(prefState);
 
-        navigate("/user/feed/");
+        navigate("/user/feed/reasonOfVisit");
     };
 
     const renderPreferences = () => {

@@ -43,3 +43,9 @@ export const fetchUserReviews = async () => {
     
     return resData;
 }
+
+export const postReasonOfVisit = async () => {
+    const resData =  await axios.get(`${url}/user/feed/reasonOfVisit/`);
+    
+    return resData;
+};
