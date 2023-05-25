@@ -35,13 +35,11 @@ from backend.constants import get_rov
 
 @api_view(['POST'])
 def set_reason_of_visit(request):
-    print("HEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
     data = request.data
     rov = data["reason_of_visit"]
-    print(rov)
-    print("------")
+    
     set_rov(rov)
-    print(get_rov)
+    
     return JsonResponse(rov,safe=False)
 
 

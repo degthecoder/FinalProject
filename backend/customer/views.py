@@ -50,8 +50,9 @@ def retrieve_preferences(request):
     cuisine_preferences = this_customer.cuisine_preference
     flavor_preferences = this_customer.flavor_preference
     budget = this_customer.budget_customer
-    #reason_of_visit = "['Guest']"
+    #reason_of_visit = "['Family']"
     reason_of_visit = get_rov()
+    print(reason_of_visit =="['Family']" )
     print("REASON OF VISIT AAAAA",reason_of_visit )
 
     resp_dict = {"customer_id": this_customer.id,

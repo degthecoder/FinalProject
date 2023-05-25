@@ -21,7 +21,9 @@ def get_user_town():
 rov = []
 def set_rov(reason_list):
   global rov
-  rov = list(reason_list)
+  rov =[]
+  rov.append(reason_list)
+  rov = str(rov)
   
 
 def get_rov():
