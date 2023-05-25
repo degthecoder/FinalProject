@@ -167,7 +167,7 @@ const Restaurants = () => {
                 <Box className={classes.searchcontainer} border={1}>
                     <Box sx={{ 
                         justifyContent: 'flex-end',
-                        maxWidth:"15vw"
+                        maxWidth:"10vw"
                         // backgroundColor: "#fff",
                     }}>
                         <InputLabel id="districts-label"
