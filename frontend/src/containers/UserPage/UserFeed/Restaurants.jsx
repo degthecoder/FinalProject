@@ -42,12 +42,12 @@ const useStyles = makeStyles(() => ({
     },
     searchcontainer: {
         background: theme.palette.beige.main,
-        paddingTop: "100px",
-        justifyContent:"space-between",
+        paddingTop: "80px",
+        // justifyContent:"space-between",\
         padding: 10
     },
     dist: {
-        width:"100%",
+        minWidth:"100%",
         marginBottom: 10
         // backgroundColor: theme.palette.secondary.main        
     },
@@ -165,26 +165,33 @@ const Restaurants = () => {
                     )}
                 </Box>
                 <Box className={classes.searchcontainer} border={1}>
-                    <InputLabel id="districts-label"
-                        className={classes.searchtext}
-                    >Districts</InputLabel>
-                    <Select
-                        className={classes.dist}
-                        value={dist || ""}
-                        label="Districts"
-                        onChange={handleDistChange}
-                    >
-                        {districts.map((menuitem) => (
-                            <MenuItem key={menuitem} value={menuitem} sx={{ backgroundColor: theme.palette.blue.main }}>
-                                {menuitem}
-                            </MenuItem>
-                        ))}
-                    </Select>
-                    <Button sx={{ width: "100%", margin: 10 }}
-                        onClick={onClick}
-                        variant="contained" color="primary">
+                    <Box sx={{ 
+                        justifyContent: 'flex-end',
+                        maxWidth:"15vw"
+                        // backgroundColor: "#fff",
+                    }}>
+                        <InputLabel id="districts-label"
+                            className={classes.searchtext}
+                        >Districts</InputLabel>
+                        <Select
+                            className={classes.dist}
+                            value={dist || ""}
+                            label="Districts"
+                            onChange={handleDistChange}
+                        >
+                            {districts.map((menuitem) => (
+                                <MenuItem key={menuitem} value={menuitem} 
+                                    sx={{ backgroundColor: theme.palette.blue.main }}>
+                                    {menuitem}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                        <Button sx={{ width: "100%", marginBottom: 10 }}
+                            onClick={onClick}
+                            variant="contained" color="primary">
                         Change Region
-                    </Button>
+                        </Button>
+                    </Box>
                     <Box sx={{ margin: 10 }}>
                         <TextField id="outlined-search"
                             onChange={handleSearch}
