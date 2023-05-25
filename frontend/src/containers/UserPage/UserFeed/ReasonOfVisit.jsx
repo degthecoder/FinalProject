@@ -59,7 +59,7 @@ const ReasonVisit = () => {
         const data = { reason_of_visit: reason } 
         postReasonOfVisit(data).then((res)=>
         {
-            navigate("/user/feed");
+            navigate("/user/feed/reasonOfVisit");
             console.log(res)
         }
         ).catch(err=>console.error(err))
