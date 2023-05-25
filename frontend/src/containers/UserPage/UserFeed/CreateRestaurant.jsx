@@ -71,6 +71,7 @@ const useStyles = makeStyles((theme) => ({
     },
     image:{
         width: "100%",
+        height: "20vh",
         borderRadius:10
     },
     contentcontainer:{
@@ -192,7 +193,7 @@ const CreateRestaurant = (props) => {
                 return Asian;
             case "Bakery":
                 return Bakery;
-            case "Bar_Pub_Brewery":
+            case "Bar Pub Brewery":
                 return Bar_Pub_Brewery;
             case "Baripg":
                 return Baripg;
@@ -208,13 +209,13 @@ const CreateRestaurant = (props) => {
                 return Contemporary;
             case "Dutch":
                 return Dutch;
-            case "FastFood":
+            case "Fast-Food":
                 return FastFood;
             case "French":
                 return French;
             case "Greek":
                 return Greek;
-            case "IceCream":
+            case "Ice-Cream":
                 return IceCream;
             case "International":
                 return International;
