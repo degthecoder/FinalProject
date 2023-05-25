@@ -49,6 +49,8 @@ def retrieve_all_restaurants(request):
 @api_view(['GET'])
 def retrieve_near_restaurants(request):
     town = get_user_town()
+    #town = "Bakirkoy"
+    
     filtered_restaurants = Restaurant.filter_restaurants('town','e', town, 'id')
 
     # Get nearby restaurant model ids
@@ -78,7 +80,7 @@ def retrieve_near_restaurants(request):
 
     for index, row in selected_all.iterrows():
       
-      restaurant = Restaurant.objects.get(model_id = row["restaurant_id"], town=get_user_town()) 
+      restaurant = Restaurant.objects.get(model_id = row["restaurant_id"], town=town) 
       restaurant_dict_all = {"id": restaurant.id,"name" : restaurant.name, "cuisine": restaurant.cuisine, "ambiance": restaurant.ambiance, "overall_rating": restaurant.overall_rating,"yhat": float(row["yhat"])}
       restaurant_dict_taste = {"id": restaurant.id,"name" : restaurant.name, "cuisine": restaurant.cuisine, "ambiance": restaurant.ambiance, "overall_rating": restaurant.overall_rating,"yhat": float(selected_taste[selected_taste["restaurant_id"]==restaurant.model_id]["yhat"])}
       restaurant_dict_ambiance = {"id": restaurant.id,"name" : restaurant.name, "cuisine": restaurant.cuisine, "ambiance": restaurant.ambiance, "overall_rating": restaurant.overall_rating,"yhat": float(selected_ambiance[selected_ambiance["restaurant_id"]==restaurant.model_id]["yhat"])}
@@ -116,7 +118,7 @@ def retrieve_near_restaurants(request):
 
       # iterate over the restaurants in town with the same cuisine (among customer's preferences)
       for index, row in top_k_cuisine_overall[c].iterrows():
-        restaurant = Restaurant.objects.get(model_id = row["restaurant_id"], town=get_user_town())
+        restaurant = Restaurant.objects.get(model_id = row["restaurant_id"], town=town)
         restaurant_dict_all = {"id": restaurant.id,"name" : restaurant.name, "cuisine": restaurant.cuisine, "ambiance": restaurant.ambiance, "overall_rating": restaurant.overall_rating,"yhat": float(top_k_cuisine_overall[c][top_k_cuisine_overall[c]["restaurant_id"]==restaurant.model_id]["yhat"])}
         restaurant_dict_taste = {"id": restaurant.id,"name" : restaurant.name, "cuisine": restaurant.cuisine, "ambiance": restaurant.ambiance, "overall_rating": restaurant.overall_rating,"yhat": float(top_k_cuisine_taste[c][top_k_cuisine_taste[c]["restaurant_id"]==restaurant.model_id]["yhat"])}
         restaurant_dict_ambiance = {"id": restaurant.id,"name" : restaurant.name, "cuisine": restaurant.cuisine, "ambiance": restaurant.ambiance, "overall_rating": restaurant.overall_rating,"yhat": float(top_k_cuisine_ambiance[c][top_k_cuisine_ambiance[c]["restaurant_id"]==restaurant.model_id]["yhat"])}

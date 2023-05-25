@@ -18,6 +18,16 @@ def get_user_town():
   return user_town
 
 
+rov = ["Guest"]
+def set_rov(reason_list):
+  global rov
+  rov = reason_list
+  
+
+def get_rov():
+  global rov
+  return rov
+
 user_id = 0
 def set_user_id(n):
   global user_id
