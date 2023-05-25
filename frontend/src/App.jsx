@@ -15,6 +15,7 @@ import Restaurants from "./containers/UserPage/UserFeed/Restaurants";
 import Ambiance from "./containers/UserPage/Preferences/Ambiance";
 import Flavor from "./containers/UserPage/Preferences/Flavor";
 import Interest from "./containers/UserPage/Preferences/Interest";
+import ReasonVisit from "./containers/UserPage/UserFeed/ReasonOfVisit";
 
 // import { useAuth } from "./context/AuthContext";
 
@@ -82,6 +83,14 @@ const App = () => {
                         element={
                             <CreatePrivateRoute>
                                 <Restaurants />
+                            </CreatePrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/user/feed/reasonOfVisit"
+                        element={
+                            <CreatePrivateRoute>
+                                <ReasonVisit/>
                             </CreatePrivateRoute>
                         }
                     />
