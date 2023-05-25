@@ -29,6 +29,19 @@ from customer.models import Customer
 from customer.views import retrieve_preferences
 from review.views import return_restaurant_reviews
 from review.views import return_user_reviews
+from backend.constants import set_rov
+from backend.constants import get_rov
+
+
+@api_view(['POST'])
+def set_reason_of_visit(request):
+    data = request.data
+    rov = data["reason_of_visit"]
+    
+    set_rov(rov)
+    
+    return JsonResponse(rov,safe=False)
+
 
 @api_view(['GET'])
 def retrieve_all_restaurants(request):   #KONUMDAKI RESTORANLARI DONDURUYOR

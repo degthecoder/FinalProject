@@ -1,3 +1,4 @@
+// /* eslint-disable */
 import { Box, Button, TextField, ThemeProvider, Typography, makeStyles } from "@material-ui/core";
 import { Autocomplete } from "@mui/material";
 import React, { useState } from "react";
@@ -43,18 +44,26 @@ const useStyles = makeStyles(() => ({
 const ReasonVisit = () => {
     const classes = useStyles();
     const navigate = useNavigate();
-    const [reason, setReason] = useState([]);
-
     const options = [
-        "Family", "Guest", "Work", "Date", "Friend"
+        'Family', 'Guest', 'Work', 'Date', 'Friend'
     ]
+    const [reason, setReason] = useState(options[0]);
 
-    const handleChange = (value) => {
-        setReason(value);
+    const handleChange = (event, newReason) => {
+        setReason(newReason);
+
     }
 
-    const handleClick = () => {
-        postReasonOfVisit(reason).then(navigate("user/feed/")).catch(err=>console.error(err))
+    const handleClick = (event) => {
+        event.preventDefault()
+        const data = { reason_of_visit: reason } 
+        postReasonOfVisit(data).then((res)=>
+        {
+            navigate("/user/feed");
+            console.log(res)
+        }
+        ).catch(err=>console.error(err))
+    
     }
 
     
@@ -66,12 +75,12 @@ const ReasonVisit = () => {
                     Please tell us about your reason of visit to improve the experience of the app.
                 </Typography>
                 <Autocomplete
-                    disablePortal
-                    id="combo-box-demo"
-                    options={options}
+                    value={reason}
+                    // disablePortal
                     onChange={handleChange}
-                    // sx={{ width: 300 }}
+                    id="reason"
                     className={classes.autocplt}
+                    options={options} 
                     renderInput={(params) => 
                         <TextField {...params} 
                             label="Reason of visit" 

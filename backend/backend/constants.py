@@ -18,10 +18,12 @@ def get_user_town():
   return user_town
 
 
-rov = ["Guest"]
+rov = []
 def set_rov(reason_list):
   global rov
-  rov = reason_list
+  rov =[]
+  rov.append(reason_list)
+  rov = str(rov)
   
 
 def get_rov():

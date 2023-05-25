@@ -9,7 +9,7 @@ from rest_framework.decorators import api_view
 from backend.constants import get_user_id
 from customer.models import Customer
 from backend.constants import get_rov
-from backend.constants import set_rov
+
 # Create your views here.
 @api_view(['POST'])
 def insert_cuisine_preferences(request):
@@ -43,16 +43,6 @@ def insert_interest_preferences(request):
     return JsonResponse(list(data.keys()),safe=False)
 
 
-@api_view(['POST'])
-def set_reason_of_visit(request):
-    data = request.data
-    rov = data.reason_of_visit
-    set_rov(rov)
-    return JsonResponse(rov,safe=False)
-
-
-
-
 def retrieve_preferences(request):
     this_customer = Customer.objects.get(user_customer_id=get_user_id())
     interest_preferences = this_customer.interest_preference
@@ -60,8 +50,10 @@ def retrieve_preferences(request):
     cuisine_preferences = this_customer.cuisine_preference
     flavor_preferences = this_customer.flavor_preference
     budget = this_customer.budget_customer
-    reason_of_visit = "['Guest']"
-    reason_of_visit2 = get_rov()
+    #reason_of_visit = "['Family']"
+    reason_of_visit = get_rov()
+    print(reason_of_visit =="['Family']" )
+    print("REASON OF VISIT AAAAA",reason_of_visit )
 
     resp_dict = {"customer_id": this_customer.id,
                          "interest_preference": interest_preferences, 
