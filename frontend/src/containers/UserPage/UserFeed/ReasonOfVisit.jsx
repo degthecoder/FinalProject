@@ -70,7 +70,7 @@ const ReasonVisit = () => {
             <UserNavBar/>
             <Box className={classes.container}>
                 <Typography className={classes.header}>
-                    Please tell us about your reason of visit to improve the experience of the app.
+                    Please tell us your purpose of visit for improved recommendations.
                 </Typography>
                 <Autocomplete
                     value={reason}
@@ -81,7 +81,7 @@ const ReasonVisit = () => {
                     options={options} 
                     renderInput={(params) => 
                         <TextField {...params} 
-                            label="Reason of visit" 
+                            label="Select here" 
                             InputLabelProps={{
                                 style: {  color: theme.palette.primary.main,
                                     fontSize: 24
@@ -93,7 +93,7 @@ const ReasonVisit = () => {
                     variant="contained"
                     className={classes.button}
                     onClick={handleClick}>
-                    Submit Reason of Visit
+                    Submit
                 </Button>
             </Box>
         </ThemeProvider>
