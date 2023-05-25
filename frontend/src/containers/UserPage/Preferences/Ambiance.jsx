@@ -73,7 +73,6 @@ const Ambiance = () => {
 
     const handleClick = () => {
         // eslint-disable-next-line no-console
-        console.log(prefState);
         postAmbiancePreference(prefState);
 
         navigate("/user/newuser/flavor");

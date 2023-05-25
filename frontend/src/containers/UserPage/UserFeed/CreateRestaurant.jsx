@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useEffect, useState } from "react";
 import { Box, DialogContent, makeStyles, ThemeProvider, Typography } from "@material-ui/core";
 import { Button, Dialog,  Rating, TextField } from "@mui/material";
@@ -5,6 +6,39 @@ import { Star } from '@mui/icons-material';
 import exampleRes from  '../../../images/exampleRestaurant.jpg';
 import { fetchRestaurantReviews, postRestaurantReviews } from "../../../api/restaurant";
 import theme from "../../../themes/theme";
+import { imagelist } from "../../../api/constants";
+
+import African from '../../../images/CuisineImages/African.jpg'; 
+import American from '../../../images/CuisineImages/American.jpg';
+import Asian from '../../../images/CuisineImages/Asian.jpg'; 
+import Bakery from '../../../images/CuisineImages/Bakery.jpg';
+import Bar_Pub_Brewery from '../../../images/CuisineImages/Bar Pub Brewery.jpg';
+import Baripg from '../../../images/CuisineImages/Bar.jpg';
+import Burgers from '../../../images/CuisineImages/Burgers.jpg';
+import Cafeteria from '../../../images/CuisineImages/Cafeteria.jpg';
+import Chinese from '../../../images/CuisineImages/Chinese.jpg';
+import Coffee from '../../../images/CuisineImages/Coffee.jpg';
+import Contemporary from '../../../images/CuisineImages/Contemporary.jpg';
+import Dutch from '../../../images/CuisineImages/Dutch.jpg';
+import FastFood from '../../../images/CuisineImages/Fast-Food.jpg';
+import French from '../../../images/CuisineImages/French.jpg';
+import Greek from '../../../images/CuisineImages/Greek.jpg';
+import IceCream from '../../../images/CuisineImages/Ice-Cream.jpg';
+import International from '../../../images/CuisineImages/International.jpg';
+import Italian from '../../../images/CuisineImages/Italian.jpg';
+import Japanese from '../../../images/CuisineImages/Japanese.jpg';
+import Juice from '../../../images/CuisineImages/Juice.jpg';
+import Korean from '../../../images/CuisineImages/Korean.jpg';
+import Latin_American from '../../../images/CuisineImages/Latin American.jpg';
+import Mexican from '../../../images/CuisineImages/Mexican.jpg';
+import Pizzeria from '../../../images/CuisineImages/Pizzeria.jpg';
+import Sandwiches from '../../../images/CuisineImages/Sandwiches.jpg';
+import Seafood from '../../../images/CuisineImages/Seafood.jpg';
+import Steaks from '../../../images/CuisineImages/Steaks.jpg';
+import Turkish from '../../../images/CuisineImages/Turkish.jpg';
+import Vegetarian from '../../../images/CuisineImages/Vegeterian.jpg';
+import Wine from '../../../images/CuisineImages/Wine.jpg';
+
 
 const useStyles = makeStyles((theme) => ({
     outerbox: {
@@ -18,8 +52,8 @@ const useStyles = makeStyles((theme) => ({
         background: theme.palette.primary.main,
         fontWeight: "bold",
         margin: "10px",
+        minWidth: "30vw",
         maxHeight: '22vh'
-
     },
     content: {
         display: 'flex',
@@ -122,7 +156,7 @@ const CreateRestaurant = (props) => {
     const classes = useStyles();
     const [checked, setChecked] = useState(false);
     const [open, setOpen] = useState(false);
-    // const [imageUrl, setImageUrl] = useState('../../../images/exampleRestaurant.jpg');
+    const [image, setImage] = useState('../../../images/exampleRestaurant.jpg');
     // eslint-disable-next-line react/prop-types
     // const preference = props.name;
     const { id, name, cuisine, ambiance, rating } = props;
@@ -138,7 +172,6 @@ const CreateRestaurant = (props) => {
         setChecked(!checked);
         setOpen(true);
         // eslint-disable-next-line react/prop-types, no-console
-        // console.log(name, " ", ambiance, " ", cuisine);
         // props.onPreferenceChange(preference, !checked);
     };
 
@@ -148,11 +181,73 @@ const CreateRestaurant = (props) => {
     }
     
     // eslint-disable-next-line no-unused-vars
-    // const handleImages = () => {
-    //     // Set the new image URL based on your logic or data source
-    //     const newImageUrl = '../../../CuisineImages/images/African.jpg';
-    //     setImageUrl(newImageUrl);
-    // };
+    const handleImages = (imagecuisine) => {
+        // Set the new image URL based on your logic or data source
+        switch (imagecuisine) {
+            case "African":
+                return African;
+            case "American":
+                return American;
+            case "Asian":
+                return Asian;
+            case "Bakery":
+                return Bakery;
+            case "Bar_Pub_Brewery":
+                return Bar_Pub_Brewery;
+            case "Baripg":
+                return Baripg;
+            case "Burgers":
+                return Burgers;
+            case "Cafeteria":
+                return Cafeteria;
+            case "Chinese":
+                return Chinese;
+            case "Coffee":
+                return Coffee;
+            case "Contemporary":
+                return Contemporary;
+            case "Dutch":
+                return Dutch;
+            case "FastFood":
+                return FastFood;
+            case "French":
+                return French;
+            case "Greek":
+                return Greek;
+            case "IceCream":
+                return IceCream;
+            case "International":
+                return International;
+            case "Italian":
+                return Italian;
+            case "Japanese":
+                return Japanese;
+            case "Juice":
+                return Juice;
+            case "Korean":
+                return Korean;
+            case "Latin_American":
+                return Latin_American;
+            case "Mexican":
+                return Mexican;
+            case "Pizzeria":
+                return Pizzeria;
+            case "Sandwiches":
+                return Sandwiches;
+            case "Seafood":
+                return Seafood;
+            case "Steaks":
+                return Steaks;
+            case "Turkish":
+                return Turkish;
+            case "Vegetarian":
+                return Vegetarian;
+            case "Wine":
+                return Wine;
+            default:
+                return exampleRes;  // or return a default image if none of the case matches
+        }  
+    };
 
     const handleReviews = async () => {
         const data = { restaurant_id: id };
@@ -226,7 +321,6 @@ const CreateRestaurant = (props) => {
                 // eslint-disable-next-line no-console
                 .catch(err=>console.error(err));
         }
-        console.log(data);
     };
 
 
@@ -240,7 +334,6 @@ const CreateRestaurant = (props) => {
 
     const handleServiceRatingChange = (event, value) => {
         setServiceRating(value);
-        console.log(serviceRating);
     };
     
     const handleTasteRatingChange = (event, value) => {
@@ -253,6 +346,7 @@ const CreateRestaurant = (props) => {
 
     useEffect(() => {
         handleReviews();
+        setImage(handleImages(cuisine));
     }, [checked]);
     
 
@@ -266,7 +360,7 @@ const CreateRestaurant = (props) => {
             >
                 <Box className={classes.content}  borderRadius={16}>
                     <Box className={classes.imagecontainer}>
-                        <img src={exampleRes} alt="Box Image" className={classes.image}/>
+                        <img src={image} alt="Box Image" className={classes.image}/>
                     </Box>
                     <Box p={2} className={classes.contentcontainer}>
                         <Typography variant="h6" className={classes.header}>{name}</Typography>

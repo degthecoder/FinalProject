@@ -37,11 +37,9 @@ const NavBar = () => {
   const classes = useStyles();
   const navigate = useNavigate();
   const onLogin = () => {
-    console.log("Button clicked!");
     navigate("/auth/login");
   };
   const onSignUp = () => {
-    // console.log("Button clicked!");
     navigate("/auth/register");
   };
   return (
