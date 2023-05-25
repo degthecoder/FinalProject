@@ -74,6 +74,10 @@ const useStyles = makeStyles((theme) => ({
         height: "20vh",
         borderRadius:10
     },
+    image2:{
+        width: "100%",
+        borderRadius:10
+    },
     contentcontainer:{
         width: "22vw",
         borderRadius:10
@@ -378,7 +382,11 @@ const CreateRestaurant = (props) => {
             }}
             >
                 <DialogContent className={classes.dialog}>
-                    <img src={exampleRes} alt="Box Image" className={classes.image}/>
+                    <img src={image} alt="Box Image" sx={{
+                        // width: "100%",
+                        borderRadius:10
+                    }} className={classes.image2}
+                    />
                     <Box className={classes.dialog}>
                         <Box className={classes.headers}>
                             <Typography variant="h1" className={classes.dialogHeader}>
