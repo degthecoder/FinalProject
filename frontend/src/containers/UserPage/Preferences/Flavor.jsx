@@ -76,7 +76,6 @@ const Flavor = () => {
 
     const handleClick = () => {
         // eslint-disable-next-line no-console
-        console.log(prefState);
         postFlavorPreference(prefState);
 
         navigate("/user/newuser/interest");

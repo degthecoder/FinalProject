@@ -57,11 +57,9 @@ const ReasonVisit = () => {
     const handleClick = (event) => {
         event.preventDefault()
         const data = { reason_of_visit: reason } 
-        postReasonOfVisit(data).then((res)=>
-        {
-            navigate("/user/feed");
-            console.log(res)
-        }
+        postReasonOfVisit(data).then(
+            navigate("/user/feed")
+        // eslint-disable-next-line no-console
         ).catch(err=>console.error(err))
     
     }

@@ -81,11 +81,6 @@ const UserHomePage = () => {
     
 
     const renderRestaurants = (which) => {
-
-        console.log(overall),
-        console.log(ocuisine),
-        console.log(acuisine),
-        console.log(tcuisine)
         // && ocuisine.length > 0 && acuisine.length > 0 && tcuisine.length > 0)
         if(overall.length > 0 ) {
             switch (which) {

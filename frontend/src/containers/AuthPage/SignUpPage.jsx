@@ -82,7 +82,6 @@ const SignUpPage = () => {
     };
     fetchRegister(credentials)
       .then((response) => {
-        console.log(response.data);
         if (response.data) {
           setLoggedIn(true);
           setAuthUser(credentials.username);
@@ -92,7 +91,7 @@ const SignUpPage = () => {
           setColor("red");
         }
       }).then(
-        fetchLocation().then(console.log("here"))
+        fetchLocation().then()
       ) 
       .catch((error) => {
         console.error(error);

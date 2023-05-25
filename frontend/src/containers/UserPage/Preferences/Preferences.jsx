@@ -76,7 +76,6 @@ const Preferences = () => {
 
     const handleClick = () => {
         // eslint-disable-next-line no-console
-        console.log(prefState);
         postCuisinePreference(prefState);
 
         navigate("/user/newuser/ambiance");
@@ -94,7 +93,6 @@ const Preferences = () => {
     };
 
     useEffect(()=> {
-        console.log(cuisines);
         setFoodPreferences(cuisines);
     }, []);
 

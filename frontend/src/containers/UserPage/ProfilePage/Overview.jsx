@@ -128,7 +128,6 @@ const Overview = () => {
         // const data = { user_id: id };
         await fetchUserReviews().then(response => {
             setReview(response.data);
-            console.log(response)
         }
         );
     }

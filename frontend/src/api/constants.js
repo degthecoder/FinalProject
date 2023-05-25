@@ -190,3 +190,35 @@ export const districts = [
 ];
 
 
+export const imagelist = [
+    'African',
+    'American',
+    'Asian',
+    'Bakery',
+    'Bar Pub Brewery',
+    'Baripg',
+    'Burgers',
+    'Cafeteria',
+    'Chinese',
+    'Coffee',
+    'Contemporary',
+    'Dutch',
+    'Fast-Food',
+    'French',
+    'Greek',
+    'Ice-Cream',
+    'International',
+    'Italian',
+    'Japanese',
+    'Juice',
+    'Korean',
+    'Latin American',
+    'Mexican',
+    'Pizzeria',
+    'Sandwiches',
+    'Seafood',
+    'Steaks',
+    'Turkish',
+    'Vegetarian',
+    'Wine'
+];

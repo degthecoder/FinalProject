@@ -76,7 +76,6 @@ const Interest = () => {
 
     const handleClick = () => {
         // eslint-disable-next-line no-console
-        console.log(prefState);
         postInterestPreference(prefState);
 
         navigate("/user/feed/reasonOfVisit");
