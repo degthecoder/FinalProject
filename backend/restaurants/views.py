@@ -43,11 +43,12 @@ def set_reason_of_visit(request):
     return JsonResponse(rov,safe=False)
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def retrieve_all_restaurants(request):   #KONUMDAKI RESTORANLARI DONDURUYOR
-    #data = request.data
-    #town = data["town"]
-    town = get_user_town()
+    data = request.data
+    print(data)
+    town = data["district"]
+    #town = get_user_town()
     #town = get_user_town()
     #all_restaurants = Restaurant.filter_restaurants('id','lte', 500, 'overall_rating')
     #all_restaurants = Restaurant.filter_restaurants('id','lte', 1600, 'id')
@@ -58,6 +59,8 @@ def retrieve_all_restaurants(request):   #KONUMDAKI RESTORANLARI DONDURUYOR
       restaurant_dict = {"id": restaurant.id,"name" : restaurant.name, "cuisine": restaurant.cuisine, "ambiance": restaurant.ambiance, "overall_rating": restaurant.overall_rating}
       res_list.append(restaurant_dict)
 
+
+    #print(res_list)
     return JsonResponse(res_list,safe=False)
 
 

@@ -146,3 +146,47 @@ export const interests = [
     "Theatre",
     "Traveller"
 ];
+
+export const districts = [
+    'Adalar',
+    'Arnavutkoy',
+    'Atasehir',
+    'Avcilar',
+    'Bagcilar',
+    'Bahcelievler',
+    'Bakirkoy',
+    'Basaksehir',
+    'Bayrampasa',
+    'Besiktas',
+    'Beykoz',
+    'Beylikduzu',
+    'Beyoglu',
+    'Buyukcekmece',
+    'Catalca',
+    'Cekmekoy',
+    'Esenler',
+    'Esenyurt',
+    'Eyupsultan',
+    'Fatih',
+    'Gaziosmanpasa',
+    'Gungoren',
+    'Kadikoy',
+    'Kagithane',
+    'Kartal',
+    'Kucukcekmece',
+    'Maltepe',
+    'Sancaktepe',
+    'Sariyer',
+    'Seyhan',
+    'Silivri',
+    'Sile',
+    'Sisli',
+    'Sultanbeyli',
+    'Sultangazi',
+    'Tuzla',
+    'Umraniye',
+    'Uskudar',
+    'Zeytinburnu'
+];
+
+

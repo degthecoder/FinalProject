@@ -20,8 +20,8 @@ export const fetchNearRestaurants = async () => {
 };  
 
 
-export const fetchAllRestaurants = async () => {
-    const resData =  await axios.get(`${url}/user/feed/all/`);
+export const fetchAllRestaurants = async (data) => {
+    const resData =  await axios.post(`${url}/user/feed/all/`, data);
     
     return resData;
 };  
